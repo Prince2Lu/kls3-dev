@@ -15,6 +15,7 @@ export interface BlogPost {
   readTime: number
   status: 'draft' | 'published'
   content: string
+  image?: string
 }
 
 export function getAllPosts(): BlogPost[] {
@@ -28,6 +29,13 @@ export function getAllPosts(): BlogPost[] {
       const filePath = path.join(BLOG_DIR, filename)
       const raw = fs.readFileSync(filePath, 'utf-8')
       const { data, content } = matter(raw)
+
+      // Nettoyer les figures avec images inexistantes et les tirets longs
+      const cleanContent = content
+        .replace(/<figure>[\s\S]*?<\/figure>/g, '')
+        .replace(/ — /g, ' ')
+        .replace(/—/g, '-')
+
       return {
         slug: filename.replace('.mdx', ''),
         titre_seo: data.titre_seo || '',
@@ -38,7 +46,8 @@ export function getAllPosts(): BlogPost[] {
         publishedAt: data.publishedAt || '',
         readTime: data.readTime || 5,
         status: data.status || 'draft',
-        content
+        content: cleanContent,
+        image: data.image || undefined
       }
     })
     .filter(post => post.status === 'published')
@@ -52,6 +61,12 @@ export function getPostBySlug(slug: string): BlogPost | null {
   const raw = fs.readFileSync(filePath, 'utf-8')
   const { data, content } = matter(raw)
 
+  // Nettoyer les figures avec images inexistantes et les tirets longs
+  const cleanContent = content
+    .replace(/<figure>[\s\S]*?<\/figure>/g, '')
+    .replace(/ — /g, ' ')
+    .replace(/—/g, '-')
+
   return {
     slug,
     titre_seo: data.titre_seo || '',
@@ -62,6 +77,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     publishedAt: data.publishedAt || '',
     readTime: data.readTime || 5,
     status: data.status || 'draft',
-    content
+    content: cleanContent,
+    image: data.image || undefined
   }
 }

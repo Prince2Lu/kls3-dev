@@ -35,7 +35,8 @@ export default function Sectors() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="px-6 py-3 rounded-full border border-dark-border bg-dark-surface text-foreground/80 text-sm font-medium hover:border-brand-purple/50 hover:bg-dark-surface/80 transition-all"
+              className="px-6 py-3 rounded-full border border-dark-border bg-white/[0.08] text-foreground/80 text-sm font-medium hover:border-brand-purple/50 hover:bg-white/[0.12] transition-all"
+              style={{ backdropFilter: 'blur(8px)' }}
             >
               {sector}
             </motion.div>

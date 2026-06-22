@@ -12,7 +12,7 @@ interface BlogPreviewProps {
 }
 
 export default function BlogPreview({ posts }: BlogPreviewProps) {
-  const latestPosts = posts.slice(0, 4)
+  const latestPosts = posts.slice(0, 3)
 
   if (latestPosts.length === 0) {
     return null
@@ -43,7 +43,7 @@ export default function BlogPreview({ posts }: BlogPreviewProps) {
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {latestPosts.map((post) => (
             <BlogCard key={post.slug} post={post} />
           ))}

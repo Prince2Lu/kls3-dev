@@ -57,7 +57,8 @@ export default function Hero() {
               </Link>
               <Link
                 href="#services"
-                className="inline-flex items-center gap-2 px-8 py-4 border border-dark-border text-foreground rounded-lg font-medium hover:bg-dark-surface transition-colors"
+                className="inline-flex items-center gap-2 px-8 py-4 border border-dark-border bg-white/[0.08] text-foreground rounded-lg font-medium hover:bg-white/[0.12] transition-colors"
+                style={{ backdropFilter: 'blur(8px)' }}
               >
                 <Sparkles className="w-5 h-5" />
                 Découvrir nos services
