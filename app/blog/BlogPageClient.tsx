@@ -1,11 +1,13 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Calendar, Clock, ArrowRight } from 'lucide-react'
 import BlogCard from '@/components/ui/BlogCard'
 import SectionLabel from '@/components/ui/SectionLabel'
 import { type BlogPost } from '@/lib/mdx'
+
+const ARTICLES_PAR_PAGE = 6
 
 interface BlogPageClientProps {
   posts: BlogPost[]
@@ -42,6 +44,8 @@ const getCategoryStyles = (category: string, isActive: boolean) => {
 
 export default function BlogPageClient({ posts }: BlogPageClientProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('Toutes')
+  const [currentPage, setCurrentPage] = useState(1)
+  const gridRef = useRef<HTMLDivElement>(null)
 
   // Extract unique categories
   const categories = useMemo(() => {
@@ -49,23 +53,42 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
     return ['Toutes', ...uniqueCategories]
   }, [posts])
 
+  // Reset page à 1 quand on change de catégorie
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedCategory])
+
+  // Scroll vers le haut de la grille au changement de page
+  useEffect(() => {
+    if (currentPage > 1) {
+      gridRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [currentPage])
+
+  // Featured post (only for "Toutes" category)
+  const featuredSlug = 'bienvenue-sur-le-blog-kls3'
+  const featuredPost = useMemo(() => {
+    return posts.find(p => p.slug === featuredSlug) || null
+  }, [posts])
+
   // Filter posts by category
   const filteredPosts = useMemo(() => {
     if (selectedCategory === 'Toutes') {
-      return posts
+      // Tous les articles sauf le featured
+      return posts.filter(p => p.slug !== featuredSlug)
     }
-    return posts.filter(post => post.categorie === selectedCategory)
+    // Filtrer par catégorie, pas de featured
+    return posts.filter(p => p.categorie === selectedCategory)
   }, [posts, selectedCategory])
 
-  // Featured post (first one with slug 'bienvenue-sur-le-blog-kls3')
-  const featuredPost = useMemo(() => {
-    return posts.find(post => post.slug === 'bienvenue-sur-le-blog-kls3') || posts[0]
-  }, [posts])
-
-  // Other posts (excluding featured)
-  const otherPosts = useMemo(() => {
-    return filteredPosts.filter(post => post.slug !== featuredPost?.slug)
-  }, [filteredPosts, featuredPost])
+  // Pagination
+  const totalPages = Math.ceil(filteredPosts.length / ARTICLES_PAR_PAGE)
+  const paginatedPosts = useMemo(() => {
+    return filteredPosts.slice(
+      (currentPage - 1) * ARTICLES_PAR_PAGE,
+      currentPage * ARTICLES_PAR_PAGE
+    )
+  }, [filteredPosts, currentPage])
 
   return (
     <>
@@ -100,7 +123,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
         </div>
       </section>
 
-      {/* Featured article */}
+      {/* Featured article - only when "Toutes" is selected */}
       {featuredPost && selectedCategory === 'Toutes' && (
         <section className="pb-12">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -161,20 +184,58 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
       )}
 
       {/* Posts grid */}
-      <section className="pb-24">
+      <section className="pb-24" ref={gridRef}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          {otherPosts.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-foreground/60 text-lg">
-                Aucun article dans cette catégorie pour le moment.
-              </p>
-            </div>
+          {filteredPosts.length === 0 ? (
+            <p className="text-white/40 text-center py-12">
+              Aucun article dans cette catégorie pour le moment.
+            </p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {otherPosts.map((post) => (
-                <BlogCard key={post.slug} post={post} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {paginatedPosts.map((post) => (
+                  <BlogCard key={post.slug} post={post} />
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 mt-12">
+                  {/* Bouton précédent */}
+                  <button
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 rounded-lg text-sm glass-card disabled:opacity-30 hover:border-brand-purple/50 transition-colors"
+                  >
+                    ← Précédent
+                  </button>
+
+                  {/* Numéros de pages */}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`w-9 h-9 rounded-lg text-sm transition-colors ${
+                        page === currentPage
+                          ? 'bg-gradient-to-r from-brand-purple to-brand-cyan text-white'
+                          : 'glass-card text-white/50 hover:text-white hover:border-brand-purple/50'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+
+                  {/* Bouton suivant */}
+                  <button
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="px-4 py-2 rounded-lg text-sm glass-card disabled:opacity-30 hover:border-brand-purple/50 transition-colors"
+                  >
+                    Suivant →
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
