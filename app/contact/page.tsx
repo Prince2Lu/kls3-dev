@@ -56,7 +56,25 @@ export default function ContactPage() {
                 <GlassCard key={info.title} className="p-6 text-center">
                   <Icon className="w-8 h-8 text-brand-purple mx-auto mb-4" />
                   <h3 className="text-lg font-bold text-foreground mb-2">{info.title}</h3>
-                  <p className="text-foreground/90 mb-1">{info.content}</p>
+                  {info.title === 'Email' ? (
+                    <a
+                      href="mailto:contact@kls3-dev.com"
+                      className="text-brand-cyan hover:text-brand-cyan-light transition-colors mb-1 inline-block"
+                    >
+                      {info.content}
+                    </a>
+                  ) : info.title === 'LinkedIn' ? (
+                    <a
+                      href="https://www.linkedin.com/company/kls3/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand-cyan hover:text-brand-cyan-light transition-colors mb-1 inline-block"
+                    >
+                      {info.content}
+                    </a>
+                  ) : (
+                    <p className="text-foreground/90 mb-1">{info.content}</p>
+                  )}
                   <p className="text-foreground/60 text-sm">{info.description}</p>
                 </GlassCard>
               )
