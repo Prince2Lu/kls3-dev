@@ -31,7 +31,7 @@ export default function PolitiqueConfidentialitePage() {
               <p>
                 Le responsable du traitement des données est :<br />
                 KLS<span style={{ background: 'linear-gradient(135deg, #7c3aed, #0ea5e9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>3</span><br />
-                32 Avenue de la Moselle, L-5835 Fentange, Luxembourg<br />
+                14, allée du fairway, 57200 Sarreguemines<br />
                 Email : <a href="mailto:contact@kls3-dev.com" className="text-brand-cyan hover:underline">contact@kls3-dev.com</a>
               </p>
             </section>

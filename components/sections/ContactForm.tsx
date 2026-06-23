@@ -133,7 +133,19 @@ export default function ContactForm() {
 
         {status === 'error' && (
           <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm">
-            {errorMessage}
+            {errorMessage.includes('contact@kls3-dev.com') ? (
+              <div>
+                Service email temporairement indisponible. Contactez-nous directement à{' '}
+                <a
+                  href="mailto:contact@kls3-dev.com"
+                  className="text-brand-cyan hover:text-brand-cyan-light underline transition-colors"
+                >
+                  contact@kls3-dev.com
+                </a>
+              </div>
+            ) : (
+              errorMessage
+            )}
           </div>
         )}
 

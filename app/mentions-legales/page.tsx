@@ -20,9 +20,9 @@ export default function MentionsLegalesPage() {
               <h2 className="text-2xl font-bold text-foreground mb-4">Éditeur du site</h2>
               <p>
                 KLS<span style={{ background: 'linear-gradient(135deg, #7c3aed, #0ea5e9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>3</span><br />
-                Micro-entreprise<br />
-                SIRET : 984 097 688 00016<br />
-                Siège social : 32 Avenue de la Moselle, L-5835 Fentange, Luxembourg
+                SAS<br />
+                SIRET : 94956334000015<br />
+                Siège social : 14, allée du fairway, 57200 Sarreguemines
               </p>
               <p className="mt-4">
                 Email : <a href="mailto:contact@kls3-dev.com" className="text-brand-cyan hover:underline">contact@kls3-dev.com</a>
@@ -31,7 +31,7 @@ export default function MentionsLegalesPage() {
 
             <section>
               <h2 className="text-2xl font-bold text-foreground mb-4">Directeur de la publication</h2>
-              <p>Éric Kayser</p>
+              <p>Eric Scarpino</p>
             </section>
 
             <section>

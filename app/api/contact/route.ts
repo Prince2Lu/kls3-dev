@@ -13,6 +13,14 @@ const subjectLabels = {
 
 export async function POST(request: NextRequest) {
   try {
+    // Vérification de la clé API Resend
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json(
+        { error: 'Service email non configuré. Contactez-nous directement à contact@kls3-dev.com' },
+        { status: 503 }
+      )
+    }
+
     const body: ContactFormData = await request.json()
 
     // Validation
@@ -32,8 +40,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (!process.env.RESEND_API_KEY || !process.env.CONTACT_EMAIL) {
-      console.error('Missing RESEND_API_KEY or CONTACT_EMAIL environment variable')
+    if (!process.env.CONTACT_EMAIL) {
+      console.error('Missing CONTACT_EMAIL environment variable')
       return NextResponse.json(
         { message: 'Configuration serveur manquante. Veuillez réessayer plus tard.' },
         { status: 500 }
