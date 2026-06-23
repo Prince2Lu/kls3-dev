@@ -25,8 +25,8 @@ const contactInfo = [
   {
     icon: Calendar,
     title: 'Disponibilité',
-    content: 'Ouvert aux nouvelles missions',
-    description: 'À partir de janvier 2024',
+    content: 'Prenons 30 minutes pour en parler',
+    description: 'Sans engagement, premier échange offert',
   },
 ]
 
