@@ -115,7 +115,7 @@ export default function APropos() {
                 opacity: 0.8,
               }}
             >
-              Fondateur
+              Co-fondateur · Directeur de missions
             </div>
             <h2
               style={{
@@ -127,7 +127,7 @@ export default function APropos() {
                 letterSpacing: '-0.01em',
               }}
             >
-              Éric Scarpino
+              Éric
             </h2>
             <p style={{ fontSize: 15, color: 'rgba(240,237,232,0.55)', lineHeight: 1.7, margin: 0 }}>
               20+ ans d&apos;expérience en gestion de projet et transformation digitale. Missions en
@@ -147,7 +147,7 @@ export default function APropos() {
                 opacity: 0.8,
               }}
             >
-              Directeur Commercial
+              Co-fondateur · Directeur commercial
             </div>
             <h2
               style={{
@@ -159,7 +159,7 @@ export default function APropos() {
                 letterSpacing: '-0.01em',
               }}
             >
-              Lilian Scarpino
+              Lilian
             </h2>
             <p style={{ fontSize: 15, color: 'rgba(240,237,232,0.55)', lineHeight: 1.7, margin: 0 }}>
               En charge du développement commercial et de la relation client. Interlocuteur
