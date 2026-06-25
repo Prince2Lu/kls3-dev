@@ -1,62 +1,84 @@
-'use client'
-
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import BlogCard from '@/components/ui/BlogCard'
-import SectionLabel from '@/components/ui/SectionLabel'
-import { type BlogPost } from '@/lib/mdx'
+import BlogPreviewCard from '@/components/ui/BlogPreviewCard'
+import { getRecentPosts } from '@/lib/blog'
+import { sectionContainerStyle } from '@/lib/pageLayout'
 
-interface BlogPreviewProps {
-  posts: BlogPost[]
-}
-
-export default function BlogPreview({ posts }: BlogPreviewProps) {
-  const latestPosts = posts.slice(0, 3)
-
-  if (latestPosts.length === 0) {
-    return null
-  }
+export default function BlogPreview() {
+  const posts = getRecentPosts(3)
+  if (posts.length === 0) return null
 
   return (
-    <section className="py-24 bg-dark-surface/30">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex items-end justify-between mb-12"
+    <section
+      className="border-b border-kls-border"
+      style={{ width: '100%', background: '#0D0D0D' }}
+    >
+      <div style={sectionContainerStyle}>
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 10,
+            marginBottom: 16,
+            fontSize: 12,
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            color: '#4B7BF5',
+            fontWeight: 500,
+          }}
         >
-          <div>
-            <SectionLabel className="mb-4">Blog</SectionLabel>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Derniers articles
-            </h2>
-          </div>
-          <Link
-            href="/blog"
-            className="hidden sm:inline-flex items-center gap-2 text-brand-purple-light hover:text-brand-purple transition-colors font-medium"
-          >
-            Voir tous les articles
-            <ArrowRight className="w-5 h-5" />
-          </Link>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {latestPosts.map((post) => (
-            <BlogCard key={post.slug} post={post} />
-          ))}
+          <span style={{ width: 28, height: 1, background: '#4B7BF5', display: 'inline-block' }} />
+          Derniers articles
         </div>
 
-        <div className="sm:hidden text-center">
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-end',
+            marginBottom: 40,
+            flexWrap: 'wrap',
+            gap: 16,
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: 'Syne, sans-serif',
+              fontWeight: 700,
+              fontSize: 'clamp(28px, 4vw, 42px)',
+              color: '#F0EDE8',
+              margin: 0,
+              letterSpacing: '-0.02em',
+            }}
+          >
+            Ressources opérationnelles
+          </h2>
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-brand-purple-light hover:text-brand-purple transition-colors font-medium"
+            style={{
+              fontSize: 13,
+              color: '#4B7BF5',
+              fontWeight: 500,
+              letterSpacing: '0.05em',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              textDecoration: 'none',
+            }}
           >
-            Voir tous les articles
-            <ArrowRight className="w-5 h-5" />
+            Voir tous les articles →
           </Link>
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+            gap: 16,
+          }}
+        >
+          {posts.map((post) => (
+            <BlogPreviewCard key={post.slug} post={post} />
+          ))}
         </div>
       </div>
     </section>

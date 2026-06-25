@@ -72,7 +72,7 @@ export default function GestionDeProjetPage() {
             Vos projets pilotés avec <span className="gradient-text">méthode</span>, de A à Z.
           </h1>
           <p className="text-xl text-foreground/70 leading-relaxed max-w-3xl mx-auto mb-8">
-            KLS<span style={{ background: 'linear-gradient(135deg, #7c3aed, #0ea5e9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>3</span> prend en charge le pilotage opérationnel de vos projets complexes — pour que vous puissiez vous concentrer sur votre cœur de métier.
+            KLS<span style={{ color: '#4B7BF5' }}>3</span> prend en charge le pilotage opérationnel de vos projets complexes — pour que vous puissiez vous concentrer sur votre cœur de métier.
           </p>
           <div className="max-w-3xl mx-auto">
             <GlassCard className="p-6 text-left">

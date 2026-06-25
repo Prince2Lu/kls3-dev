@@ -85,7 +85,7 @@ export default function TransformationDigitalePage() {
             Modernisez vos outils. <span className="gradient-text">Libérez vos équipes.</span>
           </h1>
           <p className="text-xl text-foreground/70 leading-relaxed max-w-3xl mx-auto mb-8">
-            Audit de processus, déploiement d'agents IA, automatisation des tâches à faible valeur — KLS<span style={{ background: 'linear-gradient(135deg, #7c3aed, #0ea5e9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>3</span> vous accompagne de l'analyse à la mise en production.
+            Audit de processus, déploiement d'agents IA, automatisation des tâches à faible valeur — KLS<span style={{ color: '#4B7BF5' }}>3</span> vous accompagne de l'analyse à la mise en production.
           </p>
           <div className="max-w-3xl mx-auto">
             <GlassCard className="p-6 text-left">

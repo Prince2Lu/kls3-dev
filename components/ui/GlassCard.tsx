@@ -8,21 +8,18 @@ interface GlassCardProps {
 }
 
 const accentStyles = {
-  purple: 'before:bg-gradient-to-br before:from-brand-purple/30 before:to-brand-purple-light/20 border-brand-purple/20',
-  cyan: 'before:bg-gradient-to-br before:from-brand-cyan/30 before:to-brand-cyan-light/20 border-brand-cyan/20',
-  green: 'before:bg-gradient-to-br before:from-brand-green/30 before:to-brand-green-light/20 border-brand-green/20',
+  purple: 'border-[#1E2D4A]/20',
+  cyan: 'border-[#334766]/20',
+  green: 'border-[#C9A84C]/20',
 }
 
 export default function GlassCard({ children, accent, className = '' }: GlassCardProps) {
-  const baseClasses = 'relative overflow-hidden rounded-2xl backdrop-blur-xl'
-  const borderClasses = accent ? accentStyles[accent] : 'border-dark-border'
-  const gradientClasses = accent
-    ? 'before:absolute before:inset-0 before:opacity-40 before:pointer-events-none'
-    : ''
+  const baseClasses = 'rounded-lg bg-[#ECEAE5]'
+  const borderClasses = accent ? accentStyles[accent] : 'border-[rgba(30,45,74,0.12)]'
 
   return (
     <div
-      className={`${baseClasses} ${borderClasses} ${gradientClasses} border bg-dark-surface ${className}`}
+      className={`${baseClasses} ${borderClasses} border ${className}`}
     >
       {children}
     </div>

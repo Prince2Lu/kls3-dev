@@ -1,93 +1,76 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { type ContactFormData } from '@/lib/types'
+import { type ContactFormData } from '@/lib/types/kls3'
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy_key_for_build')
 
-const subjectLabels = {
-  'gestion-de-projet': 'Gestion de projet',
-  'transformation-digitale': 'Transformation digitale',
-  'solution-saas': 'Solution SaaS',
-  autre: 'Autre',
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 }
 
 export async function POST(request: NextRequest) {
   try {
-    // Vérification de la clé API Resend
-    if (!process.env.RESEND_API_KEY) {
+    const body = (await request.json()) as Partial<ContactFormData>
+    const nom = body.nom?.trim()
+    const societe = body.societe?.trim()
+    const email = body.email?.trim()
+    const telephone = body.telephone?.trim()
+    const friction = body.friction?.trim()
+
+    if (!nom || !societe || !email || !friction) {
       return NextResponse.json(
-        { error: 'Service email non configuré. Contactez-nous directement à contact@kls3-dev.com' },
+        { error: 'Veuillez remplir les champs obligatoires (nom, société, email, friction).' },
+        { status: 400 }
+      )
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ error: 'Adresse email invalide.' }, { status: 400 })
+    }
+
+    if (!process.env.RESEND_API_KEY || !process.env.CONTACT_EMAIL) {
+      return NextResponse.json(
+        { error: 'Service indisponible. Écrivez-nous directement à contact@kls3-dev.com.' },
         { status: 503 }
       )
     }
 
-    const body: ContactFormData = await request.json()
-
-    // Validation
-    if (!body.name || !body.email || !body.message) {
-      return NextResponse.json(
-        { message: 'Veuillez remplir tous les champs obligatoires' },
-        { status: 400 }
-      )
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(body.email)) {
-      return NextResponse.json(
-        { message: 'Adresse email invalide' },
-        { status: 400 }
-      )
-    }
-
-    if (!process.env.CONTACT_EMAIL) {
-      console.error('Missing CONTACT_EMAIL environment variable')
-      return NextResponse.json(
-        { message: 'Configuration serveur manquante. Veuillez réessayer plus tard.' },
-        { status: 500 }
-      )
-    }
-
-    // Send email
-    const subjectLabel = subjectLabels[body.subject] || 'Nouvelle demande'
-    const emailSubject = `[kls3.dev] ${subjectLabel} — ${body.name}`
-
     const emailHtml = `
-      <h2>Nouveau message depuis kls3.dev</h2>
-      <p><strong>De:</strong> ${body.name}</p>
-      <p><strong>Email:</strong> ${body.email}</p>
-      ${body.company ? `<p><strong>Entreprise:</strong> ${body.company}</p>` : ''}
-      <p><strong>Sujet:</strong> ${subjectLabel}</p>
-      <hr />
-      <h3>Message:</h3>
-      <p>${body.message.replace(/\n/g, '<br>')}</p>
+      <h2>Nouvelle demande d'analyse — KLS3</h2>
+      <table cellpadding="8" style="border-collapse:collapse;font-family:sans-serif;font-size:14px">
+        <tr><td><strong>Nom</strong></td><td>${escapeHtml(nom)}</td></tr>
+        <tr><td><strong>Société</strong></td><td>${escapeHtml(societe)}</td></tr>
+        <tr><td><strong>Email</strong></td><td>${escapeHtml(email)}</td></tr>
+        <tr><td><strong>Téléphone</strong></td><td>${telephone ? escapeHtml(telephone) : '—'}</td></tr>
+        <tr><td valign="top"><strong>Friction</strong></td><td>${escapeHtml(friction).replace(/\n/g, '<br>')}</td></tr>
+      </table>
     `
 
     const { data, error } = await resend.emails.send({
-      from: 'kls3.dev <noreply@kls3-dev.com>',
+      from: 'KLS3 <noreply@kls3-dev.com>',
       to: process.env.CONTACT_EMAIL,
-      replyTo: body.email,
-      subject: emailSubject,
+      replyTo: email,
+      subject: `[KLS3] Nouvelle demande d'analyse — ${societe}`,
       html: emailHtml,
     })
 
     if (error) {
       console.error('Resend error:', error)
       return NextResponse.json(
-        { message: 'Erreur lors de l\'envoi de l\'email. Veuillez réessayer.' },
+        { error: 'Erreur lors de l\'envoi. Veuillez réessayer.' },
         { status: 500 }
       )
     }
 
-    return NextResponse.json(
-      { message: 'Message envoyé avec succès', id: data?.id },
-      { status: 200 }
-    )
+    return NextResponse.json({ success: true, id: data?.id }, { status: 200 })
   } catch (error) {
     console.error('Contact form error:', error)
-    return NextResponse.json(
-      { message: 'Une erreur inattendue est survenue' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Une erreur inattendue est survenue.' }, { status: 500 })
   }
 }

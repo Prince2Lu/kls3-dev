@@ -50,7 +50,7 @@ export default function SolutionsSaaSPage() {
             Votre outil métier sur mesure, <span className="gradient-text">de l'idée au lancement</span>.
           </h1>
           <p className="text-xl text-foreground/70 leading-relaxed max-w-3xl mx-auto mb-8">
-            Vous avez identifié un besoin qu'aucun logiciel du marché ne couvre correctement ? KLS<span style={{ background: 'linear-gradient(135deg, #7c3aed, #0ea5e9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>3</span> conçoit et développe votre solution — robuste, scalable, et maintenue dans le temps.
+            Vous avez identifié un besoin qu'aucun logiciel du marché ne couvre correctement ? KLS<span style={{ color: '#4B7BF5' }}>3</span> conçoit et développe votre solution — robuste, scalable, et maintenue dans le temps.
           </p>
           <div className="max-w-3xl mx-auto">
             <GlassCard className="p-6 text-left">

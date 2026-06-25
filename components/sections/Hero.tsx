@@ -39,7 +39,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-xl text-foreground/70 mb-10 leading-relaxed max-w-xl"
             >
-              KLS<span style={{ background: 'linear-gradient(135deg, #7c3aed, #0ea5e9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>3</span> accompagne les cabinets d'avocats, experts-comptables et sociétés de corporate services pour structurer leurs projets, moderniser leurs outils et développer leurs solutions digitales avec méthode, clarté et expertise.
+              KLS<span style={{ color: '#4B7BF5' }}>3</span> accompagne les cabinets d'avocats, experts-comptables et sociétés de corporate services pour structurer leurs projets, moderniser leurs outils et développer leurs solutions digitales avec méthode, clarté et expertise.
             </motion.p>
 
             <motion.div

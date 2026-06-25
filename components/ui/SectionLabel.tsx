@@ -1,12 +1,28 @@
-interface SectionLabelProps {
-  children: string
-  className?: string
+import { type CSSProperties, type ReactNode } from 'react'
+
+const labelStyle: CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: 10,
+  marginBottom: 22,
+  fontSize: 12,
+  letterSpacing: '0.22em',
+  textTransform: 'uppercase',
+  color: '#4B7BF5',
+  fontWeight: 500,
 }
 
-export default function SectionLabel({ children, className = '' }: SectionLabelProps) {
+interface SectionLabelProps {
+  children: ReactNode
+  className?: string
+  style?: CSSProperties
+}
+
+export default function SectionLabel({ children, className, style }: SectionLabelProps) {
   return (
-    <p className={`text-xs uppercase tracking-wider text-brand-purple-light font-medium ${className}`}>
+    <div className={className} style={{ ...labelStyle, ...style }}>
+      <span style={{ width: 28, height: 1, background: '#4B7BF5', display: 'inline-block' }} />
       {children}
-    </p>
+    </div>
   )
 }

@@ -1,92 +1,93 @@
 import type { Metadata } from 'next'
-import { Mail, MessageSquare, Calendar } from 'lucide-react'
-import SectionLabel from '@/components/ui/SectionLabel'
 import ContactForm from '@/components/sections/ContactForm'
-import GlassCard from '@/components/ui/GlassCard'
+import { pageContentStyle } from '@/lib/pageLayout'
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Parlons de votre projet. Gestion de projet, transformation digitale, solution SaaS — nous répondons sous 24h.',
+  description:
+    'Décrivez-nous l\'opération qui vous ralentit le plus. Nous vous aidons à identifier les pertes invisibles et les leviers d\'amélioration les plus rapides à mettre en place.',
 }
-
-const contactInfo = [
-  {
-    icon: Mail,
-    title: 'Email',
-    content: 'contact@kls3-dev.com',
-    description: 'Réponse sous 24h',
-  },
-  {
-    icon: MessageSquare,
-    title: 'LinkedIn',
-    content: 'Envoyer un message',
-    description: 'Pour une prise de contact rapide',
-  },
-  {
-    icon: Calendar,
-    title: 'Disponibilité',
-    content: 'Prenons 30 minutes pour en parler',
-    description: 'Sans engagement, premier échange offert',
-  },
-]
 
 export default function ContactPage() {
   return (
-    <>
-      {/* Hero */}
-      <section className="relative py-24">
-        <div className="relative max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <SectionLabel className="mb-4">Contact</SectionLabel>
-          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
-            Parlons de votre <span className="gradient-text">projet</span>.
-          </h1>
-          <p className="text-xl text-foreground/70 leading-relaxed max-w-3xl mx-auto">
-            Remplissez ce formulaire et nous vous répondons sous 24h. Le premier échange est gratuit et sans engagement.
-          </p>
-        </div>
-      </section>
+    <section style={{ width: '100%' }}>
+      <div
+        style={{
+          ...pageContentStyle,
+          paddingTop: 'clamp(60px, 8vw, 128px)',
+          paddingBottom: 'clamp(60px, 8vw, 128px)',
+        }}
+      >
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-24">
+          <div className="max-w-xl">
+            <p className="section-label mb-8">Contact</p>
+            <h1
+              className="text-kls-text"
+              style={{
+                fontSize: 'clamp(2rem, 4.5vw, 3.25rem)',
+                fontWeight: 600,
+                lineHeight: 1.08,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Décrivez-nous l&apos;opération qui vous ralentit le plus.
+            </h1>
+            <p
+              className="mt-8"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(15px, 2vw, 17px)',
+                fontWeight: 300,
+                color: 'rgba(240, 237, 232, 0.6)',
+                lineHeight: 1.7,
+              }}
+            >
+              Nous vous aidons à identifier les pertes invisibles et les leviers
+              d&apos;amélioration les plus rapides à mettre en place.
+            </p>
 
-      {/* Contact info cards */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            {contactInfo.map((info) => {
-              const Icon = info.icon
-              return (
-                <GlassCard key={info.title} className="p-6 text-center">
-                  <Icon className="w-8 h-8 text-brand-purple mx-auto mb-4" />
-                  <h3 className="text-lg font-bold text-foreground mb-2">{info.title}</h3>
-                  {info.title === 'Email' ? (
-                    <a
-                      href="mailto:contact@kls3-dev.com"
-                      className="text-brand-cyan hover:text-brand-cyan-light transition-colors mb-1 inline-block"
-                    >
-                      {info.content}
-                    </a>
-                  ) : info.title === 'LinkedIn' ? (
-                    <a
-                      href="https://www.linkedin.com/company/kls3/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-brand-cyan hover:text-brand-cyan-light transition-colors mb-1 inline-block"
-                    >
-                      {info.content}
-                    </a>
-                  ) : (
-                    <p className="text-foreground/90 mb-1">{info.content}</p>
-                  )}
-                  <p className="text-foreground/60 text-sm">{info.description}</p>
-                </GlassCard>
-              )
-            })}
+            <div
+              className="mt-10"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '1rem',
+                fontWeight: 300,
+                color: 'rgba(240, 237, 232, 0.6)',
+                lineHeight: 1.8,
+              }}
+            >
+              <p>KLS3 accompagne les entreprises qui souhaitent :</p>
+              <ul className="mt-3 space-y-1">
+                <li>réduire les tâches répétitives,</li>
+                <li>fluidifier leurs opérations,</li>
+                <li>améliorer leur visibilité,</li>
+                <li>centraliser leurs données,</li>
+                <li>accélérer l&apos;exécution.</li>
+              </ul>
+            </div>
           </div>
 
-          {/* Contact form */}
-          <div className="max-w-3xl mx-auto">
+          <div className="w-full min-w-0">
             <ContactForm />
+
+            <div
+              className="mt-10 pt-8"
+              style={{
+                borderTop: '0.5px solid rgba(255,255,255,0.07)',
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.9375rem',
+                fontWeight: 300,
+                color: 'rgba(240, 237, 232, 0.45)',
+                lineHeight: 1.8,
+              }}
+            >
+              <p>Pas de promesses vagues.</p>
+              <p>Pas de transformation théorique.</p>
+              <p>Une approche opérationnelle concrète et pilotable.</p>
+            </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   )
 }

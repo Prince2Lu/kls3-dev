@@ -75,7 +75,7 @@ export default function Problems() {
           className="text-center"
         >
           <p className="text-xl text-foreground/80 font-medium">
-            KLS<span style={{ background: 'linear-gradient(135deg, #7c3aed, #0ea5e9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>3</span> intervient exactement là où ces problèmes se posent.
+            KLS<span style={{ color: '#4B7BF5' }}>3</span> intervient exactement là où ces problèmes se posent.
           </p>
         </motion.div>
       </div>

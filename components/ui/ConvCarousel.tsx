@@ -71,7 +71,7 @@ export default function ConvCarousel() {
           K
         </div>
         <div>
-          <div className="text-xs font-medium text-white">Agent IA KLS<span style={{ background: 'linear-gradient(135deg, #7c3aed, #0ea5e9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>3</span></div>
+          <div className="text-xs font-medium text-white">Agent IA KLS<span style={{ color: '#4B7BF5' }}>3</span></div>
           <div
             className="text-xs transition-all duration-300"
             style={{

@@ -1,95 +1,77 @@
+import Image from 'next/image'
 import Link from 'next/link'
-import { Mail } from 'lucide-react'
+import { pageContentStyle } from '@/lib/pageLayout'
+
+const mainLinkStyle = {
+  fontSize: '13px',
+  color: 'rgba(240, 237, 232, 0.45)',
+} as const
+
+const legalLinkStyle = {
+  fontSize: 12,
+  color: 'rgba(240,237,232,0.25)',
+} as const
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear()
-
   return (
-    <footer className="border-t border-dark-border-subtle bg-dark-bg/50 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* Brand */}
-          <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <img src="/logo.svg" alt="KLS3" width={31} height={31} />
-              <span style={{ fontFamily: 'system-ui, sans-serif', fontSize: '20px', fontWeight: 600, letterSpacing: '-0.5px', color: 'rgba(255,255,255,0.6)' }}>
-                KLS<span style={{ background: 'linear-gradient(135deg, #7c3aed, #0ea5e9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>3</span>
-              </span>
-            </Link>
-            <p className="text-foreground/60 text-sm max-w-md">
-              KLS<span style={{ background: 'linear-gradient(135deg, #7c3aed, #0ea5e9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>3</span> — Gestion de projet · Transformation digitale · Solutions SaaS
-            </p>
-          </div>
+    <footer
+      style={{
+        backgroundColor: '#0D0D0D',
+        borderTop: '0.5px solid rgba(255, 255, 255, 0.07)',
+      }}
+    >
+      <div style={{ ...pageContentStyle, paddingTop: 48, paddingBottom: 48 }}>
+        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+          <Link href="/" aria-label="KLS3 — Accueil">
+            <Image src="/logo.png" alt="KLS3" width={90} height={26} />
+          </Link>
 
-          {/* Services */}
-          <div>
-            <h3 className="text-foreground font-medium mb-4">Services</h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link href="/gestion-de-projet" className="text-foreground/60 hover:text-foreground transition-colors">
-                  Gestion de projet
-                </Link>
-              </li>
-              <li>
-                <Link href="/transformation-digitale" className="text-foreground/60 hover:text-foreground transition-colors">
-                  Transformation digitale
-                </Link>
-              </li>
-              <li>
-                <Link href="/solutions-saas" className="text-foreground/60 hover:text-foreground transition-colors">
-                  Solutions SaaS
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <div className="flex flex-col gap-6">
+            <nav className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-8">
+              <Link
+                href="/blog"
+                className="transition-colors hover:text-[#F0EDE8]"
+                style={mainLinkStyle}
+              >
+                Blog
+              </Link>
+              <Link
+                href="/a-propos"
+                className="transition-colors hover:text-[#F0EDE8]"
+                style={mainLinkStyle}
+              >
+                À propos
+              </Link>
+              <Link
+                href="/contact"
+                className="transition-colors hover:text-[#F0EDE8]"
+                style={mainLinkStyle}
+              >
+                Contact
+              </Link>
+            </nav>
 
-          {/* Contact */}
-          <div>
-            <h3 className="text-foreground font-medium mb-4">Contact</h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link href="/contact" className="text-foreground/60 hover:text-foreground transition-colors">
-                  Prendre rendez-vous
-                </Link>
-              </li>
-              <li>
-                <Link href="/a-propos" className="text-foreground/60 hover:text-foreground transition-colors">
-                  À propos
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-foreground/60 hover:text-foreground transition-colors">
-                  Blog
-                </Link>
-              </li>
-            </ul>
+            <nav className="flex flex-wrap items-center gap-3">
+              <Link
+                href="/mentions-legales"
+                className="transition-colors hover:!text-[rgba(240,237,232,0.45)]"
+                style={legalLinkStyle}
+              >
+                Mentions légales
+              </Link>
+              <Link
+                href="/politique-de-confidentialite"
+                className="transition-colors hover:!text-[rgba(240,237,232,0.45)]"
+                style={legalLinkStyle}
+              >
+                Politique de confidentialité
+              </Link>
+            </nav>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="pt-8 border-t border-dark-border-subtle flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex flex-col md:flex-row items-center gap-4 text-sm">
-            <p className="text-foreground/50">
-              © {currentYear} KLS<span style={{ background: 'linear-gradient(135deg, #7c3aed, #0ea5e9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>3</span>. Tous droits réservés.
-            </p>
-            <div className="flex items-center gap-4">
-              <Link href="/mentions-legales" className="text-foreground/50 hover:text-foreground transition-colors">
-                Mentions légales
-              </Link>
-              <Link href="/politique-de-confidentialite" className="text-foreground/50 hover:text-foreground transition-colors">
-                Politique de confidentialité
-              </Link>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="mailto:contact@kls3-dev.com"
-              className="text-foreground/50 hover:text-foreground transition-colors"
-              aria-label="Email"
-            >
-              <Mail className="w-5 h-5" />
-            </a>
-          </div>
+        <div className="mt-10 pt-6" style={{ borderTop: '0.5px solid rgba(255, 255, 255, 0.07)' }}>
+          <p style={{ fontSize: '12px', color: 'rgba(240, 237, 232, 0.45)' }}>© 2026 KLS3</p>
         </div>
       </div>
     </footer>
