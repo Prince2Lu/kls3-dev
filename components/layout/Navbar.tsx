@@ -124,7 +124,7 @@ export default function Navbar() {
             padding: '0 clamp(20px, 5vw, 80px)',
           }}
         >
-          <div className="flex items-center justify-between py-3 lg:min-h-[88px] lg:py-4">
+          <div className="flex items-center justify-between py-3 lg:min-h-[88px] lg:py-4 gap-4">
             <Link href="/" aria-label="KLS3 — Accueil" className="shrink-0" onClick={clearHashSelection}>
               <Image
                 src="/logo.png"
@@ -136,7 +136,7 @@ export default function Navbar() {
               />
             </Link>
 
-            <div className="hidden lg:flex items-center gap-7 xl:gap-9">
+            <div className="hidden lg:flex items-center gap-7 xl:gap-9 flex-1 justify-end">
               {navLinks.map((link) => {
                 const active = isLinkActive(link)
                 return (
@@ -160,12 +160,13 @@ export default function Navbar() {
               >
                 Blog
               </Link>
-              <div className="flex flex-col items-center gap-0.5">
-                <Link href="/contact" className={ctaClassName} style={{ ...ctaStyle, padding: '8px 20px' }}>
-                  Analyser mes opérations →
-                </Link>
-                <span style={ctaReassuranceStyle}>Sans engagement · Réponse sous 48h</span>
-              </div>
+            </div>
+
+            <div className="hidden md:flex flex-col items-center gap-0.5 shrink-0">
+              <Link href="/contact" className={ctaClassName} style={{ ...ctaStyle, padding: '8px 20px' }}>
+                Analyser mes opérations →
+              </Link>
+              <span style={ctaReassuranceStyle}>Sans engagement · Réponse sous 48h</span>
             </div>
 
             <button

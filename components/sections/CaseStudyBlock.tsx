@@ -11,7 +11,7 @@ const categoryLabelStyle = {
 }
 
 const titleStyle = {
-  fontSize: '26px',
+  fontSize: 'clamp(20px, 4vw, 26px)',
   fontWeight: 600,
   color: '#F0EDE8',
   margin: '0 0 20px 0',
@@ -20,7 +20,6 @@ const titleStyle = {
 }
 
 const gridStyle = {
-  display: 'grid',
   gap: '8px',
 }
 
@@ -65,11 +64,11 @@ interface CaseStudyBlockProps {
 
 export default function CaseStudyBlock({ cas, isLast = false }: CaseStudyBlockProps) {
   return (
-    <article style={{ marginBottom: isLast ? 0 : '50px' }}>
+    <article style={{ marginBottom: isLast ? 0 : 'clamp(32px, 6vw, 50px)' }}>
       <p style={categoryLabelStyle}>— {cas.category}</p>
       <h2 style={titleStyle}>{cas.title}</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2" style={gridStyle}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2" style={gridStyle}>
         {fields.map((field) => {
           const highlight = field.highlight
           return (
