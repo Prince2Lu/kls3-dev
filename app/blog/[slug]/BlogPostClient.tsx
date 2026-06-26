@@ -158,10 +158,20 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
                     </p>
                     <Link
                       href="/contact"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-purple to-brand-cyan text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+                      className="btn-beam font-display transition-colors duration-200 hover:!text-[#4B7BF5] inline-block"
+                      style={{
+                        color: '#F0EDE8',
+                        border: '1px solid rgba(240, 237, 232, 0.35)',
+                        borderRadius: '100px',
+                        background: 'transparent',
+                        fontSize: '18px',
+                        fontWeight: 600,
+                        whiteSpace: 'nowrap',
+                        padding: '8px 20px',
+                        textDecoration: 'none',
+                      }}
                     >
-                      Prendre rendez-vous
-                      <ArrowLeft className="w-5 h-5 rotate-180" />
+                      Prendre Rendez-vous →
                     </Link>
                   </div>
                 </div>
