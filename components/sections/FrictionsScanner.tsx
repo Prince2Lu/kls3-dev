@@ -120,6 +120,7 @@ function useFonts(enabled: boolean) {
 export default function FrictionsScanner({ loadFonts = true }: FrictionsScannerProps) {
   const [sel, setSel] = useState(0)
   const [paused, setPaused] = useState(false)
+  const tabRefs = useRef<(HTMLDivElement | null)[]>([])
   const [ref, width] = useContainerWidth()
   const reduceMotion = usePrefersReducedMotion()
   const compact = width > 0 && width <= BP
@@ -133,6 +134,17 @@ export default function FrictionsScanner({ loadFonts = true }: FrictionsScannerP
     const id = setInterval(() => setSel((s) => (s + 1) % FRICTIONS.length), AUTOPLAY_MS)
     return () => clearInterval(id)
   }, [paused, reduceMotion])
+
+  useEffect(() => {
+    if (!compact) return
+    const el = tabRefs.current[sel]
+    if (!el) return
+    el.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center',
+    })
+  }, [sel, compact])
 
   const active = FRICTIONS[sel]
   const select = useCallback((i: number) => {
@@ -277,6 +289,9 @@ export default function FrictionsScanner({ loadFonts = true }: FrictionsScannerP
                 return (
                   <div
                     key={f.n}
+                    ref={(el) => {
+                      tabRefs.current[i] = el
+                    }}
                     role="tab"
                     tabIndex={0}
                     aria-selected={isActive}
