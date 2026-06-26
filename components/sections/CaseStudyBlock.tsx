@@ -65,7 +65,7 @@ interface CaseStudyBlockProps {
 
 export default function CaseStudyBlock({ cas, isLast = false }: CaseStudyBlockProps) {
   return (
-    <article style={{ marginBottom: isLast ? 0 : '29px' }}>
+    <article style={{ marginBottom: isLast ? 0 : '50px' }}>
       <p style={categoryLabelStyle}>— {cas.category}</p>
       <h2 style={titleStyle}>{cas.title}</h2>
 
