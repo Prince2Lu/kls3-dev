@@ -8,7 +8,7 @@ export default function ResultsSection() {
   return (
     <section
       id="resultats"
-      className="border-b border-kls-border scroll-mt-20"
+      className="scroll-mt-20"
       style={{ width: '100%' }}
     >
       <div style={sectionContainerStyle}>

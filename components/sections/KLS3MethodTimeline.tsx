@@ -28,7 +28,7 @@ const STEPS: Step[] = [
   { n: '04', verb: 'Piloter', tag: 'Temps réel', from: 'Angle mort', to: 'Visibilité', desc: 'Les opérations en temps réel avec visibilité complète.' },
 ]
 
-const DUR = 4200
+const DUR = 2800
 
 const C = {
   bg: '#0D0D0D',
@@ -60,7 +60,7 @@ export default function KLS3MethodTimeline() {
   return (
     <section
       id="methode"
-      className="kls-tl border-b border-kls-border scroll-mt-20"
+      className="kls-tl scroll-mt-20"
       style={{
         width: '100%',
         position: 'relative',
@@ -75,7 +75,7 @@ export default function KLS3MethodTimeline() {
         style={{
           maxWidth: 1200,
           margin: '0 auto',
-          padding: '64px clamp(20px, 5vw, 80px)',
+          padding: '45px clamp(20px, 5vw, 80px)',
         }}
       >
       <style>{`

@@ -9,7 +9,7 @@ export default function BlogPreview() {
 
   return (
     <section
-      className="border-b border-kls-border"
+      className="scroll-mt-20"
       style={{ width: '100%', background: '#0D0D0D' }}
     >
       <div style={sectionContainerStyle}>

@@ -8,7 +8,7 @@ export default function SystemsSection() {
   return (
     <section
       id="solutions"
-      className="border-b border-kls-border scroll-mt-20"
+      className="scroll-mt-20"
       style={{ width: '100%' }}
     >
       <div style={sectionContainerStyle}>
@@ -32,6 +32,15 @@ export default function SystemsSection() {
                 system={system}
                 number={String(i + 1).padStart(2, '0')}
                 highlight={i === 3}
+                descriptionOverride={
+                  i === 1 ? (
+                    <>
+                      Centralisation des données, dashboards, alertes,
+                      <br />
+                      temps réel.
+                    </>
+                  ) : undefined
+                }
               />
             </StaggerItem>
           ))}

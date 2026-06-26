@@ -1,29 +1,76 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useSyncExternalStore } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 
 const navLinks = [
-  { href: '/#frictions', label: 'Frictions', hash: '#frictions' },
-  { href: '/#solutions', label: 'Solutions', hash: '#solutions' },
-  { href: '/#methode', label: 'Méthode', hash: '#methode' },
-  { href: '/#cas-clients', label: 'Cas concrets', hash: '#cas-clients' },
+  { href: '/#frictions', label: 'Frictions', hash: '#frictions' as const },
+  { href: '/#solutions', label: 'Solutions', hash: '#solutions' as const },
+  { href: '/#methode', label: 'Méthode', hash: '#methode' as const },
+  { href: '/cas-clients', label: 'Cas concrets' },
 ]
+
+const isHashLink = (
+  link: (typeof navLinks)[number],
+): link is (typeof navLinks)[number] & { hash: string } => 'hash' in link
+
+const ctaStyle = {
+  color: '#F0EDE8',
+  border: '1px solid rgba(240, 237, 232, 0.35)',
+  borderRadius: '100px',
+  background: 'transparent',
+  fontSize: '18px',
+  fontWeight: 600,
+  whiteSpace: 'nowrap' as const,
+}
+
+function subscribeToHash(onStoreChange: () => void) {
+  window.addEventListener('hashchange', onStoreChange)
+  window.addEventListener('popstate', onStoreChange)
+  return () => {
+    window.removeEventListener('hashchange', onStoreChange)
+    window.removeEventListener('popstate', onStoreChange)
+  }
+}
+
+function getHashSnapshot() {
+  return window.location.hash
+}
+
+function getHashServerSnapshot() {
+  return ''
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const [hash, setHash] = useState('')
+  const [pendingHash, setPendingHash] = useState<string | null>(null)
   const pathname = usePathname()
+  const urlHash = useSyncExternalStore(subscribeToHash, getHashSnapshot, getHashServerSnapshot)
 
   useEffect(() => {
-    const updateHash = () => setHash(window.location.hash)
-    updateHash()
-    window.addEventListener('hashchange', updateHash)
-    return () => window.removeEventListener('hashchange', updateHash)
-  }, [])
+    if (pendingHash !== null && urlHash === pendingHash) {
+      setPendingHash(null)
+    }
+  }, [pendingHash, urlHash])
+
+  useEffect(() => {
+    if (pathname !== '/') {
+      setPendingHash(null)
+    }
+  }, [pathname])
+
+  const activeHash = pendingHash ?? urlHash
+
+  const handleHashLinkClick = (linkHash: string) => {
+    setPendingHash(linkHash)
+  }
+
+  const clearHashSelection = () => {
+    setPendingHash('')
+  }
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -32,14 +79,32 @@ export default function Navbar() {
     }
   }, [open])
 
-  const isActive = (linkHash: string) => pathname === '/' && hash === linkHash
+  const isLinkActive = (link: (typeof navLinks)[number]) => {
+    if (link.href === '/cas-clients') return pathname === '/cas-clients'
+    if (isHashLink(link)) return pathname === '/' && activeHash === link.hash
+    return false
+  }
+
   const isBlogActive = pathname === '/blog' || pathname.startsWith('/blog/')
 
   const linkStyle = (active: boolean) => ({
     fontSize: '18px',
     fontWeight: 600,
-    color: active ? '#4B7BF5' : '#F0EDE8',
+    color: active ? '#4B7BF5' : 'rgba(240, 237, 232, 0.45)',
+    transition: 'color 0.2s',
   })
+
+  const navLinkClassName = (active: boolean) =>
+    `font-display ${active ? 'transition-colors duration-200' : 'transition-colors duration-200 hover:!text-[#F0EDE8]'}`
+
+  const ctaClassName =
+    'btn-beam font-display transition-colors duration-200 hover:!text-[#4B7BF5]'
+
+  const ctaReassuranceStyle = {
+    fontSize: '10px',
+    color: 'rgba(240,237,232,0.35)',
+    letterSpacing: '0.04em',
+  } as const
 
   return (
     <>
@@ -59,52 +124,48 @@ export default function Navbar() {
             padding: '0 clamp(20px, 5vw, 80px)',
           }}
         >
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" aria-label="KLS3 — Accueil" className="shrink-0">
+          <div className="flex items-center justify-between py-3 lg:min-h-[88px] lg:py-4">
+            <Link href="/" aria-label="KLS3 — Accueil" className="shrink-0" onClick={clearHashSelection}>
               <Image
                 src="/logo.png"
                 alt="KLS3"
-                width={110}
-                height={32}
+                width={130}
+                height={38}
                 priority
-                className="h-7 w-auto max-w-[110px]"
+                className="h-8 w-auto max-w-[130px] lg:h-9"
               />
             </Link>
 
             <div className="hidden lg:flex items-center gap-7 xl:gap-9">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="font-display transition-colors duration-200 hover:!text-[#4B7BF5]"
-                  style={linkStyle(isActive(link.hash))}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const active = isLinkActive(link)
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={navLinkClassName(active)}
+                    style={linkStyle(active)}
+                    onClick={() => {
+                      if (isHashLink(link)) handleHashLinkClick(link.hash)
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              })}
               <Link
                 href="/blog"
-                className="font-display transition-colors duration-200 hover:!text-[#4B7BF5]"
+                className={navLinkClassName(isBlogActive)}
                 style={linkStyle(isBlogActive)}
               >
                 Blog
               </Link>
-              <Link
-                href="/contact"
-                className="transition-all duration-200 hover:!bg-[#4B7BF5] hover:!border-[#4B7BF5]"
-                style={{
-                  border: '1px solid rgba(240,237,232,0.4)',
-                  color: '#F0EDE8',
-                  borderRadius: '100px',
-                  padding: '8px 20px',
-                  fontSize: '13px',
-                  background: 'transparent',
-                  fontFamily: 'var(--font-body)',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                Première analyse
-              </Link>
+              <div className="flex flex-col items-center gap-0.5">
+                <Link href="/contact" className={ctaClassName} style={{ ...ctaStyle, padding: '8px 20px' }}>
+                  Analyser mes opérations →
+                </Link>
+                <span style={ctaReassuranceStyle}>Sans engagement · Réponse sous 48h</span>
+              </div>
             </div>
 
             <button
@@ -130,8 +191,8 @@ export default function Navbar() {
             className="flex items-center justify-between h-16 shrink-0"
             style={{ padding: '0 clamp(20px, 5vw, 80px)' }}
           >
-            <Link href="/" aria-label="KLS3 — Accueil" onClick={() => setOpen(false)}>
-              <Image src="/logo.png" alt="KLS3" width={110} height={32} className="h-7 w-auto" />
+            <Link href="/" aria-label="KLS3 — Accueil" onClick={() => { clearHashSelection(); setOpen(false) }}>
+              <Image src="/logo.png" alt="KLS3" width={130} height={38} className="h-8 w-auto max-w-[130px]" />
             </Link>
             <button
               type="button"
@@ -145,21 +206,27 @@ export default function Navbar() {
           </div>
 
           <nav className="flex flex-1 flex-col items-center justify-center gap-8 px-6 pb-16">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="font-display transition-colors duration-200 hover:!text-[#4B7BF5]"
-                style={linkStyle(isActive(link.hash))}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const active = isLinkActive(link)
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => {
+                    if (isHashLink(link)) handleHashLinkClick(link.hash)
+                    setOpen(false)
+                  }}
+                  className={navLinkClassName(active)}
+                  style={linkStyle(active)}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
             <Link
               href="/blog"
               onClick={() => setOpen(false)}
-              className="font-display transition-colors duration-200 hover:!text-[#4B7BF5]"
+              className={navLinkClassName(isBlogActive)}
               style={linkStyle(isBlogActive)}
             >
               Blog
@@ -167,18 +234,10 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setOpen(false)}
-              className="mt-4 text-center transition-all duration-200 hover:!bg-[#4B7BF5] hover:!border-[#4B7BF5]"
-              style={{
-                border: '1px solid rgba(240,237,232,0.4)',
-                color: '#F0EDE8',
-                borderRadius: '100px',
-                padding: '12px 28px',
-                fontSize: '14px',
-                background: 'transparent',
-                fontFamily: 'var(--font-body)',
-              }}
+              className={`${ctaClassName} mt-4 text-center`}
+              style={{ ...ctaStyle, padding: '12px 28px' }}
             >
-              Première analyse
+              Analyser mes opérations →
             </Link>
           </nav>
         </div>

@@ -139,14 +139,14 @@ export default function FrictionsScanner() {
   return (
     <section
       id="frictions"
-      className="border-b border-kls-border scroll-mt-20"
+      className="scroll-mt-20"
       style={{ width: '100%' }}
     >
       <div
         style={{
           maxWidth: 1200,
           margin: '0 auto',
-          padding: '64px clamp(20px, 5vw, 80px)',
+          padding: '45px clamp(20px, 5vw, 80px)',
         }}
       >
     <div

@@ -14,7 +14,7 @@ export const pageContentStyle: CSSProperties = {
 export const sectionContainerStyle: CSSProperties = {
   maxWidth: PAGE_MAX_WIDTH,
   margin: '0 auto',
-  padding: '64px clamp(20px, 5vw, 80px)',
+  padding: '45px clamp(20px, 5vw, 80px)',
 }
 
 /** Padding vertical de section (pages secondaires). */

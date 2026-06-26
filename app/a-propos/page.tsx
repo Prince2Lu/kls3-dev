@@ -27,9 +27,8 @@ const cardStyle = {
 
 export default function APropos() {
   return (
-    <main
+    <div
       style={{
-        background: '#0D0D0D',
         color: '#F0EDE8',
         fontFamily: 'var(--font-body)',
         fontWeight: 300,
@@ -39,7 +38,7 @@ export default function APropos() {
         style={{
           maxWidth: 1200,
           margin: '0 auto',
-          padding: 'clamp(80px, 8vw, 120px) clamp(20px, 5vw, 80px) 64px',
+          padding: 'clamp(56px, 5.6vw, 84px) clamp(20px, 5vw, 80px) 45px',
         }}
       >
         <div style={sectionLabelStyle}>
@@ -60,7 +59,7 @@ export default function APropos() {
         >
           Une équipe.
           <br />
-          Pas une agence.
+          <span style={{ color: '#4B7BF5' }}>Pas une agence.</span>
         </h1>
         <p
           style={{
@@ -77,19 +76,11 @@ export default function APropos() {
         </p>
       </section>
 
-      <div
-        style={{
-          height: '0.5px',
-          background: 'rgba(255,255,255,0.07)',
-          margin: '0 clamp(20px, 5vw, 80px)',
-        }}
-      />
-
       <section
         style={{
           maxWidth: 1200,
           margin: '0 auto',
-          padding: '64px clamp(20px, 5vw, 80px)',
+          padding: '45px clamp(20px, 5vw, 80px)',
         }}
       >
         <div style={{ ...sectionLabelStyle, marginBottom: 40 }}>
@@ -180,19 +171,11 @@ export default function APropos() {
         </p>
       </section>
 
-      <div
-        style={{
-          height: '0.5px',
-          background: 'rgba(255,255,255,0.07)',
-          margin: '0 clamp(20px, 5vw, 80px)',
-        }}
-      />
-
       <section
         style={{
           maxWidth: 1200,
           margin: '0 auto',
-          padding: '64px clamp(20px, 5vw, 80px)',
+          padding: '45px clamp(20px, 5vw, 80px)',
         }}
       >
         <div style={{ ...sectionLabelStyle, marginBottom: 40 }}>
@@ -270,7 +253,7 @@ export default function APropos() {
       <section
         style={{
           background: '#4B7BF5',
-          padding: '64px clamp(20px, 5vw, 80px)',
+          padding: '45px clamp(20px, 5vw, 80px)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -310,6 +293,6 @@ export default function APropos() {
           Demander une première analyse
         </Link>
       </section>
-    </main>
+    </div>
   )
 }

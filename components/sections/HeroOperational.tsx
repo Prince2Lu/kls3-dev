@@ -3,12 +3,12 @@ import { Stagger, StaggerItem } from '@/components/ui/Motion'
 
 export default function HeroOperational() {
   return (
-    <section className="border-b border-kls-border" style={{ width: '100%' }}>
+    <section style={{ width: '100%' }}>
       <div
         style={{
           maxWidth: 1200,
           margin: '0 auto',
-          padding: 'clamp(60px, 8vw, 110px) clamp(20px, 5vw, 80px)',
+          padding: 'clamp(42px, 5.6vw, 77px) clamp(20px, 5vw, 80px)',
         }}
       >
         <Stagger className="max-w-4xl">
@@ -26,17 +26,7 @@ export default function HeroOperational() {
                 fontWeight: 500,
               }}
             >
-              <span
-                aria-hidden
-                style={{
-                  width: 7,
-                  height: 7,
-                  borderRadius: '50%',
-                  background: '#4B7BF5',
-                  display: 'inline-block',
-                  animation: 'ticker 1.6s ease-in-out infinite',
-                }}
-              />
+              <span style={{ width: 28, height: 1, background: '#4B7BF5', display: 'inline-block' }} />
               Operational Intelligence
             </div>
           </StaggerItem>

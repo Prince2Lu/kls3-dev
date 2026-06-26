@@ -10,7 +10,7 @@ const pills = [
 
 export default function TeamSection() {
   return (
-    <section className="border-b border-kls-border" style={{ width: '100%' }}>
+    <section style={{ width: '100%' }}>
       <div style={sectionContainerStyle}>
         <SectionLabel>L&apos;équipe</SectionLabel>
         <div

@@ -8,11 +8,19 @@ interface PageHeroProps {
   subtitle: string
   ctaLabel?: string
   ctaHref?: string
+  borderless?: boolean
 }
 
-export default function PageHero({ label, title, subtitle, ctaLabel, ctaHref }: PageHeroProps) {
+export default function PageHero({
+  label,
+  title,
+  subtitle,
+  ctaLabel,
+  ctaHref,
+  borderless = false,
+}: PageHeroProps) {
   return (
-    <section className="border-b border-kls-border" style={{ width: '100%' }}>
+    <section className={borderless ? undefined : 'border-b border-kls-border'} style={{ width: '100%' }}>
       <div
         style={{
           ...pageContentStyle,
