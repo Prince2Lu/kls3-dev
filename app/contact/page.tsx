@@ -57,12 +57,47 @@ export default function ContactPage() {
               }}
             >
               <p>KLS3 accompagne les entreprises qui souhaitent :</p>
-              <ul className="mt-3 space-y-1">
-                <li>réduire les tâches répétitives,</li>
-                <li>fluidifier leurs opérations,</li>
-                <li>améliorer leur visibilité,</li>
-                <li>centraliser leurs données,</li>
-                <li>accélérer l&apos;exécution.</li>
+              <ul
+                style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: '12px 0',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
+                }}
+              >
+                {[
+                  'Réduire les tâches répétitives',
+                  'Fluidifier leurs opérations',
+                  'Améliorer leur visibilité',
+                  'Centraliser leurs données',
+                  'Accélérer l\'exécution',
+                ].map((item) => (
+                  <li
+                    key={item}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      fontSize: '15px',
+                      fontWeight: 300,
+                      color: 'rgba(240,237,232,0.7)',
+                      fontFamily: 'var(--font-body)',
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: '6px',
+                        height: '6px',
+                        borderRadius: '50%',
+                        background: '#4B7BF5',
+                        flexShrink: 0,
+                      }}
+                    />
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -74,16 +109,45 @@ export default function ContactPage() {
               className="mt-10 pt-8"
               style={{
                 borderTop: '0.5px solid rgba(255,255,255,0.07)',
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.9375rem',
-                fontWeight: 300,
-                color: 'rgba(240, 237, 232, 0.45)',
-                lineHeight: 1.8,
               }}
             >
-              <p>Pas de promesses vagues.</p>
-              <p>Pas de transformation théorique.</p>
-              <p>Une approche opérationnelle concrète et pilotable.</p>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px',
+                  margin: '24px 0',
+                }}
+              >
+                {[
+                  'Pas de promesses vagues.',
+                  'Pas de transformation théorique.',
+                  'Une approche opérationnelle concrète et pilotable.',
+                ].map((line) => (
+                  <div key={line} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span
+                      style={{
+                        width: '3px',
+                        height: '18px',
+                        background: '#4B7BF5',
+                        borderRadius: '2px',
+                        flexShrink: 0,
+                      }}
+                    />
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: '15px',
+                        fontWeight: 300,
+                        color: 'rgba(240,237,232,0.7)',
+                        fontFamily: 'var(--font-body)',
+                      }}
+                    >
+                      {line}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
