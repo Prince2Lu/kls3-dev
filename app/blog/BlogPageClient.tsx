@@ -66,7 +66,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
   }, [currentPage])
 
   // Featured post (only for "Toutes" category)
-  const featuredSlug = 'bienvenue-sur-le-blog-kls3'
+  const featuredSlug = 'kls3-qui-sommes-nous-comment-nous-travaillons'
   const featuredPost = useMemo(() => {
     return posts.find(p => p.slug === featuredSlug) || null
   }, [posts])
