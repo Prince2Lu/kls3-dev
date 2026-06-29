@@ -76,8 +76,7 @@ export default function FaqSection() {
             fontFamily: 'var(--font-body)',
           }}
         >
-          <span aria-hidden>—</span>
-          <span aria-hidden>—</span>
+          <span aria-hidden>——</span>
           <span>Questions fréquentes</span>
         </div>
 
