@@ -46,7 +46,7 @@ export default function RootLayout({
             '@type': 'Organization',
             name: 'KLS3',
             url: 'https://www.kls3-dev.com',
-            logo: 'https://www.kls3-dev.com/favicon.svg',
+            logo: 'https://www.kls3-dev.com/logo-kls3-512.png',
             description:
               'KLS3 identifie les frictions invisibles qui ralentissent vos opérations et les transforme en systèmes fluides, pilotables et automatisés.',
             address: {
