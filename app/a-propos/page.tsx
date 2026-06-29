@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import JsonLd from '@/components/seo/JsonLd'
 
 export const metadata: Metadata = {
   title: 'À propos | KLS3',
@@ -34,6 +35,46 @@ export default function APropos() {
         fontWeight: 300,
       }}
     >
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Éric Scarpino',
+          jobTitle: 'Co-fondateur, Directeur de missions',
+          worksFor: {
+            '@type': 'Organization',
+            name: 'KLS3',
+            url: 'https://www.kls3-dev.com',
+          },
+          url: 'https://www.kls3-dev.com/a-propos',
+          knowsAbout: [
+            'Intelligence opérationnelle',
+            'Gestion de projet',
+            'Transformation opérationnelle',
+            'Pilotage',
+            'Frictions opérationnelles',
+          ],
+        }}
+      />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Lilian Scarpino',
+          jobTitle: 'Co-fondateur, Directeur Commercial',
+          worksFor: {
+            '@type': 'Organization',
+            name: 'KLS3',
+            url: 'https://www.kls3-dev.com',
+          },
+          url: 'https://www.kls3-dev.com/a-propos',
+          knowsAbout: [
+            'Développement commercial',
+            'Relation client',
+            'Intelligence opérationnelle',
+          ],
+        }}
+      />
       <section
         style={{
           maxWidth: 1200,

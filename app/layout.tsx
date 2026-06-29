@@ -65,6 +65,30 @@ export default function RootLayout({
             },
           }}
         />
+        <JsonLd
+          data={{
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'KLS3',
+            url: 'https://www.kls3-dev.com',
+            description:
+              'KLS3 identifie les frictions invisibles qui ralentissent vos opérations et les transforme en systèmes fluides, pilotables et automatisés.',
+            inLanguage: 'fr-FR',
+            publisher: {
+              '@type': 'Organization',
+              name: 'KLS3',
+              url: 'https://www.kls3-dev.com',
+            },
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: {
+                '@type': 'EntryPoint',
+                urlTemplate: 'https://www.kls3-dev.com/blog?q={search_term_string}',
+              },
+              'query-input': 'required name=search_term_string',
+            },
+          }}
+        />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>
