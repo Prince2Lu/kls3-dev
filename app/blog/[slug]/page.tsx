@@ -24,7 +24,9 @@ export default async function BlogPostPage({
     notFound()
   }
 
-  const publishedDate = post.publishedAt
+  const publishedIso = post.publishedAt
+    ? new Date(post.publishedAt).toISOString()
+    : new Date().toISOString()
   const imageUrl = post.image
     ? `${BASE_URL}${post.image.startsWith('/') ? post.image : `/${post.image}`}`
     : `${BASE_URL}/favicon.svg`
@@ -38,8 +40,8 @@ export default async function BlogPostPage({
           headline: post.titre_seo,
           description: post.meta_description ?? '',
           url: `${BASE_URL}/blog/${post.slug}`,
-          datePublished: publishedDate,
-          dateModified: publishedDate,
+          datePublished: publishedIso,
+          dateModified: publishedIso,
           author: {
             '@type': 'Organization',
             name: 'KLS3',
