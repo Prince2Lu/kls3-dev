@@ -257,12 +257,12 @@ export default function FrictionsScanner({ loadFonts = true }: FrictionsScannerP
                 fontFamily: C.syne,
                 fontWeight: 700,
                 fontSize: 18,
-                color: 'rgba(240,237,232,.35)',
+                color: 'rgba(240,237,232,.55)',
                 letterSpacing: '.05em',
                 whiteSpace: 'nowrap',
               }}
             >
-              {active.n} <span style={{ color: 'rgba(240,237,232,.2)' }}>/ 07</span>
+              {active.n} <span style={{ color: 'rgba(240,237,232,.35)' }}>/ 07</span>
             </div>
           </header>
 
@@ -327,7 +327,7 @@ export default function FrictionsScanner({ loadFonts = true }: FrictionsScannerP
                         fontSize: 14,
                         letterSpacing: '.05em',
                         transition: 'color .35s ease',
-                        color: isActive ? C.accent : 'rgba(240,237,232,.32)',
+                        color: isActive ? C.accent : 'rgba(240,237,232,.55)',
                       }}
                     >
                       {f.n}

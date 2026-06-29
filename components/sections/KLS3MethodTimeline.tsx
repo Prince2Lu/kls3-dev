@@ -167,16 +167,28 @@ export default function KLS3MethodTimeline() {
                 onClick={() => setActive(i)}
                 aria-label={s.verb}
                 style={{
-                  height: 5,
-                  width: i === active ? 30 : 14,
+                  height: 24,
+                  width: 24,
                   borderRadius: 100,
                   border: 'none',
                   cursor: 'pointer',
                   padding: 0,
-                  background: i === active ? C.accent : C.line,
-                  transition: 'width .4s cubic-bezier(.4,0,.2,1), background .3s',
+                  background: 'transparent',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
-              />
+              >
+                <div
+                  style={{
+                    height: 5,
+                    width: i === active ? 30 : 14,
+                    borderRadius: 100,
+                    background: i === active ? C.accent : C.line,
+                    transition: 'width .4s cubic-bezier(.4,0,.2,1), background .3s',
+                  }}
+                />
+              </button>
             ))}
           </div>
         </div>

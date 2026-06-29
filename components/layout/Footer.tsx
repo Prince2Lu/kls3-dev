@@ -4,12 +4,12 @@ import { pageContentStyle } from '@/lib/pageLayout'
 
 const mainLinkStyle = {
   fontSize: '13px',
-  color: 'rgba(240, 237, 232, 0.45)',
+  color: 'rgba(240, 237, 232, 0.65)',
 } as const
 
 const legalLinkStyle = {
   fontSize: 12,
-  color: 'rgba(240,237,232,0.25)',
+  color: 'rgba(240,237,232,0.45)',
 } as const
 
 export default function Footer() {
@@ -54,14 +54,14 @@ export default function Footer() {
             <nav className="flex flex-wrap items-center gap-3">
               <Link
                 href="/mentions-legales"
-                className="transition-colors hover:!text-[rgba(240,237,232,0.45)]"
+                className="transition-colors hover:!text-[rgba(240,237,232,0.65)]"
                 style={legalLinkStyle}
               >
                 Mentions légales
               </Link>
               <Link
                 href="/politique-de-confidentialite"
-                className="transition-colors hover:!text-[rgba(240,237,232,0.45)]"
+                className="transition-colors hover:!text-[rgba(240,237,232,0.65)]"
                 style={legalLinkStyle}
               >
                 Politique de confidentialité
@@ -71,7 +71,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 pt-6" style={{ borderTop: '0.5px solid rgba(255, 255, 255, 0.07)' }}>
-          <p style={{ fontSize: '12px', color: 'rgba(240, 237, 232, 0.45)' }}>© 2026 KLS3</p>
+          <p style={{ fontSize: '12px', color: 'rgba(240, 237, 232, 0.65)' }}>© 2026 KLS3</p>
         </div>
       </div>
     </footer>
