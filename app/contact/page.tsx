@@ -5,7 +5,7 @@ import { pageContentStyle } from '@/lib/pageLayout'
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Décrivez-nous l\'opération qui vous ralentit le plus. Nous vous aidons à identifier les pertes invisibles et les leviers d\'amélioration les plus rapides à mettre en place.',
+    'Décrivez l\'opération qui vous ralentit le plus. KLS3 identifie vos frictions invisibles et vous propose les leviers d\'amélioration les plus rapides.',
 }
 
 export default function ContactPage() {
