@@ -66,18 +66,18 @@ export default function FaqSection() {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: 8,
+            gap: 10,
             marginBottom: 20,
             fontSize: 11,
-            letterSpacing: '0.16em',
+            letterSpacing: '0.22em',
             textTransform: 'uppercase',
             color: '#4B7BF5',
             fontWeight: 500,
             fontFamily: 'var(--font-body)',
           }}
         >
-          <span aria-hidden>——</span>
-          <span>Questions fréquentes</span>
+          <span style={{ width: 28, height: 1, background: '#4B7BF5', display: 'inline-block' }} />
+          Questions fréquentes
         </div>
 
         <h2

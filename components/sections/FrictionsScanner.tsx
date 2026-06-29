@@ -91,13 +91,11 @@ function useInjectStyles() {
     el.id = id
     el.textContent = `
       @keyframes kls3-barPulse { 0%,100%{transform:scaleY(.22)} 50%{transform:scaleY(1)} }
-      @keyframes kls3-ticker  { 0%,100%{opacity:.55} 50%{opacity:1} }
       .kls3-row:focus-visible { outline:2px solid ${C.accent}; outline-offset:2px; }
       .kls3-list-h { scrollbar-width: none; }
       .kls3-list-h::-webkit-scrollbar { display: none; }
       @media (prefers-reduced-motion: reduce) {
         .kls3-bar { animation: none !important; transform: scaleY(.5) !important; }
-        .kls3-dot { animation: none !important; }
       }
     `
     document.head.appendChild(el)
@@ -215,16 +213,7 @@ export default function FrictionsScanner({ loadFonts = true }: FrictionsScannerP
           >
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
-                <span
-                  className="kls3-dot"
-                  style={{
-                    width: 7,
-                    height: 7,
-                    borderRadius: '50%',
-                    background: C.accent,
-                    animation: 'kls3-ticker 1.6s ease-in-out infinite',
-                  }}
-                />
+                <span style={{ width: 28, height: 1, background: C.accent, display: 'inline-block' }} />
                 <span
                   style={{
                     fontSize: 12,
