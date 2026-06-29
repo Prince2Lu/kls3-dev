@@ -1,6 +1,9 @@
 import { notFound } from 'next/navigation'
 import { getPostBySlug, getAllPosts } from '@/lib/mdx'
+import JsonLd from '@/components/seo/JsonLd'
 import BlogPostClient from './BlogPostClient'
+
+const BASE_URL = 'https://www.kls3-dev.com'
 
 export async function generateStaticParams() {
   const posts = getAllPosts()
@@ -21,5 +24,44 @@ export default async function BlogPostPage({
     notFound()
   }
 
-  return <BlogPostClient post={post} />
+  const publishedDate = post.publishedAt
+  const imageUrl = post.image
+    ? `${BASE_URL}${post.image.startsWith('/') ? post.image : `/${post.image}`}`
+    : `${BASE_URL}/favicon.svg`
+
+  return (
+    <>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: post.titre_seo,
+          description: post.meta_description ?? '',
+          url: `${BASE_URL}/blog/${post.slug}`,
+          datePublished: publishedDate,
+          dateModified: publishedDate,
+          author: {
+            '@type': 'Organization',
+            name: 'KLS3',
+            url: BASE_URL,
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: 'KLS3',
+            url: BASE_URL,
+            logo: {
+              '@type': 'ImageObject',
+              url: `${BASE_URL}/favicon.svg`,
+            },
+          },
+          image: imageUrl,
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `${BASE_URL}/blog/${post.slug}`,
+          },
+        }}
+      />
+      <BlogPostClient post={post} />
+    </>
+  )
 }
