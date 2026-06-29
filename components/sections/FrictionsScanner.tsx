@@ -121,6 +121,7 @@ export default function FrictionsScanner({ loadFonts = true }: FrictionsScannerP
   const [sel, setSel] = useState(0)
   const [paused, setPaused] = useState(false)
   const tabRefs = useRef<(HTMLDivElement | null)[]>([])
+  const listRef = useRef<HTMLDivElement>(null)
   const [ref, width] = useContainerWidth()
   const reduceMotion = usePrefersReducedMotion()
   const compact = width > 0 && width <= BP
@@ -137,13 +138,14 @@ export default function FrictionsScanner({ loadFonts = true }: FrictionsScannerP
 
   useEffect(() => {
     if (!compact) return
+    const list = listRef.current
     const el = tabRefs.current[sel]
-    if (!el) return
-    el.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'center',
-    })
+    if (!list || !el) return
+    const listRect = list.getBoundingClientRect()
+    const elRect = el.getBoundingClientRect()
+    const offset =
+      el.offsetLeft - list.offsetLeft - listRect.width / 2 + elRect.width / 2
+    list.scrollTo({ left: offset, behavior: 'smooth' })
   }, [sel, compact])
 
   const active = FRICTIONS[sel]
@@ -273,6 +275,7 @@ export default function FrictionsScanner({ loadFonts = true }: FrictionsScannerP
             }}
           >
             <div
+              ref={listRef}
               className={compact ? 'kls3-list-h' : undefined}
               role="tablist"
               aria-label="Frictions opérationnelles"
