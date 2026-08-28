@@ -4,7 +4,7 @@ import { useState } from 'react'
 import type { AutomationPack } from '@/lib/data/automation-packs'
 import { AutomationPacksGrid } from './automation-packs-grid'
 import { FrictionCalculator, type FrictionResult } from './friction-calculator'
-import { ResultsAndCapture } from './results-and-capture'
+import { ScoreCard, CaptureForm } from './results-and-capture'
 import { SectionLabel } from './section-label'
 
 type Props = {
@@ -49,9 +49,13 @@ export function DiagnosticInteractive({ packs }: Props) {
             coordination manuelle entre vos outils.
           </p>
 
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          <div className="mb-12 grid grid-cols-1 gap-12 lg:grid-cols-2">
             <FrictionCalculator onResultChange={setResult} />
-            <ResultsAndCapture result={result} selectedPacks={selectedPacks} />
+            <ScoreCard result={result} selectedPacks={selectedPacks} />
+          </div>
+
+          <div className="mx-auto max-w-xl">
+            <CaptureForm result={result} selectedPacks={selectedPacks} />
           </div>
         </div>
       </section>
