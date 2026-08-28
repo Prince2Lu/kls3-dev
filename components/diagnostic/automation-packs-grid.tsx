@@ -37,18 +37,11 @@ export function AutomationPacksGrid({ packs, selected, onToggle }: Props) {
             aria-pressed={isSelected}
             onClick={() => onToggle(pack.id)}
             className={[
-              'relative flex flex-col gap-4 bg-card p-6 text-left transition-colors',
+              'relative flex h-full flex-col gap-4 bg-card p-6 text-left transition-colors',
               'focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent',
               isSelected ? 'bg-[#141b2e]' : 'hover:bg-[#141414]',
             ].join(' ')}
           >
-            <span
-              className="pointer-events-none absolute bottom-14 right-5 select-none font-display font-bold text-accent"
-              style={{ fontSize: 44, opacity: 0.25 }}
-            >
-              {pack.numero}
-            </span>
-
             <div className="flex items-start justify-between">
               <svg viewBox="0 0 24 24" className="h-8 w-8 text-accent">
                 <path
@@ -91,12 +84,21 @@ export function AutomationPacksGrid({ packs, selected, onToggle }: Props) {
               </p>
             </div>
 
-            <span
-              className="inline-block w-fit whitespace-nowrap rounded-full px-3 py-1 font-medium uppercase text-accent"
-              style={{ fontSize: 10, letterSpacing: '0.08em', background: 'rgba(75,123,245,0.12)' }}
-            >
-              Potentiel {pack.potentiel}
-            </span>
+            <div className="mt-auto flex items-end justify-between pt-4">
+              <span
+                className="inline-block w-fit whitespace-nowrap rounded-full px-3 py-1 font-medium uppercase text-accent"
+                style={{ fontSize: 10, letterSpacing: '0.08em', background: 'rgba(75,123,245,0.12)' }}
+              >
+                Potentiel {pack.potentiel}
+              </span>
+
+              <span
+                className="pointer-events-none select-none font-display font-bold text-accent"
+                style={{ fontSize: 40, opacity: 0.25, lineHeight: 1 }}
+              >
+                {pack.numero}
+              </span>
+            </div>
           </motion.button>
         )
       })}
