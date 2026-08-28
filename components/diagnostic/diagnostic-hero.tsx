@@ -76,51 +76,65 @@ export function DiagnosticHero() {
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
         >
           <svg viewBox="0 0 420 340" className="w-full">
-            {nodes.map((n, i) => (
-              <g key={n.label}>
+            {/* Groupe 1 : toutes les lignes de connexion, rendues en premier donc sous les carrés */}
+            <g>
+              {nodes.map((n, i) => (
                 <path
+                  key={`line-${n.label}`}
                   d={`M70,${n.y + 16} Q210,${150 - (i - 2.5) * 8} 235,150`}
                   fill="none"
                   stroke="rgba(75,123,245,0.35)"
                   strokeWidth={1.4}
                 />
-                <rect
-                  x={12}
-                  y={n.y}
-                  width={116}
-                  height={32}
-                  rx={7}
-                  fill="#111111"
-                  stroke="rgba(255,255,255,0.07)"
-                />
-                <text
-                  x={24}
-                  y={n.y + 20}
-                  fontFamily="Inter"
-                  fontSize={11}
-                  fill="rgba(240,237,232,0.45)"
-                >
-                  {n.label}
-                </text>
-              </g>
-            ))}
-
-            <path
-              d="M270,150 Q320,150 350,150"
-              fill="none"
-              stroke="rgba(75,123,245,0.35)"
-              strokeWidth={1.4}
-            />
-
-            <circle cx={248} cy={150} r={38} fill="#111111" stroke="#4B7BF5" strokeWidth={1.4} />
-            <text x={238} y={156} fontFamily="Syne" fontSize={20} fontWeight={700} fill="#4B7BF5">
-              K
-            </text>
-
-            <rect x={352} y={132} width={60} height={36} rx={8} fill="#111111" stroke="rgba(255,255,255,0.07)" />
-            <text x={364} y={154} fontFamily="Inter" fontSize={11} fill="rgba(240,237,232,0.45)">
-              Client
-            </text>
+              ))}
+              <path
+                d="M286,150 Q320,150 350,150"
+                fill="none"
+                stroke="rgba(75,123,245,0.35)"
+                strokeWidth={1.4}
+              />
+            </g>
+            {/* Groupe 2 : les carrés + le nœud central + le nœud client, rendus après donc au-dessus des lignes */}
+            <g>
+              {nodes.map((n) => (
+                <g key={`box-${n.label}`}>
+                  <rect
+                    x={12}
+                    y={n.y}
+                    width={116}
+                    height={32}
+                    rx={7}
+                    fill="#111111"
+                    stroke="rgba(255,255,255,0.07)"
+                  />
+                  <text
+                    x={24}
+                    y={n.y + 20}
+                    fontFamily="Inter"
+                    fontSize={11}
+                    fill="rgba(240,237,232,0.45)"
+                  >
+                    {n.label}
+                  </text>
+                </g>
+              ))}
+              <circle cx={248} cy={150} r={46} fill="#111111" stroke="#4B7BF5" strokeWidth={1.4} />
+              <text
+                x={248}
+                y={156}
+                textAnchor="middle"
+                fontFamily="Syne"
+                fontSize={17}
+                fontWeight={700}
+                fill="#4B7BF5"
+              >
+                KLS3
+              </text>
+              <rect x={352} y={132} width={60} height={36} rx={8} fill="#111111" stroke="rgba(255,255,255,0.07)" />
+              <text x={364} y={154} fontFamily="Inter" fontSize={11} fill="rgba(240,237,232,0.45)">
+                Client
+              </text>
+            </g>
           </svg>
         </motion.div>
       </div>

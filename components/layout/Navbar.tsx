@@ -11,7 +11,6 @@ const navLinks = [
   { href: '/#solutions', label: 'Solutions', hash: '#solutions' as const },
   { href: '/#methode', label: 'Méthode', hash: '#methode' as const },
   { href: '/cas-clients', label: 'Cas concrets' },
-  { href: '/diagnostic', label: 'Diagnostic' },
 ]
 
 const isHashLink = (

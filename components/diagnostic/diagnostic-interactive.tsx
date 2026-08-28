@@ -29,7 +29,7 @@ export function DiagnosticInteractive({ packs }: Props) {
           <h2 className="mb-4 font-display text-3xl font-bold text-foreground">
             Les Automation Packs
           </h2>
-          <p className="mb-12 max-w-xl font-light text-foreground-muted">
+          <p className="mb-12 max-w-xl text-base font-light text-foreground-muted">
             Sélectionnez les briques qui parlent le plus à votre quotidien. Chaque pack se
             déploie sans changer vos logiciels actuels.
           </p>
@@ -44,7 +44,7 @@ export function DiagnosticInteractive({ packs }: Props) {
           <h2 className="mb-4 font-display text-3xl font-bold text-foreground">
             Votre score de friction opérationnelle
           </h2>
-          <p className="mb-12 max-w-xl font-light text-foreground-muted">
+          <p className="mb-12 max-w-xl text-base font-light text-foreground-muted">
             Répondez en 30 secondes pour estimer le temps et le coût mobilisés par la
             coordination manuelle entre vos outils.
           </p>

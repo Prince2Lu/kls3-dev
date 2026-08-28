@@ -43,8 +43,8 @@ export function AutomationPacksGrid({ packs, selected, onToggle }: Props) {
             ].join(' ')}
           >
             <span
-              className="pointer-events-none absolute right-4 top-2 select-none font-display font-bold text-accent"
-              style={{ fontSize: 40, opacity: 0.15 }}
+              className="pointer-events-none absolute bottom-14 right-5 select-none font-display font-bold text-accent"
+              style={{ fontSize: 44, opacity: 0.25 }}
             >
               {pack.numero}
             </span>
@@ -86,13 +86,13 @@ export function AutomationPacksGrid({ packs, selected, onToggle }: Props) {
               <h3 className="mb-2 font-display text-base font-bold text-foreground">
                 {pack.titre}
               </h3>
-              <p className="text-sm font-light leading-relaxed text-foreground-muted">
+              <p className="text-base font-light leading-relaxed text-foreground-muted">
                 {pack.description}
               </p>
             </div>
 
             <span
-              className="inline-block w-fit rounded-full px-3 py-1 font-medium uppercase text-accent"
+              className="inline-block w-fit whitespace-nowrap rounded-full px-3 py-1 font-medium uppercase text-accent"
               style={{ fontSize: 10, letterSpacing: '0.08em', background: 'rgba(75,123,245,0.12)' }}
             >
               Potentiel {pack.potentiel}
