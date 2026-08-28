@@ -49,11 +49,10 @@ export function DiagnosticInteractive({ packs }: Props) {
             coordination manuelle entre vos outils.
           </p>
 
-          <div className="mb-12 grid grid-cols-1 gap-12 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <FrictionCalculator onResultChange={setResult} />
+            <ResultsAndCapture result={result} selectedPacks={selectedPacks} />
           </div>
-
-          <ResultsAndCapture result={result} selectedPacks={selectedPacks} />
         </div>
       </section>
     </>

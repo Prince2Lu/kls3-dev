@@ -144,12 +144,12 @@ export function DiagnosticHero() {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, margin: '-80px' }}
-        className="mx-auto mt-16 grid max-w-6xl grid-cols-2 gap-6 border-t border-white/[0.07] px-6 pt-10 md:grid-cols-4"
+        className="mx-auto mt-16 grid max-w-6xl grid-cols-2 gap-8 border-t border-white/[0.07] px-6 pt-10 md:grid-cols-4"
       >
         {stats.map((s) => (
           <motion.div key={s.label} variants={fadeInUp}>
-            <div className="font-display text-2xl font-bold text-accent">{s.value}</div>
-            <div className="mt-1 text-xs leading-snug text-foreground-muted">{s.label}</div>
+            <div className="font-display text-4xl font-bold text-accent">{s.value}</div>
+            <div className="mt-2 text-base leading-snug text-foreground-muted">{s.label}</div>
           </motion.div>
         ))}
       </motion.div>

@@ -49,12 +49,12 @@ export function FrictionCalculator({ onResultChange }: Props) {
   }, [values, taux])
 
   return (
-    <div>
+    <div className="min-w-0">
       {fields.map((f) => (
         <div key={f.key} className="mb-7">
-          <label className="mb-2 flex justify-between text-sm font-light text-foreground-muted">
+          <label className="mb-3 flex justify-between gap-3 text-base font-light text-foreground-muted">
             <span>{f.label}</span>
-            <span className="font-medium text-accent">
+            <span className="shrink-0 text-lg font-semibold text-accent">
               {values[f.key]}
               {f.unit}
             </span>
@@ -74,7 +74,7 @@ export function FrictionCalculator({ onResultChange }: Props) {
       ))}
 
       <div>
-        <label className="mb-2 block text-sm font-light text-foreground-muted">
+        <label className="mb-2 block text-base font-light text-foreground-muted">
           Coût horaire chargé moyen (€)
         </label>
         <input
@@ -83,7 +83,7 @@ export function FrictionCalculator({ onResultChange }: Props) {
           min={10}
           max={120}
           onChange={(e) => setTaux(Number(e.target.value))}
-          className="w-32 rounded-lg border border-white/[0.07] bg-card px-3 py-2 text-sm text-foreground focus:border-accent focus:outline-none"
+          className="w-32 rounded-lg border border-white/[0.07] bg-card px-3 py-2 text-base text-foreground focus:border-accent focus:outline-none"
         />
       </div>
     </div>

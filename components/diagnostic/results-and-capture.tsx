@@ -44,59 +44,7 @@ export function ResultsAndCapture({ result, selectedPacks }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
-      <div className="rounded-2xl border border-white/[0.07] bg-card p-8">
-        <div className="mb-6 flex items-baseline gap-3">
-          <span className="font-display text-5xl font-bold text-accent">{result.score}</span>
-          <span className="text-sm text-foreground-muted">
-            /100
-            <br />
-            Score de friction
-          </span>
-        </div>
-        <div className="mb-7 h-1.5 overflow-hidden rounded-full bg-white/[0.08]">
-          <div
-            className="h-full rounded-full bg-accent transition-all"
-            style={{ width: `${result.score}%` }}
-          />
-        </div>
-
-        <div className="flex justify-between border-t border-white/[0.07] py-3 text-sm">
-          <span className="text-foreground-muted">Temps mobilisé</span>
-          <span className="font-medium text-foreground">{result.heuresMois} h / mois</span>
-        </div>
-        <div className="flex justify-between border-t border-white/[0.07] py-3 text-sm">
-          <span className="text-foreground-muted">Capacité administrative mobilisée</span>
-          <span className="font-medium text-foreground">
-            {result.coutAn.toLocaleString('fr-FR')} € / an
-          </span>
-        </div>
-
-        {allPacksForReco.length > 0 && (
-          <div className="mt-6">
-            <p className="mb-3 text-xs font-medium uppercase text-foreground-muted" style={{ letterSpacing: '0.1em' }}>
-              Packs sélectionnés
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {allPacksForReco.map((p) => (
-                <span
-                  key={p.id}
-                  className="rounded-full px-3 py-1 text-xs text-accent"
-                  style={{ background: 'rgba(75,123,245,0.12)' }}
-                >
-                  {p.titre}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <p className="mt-6 border-t border-white/[0.07] pt-4 text-xs italic text-foreground-muted">
-          Estimation indicative de modélisation, à affiner lors d&apos;un diagnostic approfondi
-          avec votre cabinet.
-        </p>
-      </div>
-
+    <>
       <div className="rounded-2xl border border-white/[0.07] bg-card p-8">
         <h3 className="mb-2 font-display text-xl font-bold text-foreground">
           Recevoir mon diagnostic personnalisé
@@ -149,6 +97,58 @@ export function ResultsAndCapture({ result, selectedPacks }: Props) {
           </form>
         )}
       </div>
-    </div>
+
+      <div className="rounded-2xl border border-white/[0.07] bg-card p-8">
+        <div className="mb-6 flex items-baseline gap-3">
+          <span className="font-display text-5xl font-bold text-accent">{result.score}</span>
+          <span className="text-sm text-foreground-muted">
+            /100
+            <br />
+            Score de friction
+          </span>
+        </div>
+        <div className="mb-7 h-1.5 overflow-hidden rounded-full bg-white/[0.08]">
+          <div
+            className="h-full rounded-full bg-accent transition-all"
+            style={{ width: `${result.score}%` }}
+          />
+        </div>
+
+        <div className="flex justify-between border-t border-white/[0.07] py-3 text-sm">
+          <span className="text-foreground-muted">Temps mobilisé</span>
+          <span className="font-medium text-foreground">{result.heuresMois} h / mois</span>
+        </div>
+        <div className="flex justify-between border-t border-white/[0.07] py-3 text-sm">
+          <span className="text-foreground-muted">Capacité administrative mobilisée</span>
+          <span className="font-medium text-foreground">
+            {result.coutAn.toLocaleString('fr-FR')} € / an
+          </span>
+        </div>
+
+        {allPacksForReco.length > 0 && (
+          <div className="mt-6">
+            <p className="mb-3 text-xs font-medium uppercase text-foreground-muted" style={{ letterSpacing: '0.1em' }}>
+              Packs sélectionnés
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {allPacksForReco.map((p) => (
+                <span
+                  key={p.id}
+                  className="rounded-full px-3 py-1 text-xs text-accent"
+                  style={{ background: 'rgba(75,123,245,0.12)' }}
+                >
+                  {p.titre}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <p className="mt-6 border-t border-white/[0.07] pt-4 text-xs italic text-foreground-muted">
+          Estimation indicative de modélisation, à affiner lors d&apos;un diagnostic approfondi
+          avec votre cabinet.
+        </p>
+      </div>
+    </>
   )
 }
