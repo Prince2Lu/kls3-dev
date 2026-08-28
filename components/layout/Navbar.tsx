@@ -11,6 +11,7 @@ const navLinks = [
   { href: '/#solutions', label: 'Solutions', hash: '#solutions' as const },
   { href: '/#methode', label: 'Méthode', hash: '#methode' as const },
   { href: '/cas-clients', label: 'Cas concrets' },
+  { href: '/diagnostic', label: 'Diagnostic' },
 ]
 
 const isHashLink = (
@@ -80,9 +81,8 @@ export default function Navbar() {
   }, [open])
 
   const isLinkActive = (link: (typeof navLinks)[number]) => {
-    if (link.href === '/cas-clients') return pathname === '/cas-clients'
     if (isHashLink(link)) return pathname === '/' && activeHash === link.hash
-    return false
+    return pathname === link.href || pathname.startsWith(`${link.href}/`)
   }
 
   const isBlogActive = pathname === '/blog' || pathname.startsWith('/blog/')
