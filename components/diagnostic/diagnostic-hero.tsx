@@ -42,7 +42,7 @@ export function DiagnosticHero() {
             variants={fadeInUp}
             className="mb-6 font-display text-4xl font-bold leading-[1.1] text-foreground md:text-5xl"
           >
-            Ce qui reste manuscrit entre vos logiciels,{' '}
+            Ce qui reste manuel entre vos logiciels,{' '}
             <span className="text-accent">nous l&apos;orchestrons.</span>
           </motion.h1>
 
