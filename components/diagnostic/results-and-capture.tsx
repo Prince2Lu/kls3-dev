@@ -79,6 +79,7 @@ export function CaptureForm({ result, selectedPacks }: Props) {
         score: result.score,
         heuresMois: result.heuresMois,
         coutAn: result.coutAn,
+        parametres: result.parametres,
         packsSelectionnes: selectedPacks.map((p) => p.id),
       })
       setStatus(res.ok ? 'sent' : 'error')

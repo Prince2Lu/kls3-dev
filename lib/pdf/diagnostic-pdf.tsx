@@ -2,6 +2,13 @@ import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/render
 import type { AutomationPack } from '@/lib/data/automation-packs'
 import { kls3CompanyInfo } from '@/lib/data/company-info'
 
+/** Remplace les caractères non supportés par les polices de base du PDF (Helvetica). */
+function sanitizeForPdf(text: string): string {
+  return text
+    .replace(/→/g, '->')
+    .replace(/[\u202F\u00A0]/g, ' ')
+}
+
 type DiagnosticPdfProps = {
   nom: string
   cabinet: string
@@ -9,6 +16,14 @@ type DiagnosticPdfProps = {
   score: number
   heuresMois: number
   coutAn: number
+  parametres: {
+    clients: number
+    outils: number
+    relanceHeures: number
+    dossiersDivergents: number
+    tempsStatutMinutes: number
+    tauxHoraire: number
+  }
   allPacks: AutomationPack[]
   selectedPackIds: string[]
   date: string
@@ -30,7 +45,9 @@ const styles = StyleSheet.create({
     borderBottom: '1px solid #E5E5E5',
     paddingBottom: 16,
   },
+  logoRow: { flexDirection: 'row', alignItems: 'center' },
   logo: { width: 40, height: 40 },
+  logoText: { fontSize: 18, fontFamily: 'Helvetica-Bold', marginLeft: 8 },
   headerTitle: { fontSize: 16, fontFamily: 'Helvetica-Bold', color: '#4B7BF5' },
   headerDate: { fontSize: 9, color: '#888780' },
   sectionTitle: {
@@ -103,6 +120,7 @@ export function DiagnosticPdf({
   score,
   heuresMois,
   coutAn,
+  parametres,
   allPacks,
   selectedPackIds,
   date,
@@ -111,7 +129,13 @@ export function DiagnosticPdf({
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.headerRow}>
-          <Image src={kls3CompanyInfo.logoUrl} style={styles.logo} />
+          <View style={styles.logoRow}>
+            <Image src={kls3CompanyInfo.logoUrl} style={styles.logo} />
+            <Text style={styles.logoText}>
+              <Text style={{ color: '#111827' }}>KLS</Text>
+              <Text style={{ color: '#4B7BF5' }}>3</Text>
+            </Text>
+          </View>
           <View style={{ alignItems: 'flex-end' }}>
             <Text style={styles.headerTitle}>Diagnostic de friction opérationnelle</Text>
             <Text style={styles.headerDate}>{date}</Text>
@@ -148,7 +172,35 @@ export function DiagnosticPdf({
         </View>
         <View style={styles.metricRow}>
           <Text style={styles.label}>Capacité administrative mobilisée</Text>
-          <Text style={styles.value}>{coutAn.toLocaleString('fr-FR')} € / an</Text>
+          <Text style={styles.value}>
+            {sanitizeForPdf(coutAn.toLocaleString('fr-FR'))} € / an
+          </Text>
+        </View>
+
+        <Text style={styles.sectionTitle}>Paramètres du diagnostic</Text>
+        <View style={styles.metricRow}>
+          <Text style={styles.label}>Nombre de clients actifs</Text>
+          <Text style={styles.value}>{parametres.clients}</Text>
+        </View>
+        <View style={styles.metricRow}>
+          <Text style={styles.label}>Outils / logiciels utilisés au quotidien</Text>
+          <Text style={styles.value}>{parametres.outils}</Text>
+        </View>
+        <View style={styles.metricRow}>
+          <Text style={styles.label}>Heures / semaine — relances & ressaisie</Text>
+          <Text style={styles.value}>{parametres.relanceHeures} h</Text>
+        </View>
+        <View style={styles.metricRow}>
+          <Text style={styles.label}>Dossiers avec infos divergentes / mois</Text>
+          <Text style={styles.value}>{parametres.dossiersDivergents}</Text>
+        </View>
+        <View style={styles.metricRow}>
+          <Text style={styles.label}>Temps moyen pour retrouver le statut d&apos;un dossier</Text>
+          <Text style={styles.value}>{parametres.tempsStatutMinutes} min</Text>
+        </View>
+        <View style={styles.metricRow}>
+          <Text style={styles.label}>Coût horaire chargé moyen</Text>
+          <Text style={styles.value}>{parametres.tauxHoraire} €</Text>
         </View>
 
         <Text style={styles.sectionTitle}>Les Automation Packs KLS3</Text>
@@ -161,7 +213,7 @@ export function DiagnosticPdf({
             >
               <View style={styles.packHeader}>
                 <Text style={styles.packTitle}>
-                  {pack.numero} — {pack.titre}
+                  {pack.numero} — {sanitizeForPdf(pack.titre)}
                 </Text>
                 <Text style={styles.packBadge}>
                   {isSelected ? 'Sélectionné · ' : ''}Potentiel {pack.potentiel}

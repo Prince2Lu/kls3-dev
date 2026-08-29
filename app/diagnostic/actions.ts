@@ -17,6 +17,14 @@ export type DiagnosticSubmission = {
   score: number
   heuresMois: number
   coutAn: number
+  parametres: {
+    clients: number
+    outils: number
+    relanceHeures: number
+    dossiersDivergents: number
+    tempsStatutMinutes: number
+    tauxHoraire: number
+  }
   /** ids des packs sélectionnés — voir lib/data/automation-packs.ts */
   packsSelectionnes: string[]
 }
@@ -57,6 +65,7 @@ export async function submitDiagnostic(
         score: data.score,
         heuresMois: data.heuresMois,
         coutAn: data.coutAn,
+        parametres: data.parametres,
         allPacks: automationPacks,
         selectedPackIds: data.packsSelectionnes,
         date,
@@ -80,6 +89,7 @@ export async function submitDiagnostic(
         score: data.score,
         heuresMois: data.heuresMois,
         coutAn: data.coutAn,
+        parametres: data.parametres,
         allPacks: automationPacks,
         selectedPackIds: data.packsSelectionnes,
         audience: 'client',
@@ -103,6 +113,7 @@ export async function submitDiagnostic(
         score: data.score,
         heuresMois: data.heuresMois,
         coutAn: data.coutAn,
+        parametres: data.parametres,
         allPacks: automationPacks,
         selectedPackIds: data.packsSelectionnes,
         audience: 'interne',

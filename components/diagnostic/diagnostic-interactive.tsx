@@ -13,7 +13,19 @@ type Props = {
 
 export function DiagnosticInteractive({ packs }: Props) {
   const [selected, setSelected] = useState<string[]>([])
-  const [result, setResult] = useState<FrictionResult>({ score: 0, heuresMois: 0, coutAn: 0 })
+  const [result, setResult] = useState<FrictionResult>({
+    score: 0,
+    heuresMois: 0,
+    coutAn: 0,
+    parametres: {
+      clients: 0,
+      outils: 0,
+      relanceHeures: 0,
+      dossiersDivergents: 0,
+      tempsStatutMinutes: 0,
+      tauxHoraire: 0,
+    },
+  })
 
   function toggle(id: string) {
     setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))

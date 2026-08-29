@@ -7,6 +7,14 @@ type DiagnosticEmailProps = {
   score: number
   heuresMois: number
   coutAn: number
+  parametres: {
+    clients: number
+    outils: number
+    relanceHeures: number
+    dossiersDivergents: number
+    tempsStatutMinutes: number
+    tauxHoraire: number
+  }
   allPacks: AutomationPack[]
   selectedPackIds: string[]
   audience: 'client' | 'interne'
@@ -27,6 +35,7 @@ export function buildDiagnosticEmailHtml({
   score,
   heuresMois,
   coutAn,
+  parametres,
   allPacks,
   selectedPackIds,
   audience,
@@ -58,7 +67,16 @@ export function buildDiagnosticEmailHtml({
   <div style="font-family: Arial, Helvetica, sans-serif; background:#F5F3EF; padding:32px;">
     <div style="max-width:600px;margin:0 auto;background:#FFFFFF;border-radius:12px;overflow:hidden;border:1px solid #E5E5E5;">
       <div style="background:#0D0D0D;padding:24px 32px;">
-        <img src="${kls3CompanyInfo.logoUrl}" alt="KLS3" width="36" height="36" style="display:block;" />
+        <table cellpadding="0" cellspacing="0" role="presentation">
+          <tr>
+            <td style="vertical-align:middle;padding-right:10px;">
+              <img src="${kls3CompanyInfo.logoUrl}" alt="KLS3" width="32" height="32" style="display:block;" />
+            </td>
+            <td style="vertical-align:middle;font-family:Arial, Helvetica, sans-serif;font-size:20px;font-weight:700;">
+              <span style="color:#F0EDE8;">KLS</span><span style="color:#4B7BF5;">3</span>
+            </td>
+          </tr>
+        </table>
       </div>
       <div style="padding:32px;">
         ${intro}
@@ -74,6 +92,32 @@ export function buildDiagnosticEmailHtml({
             <tr>
               <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:13px;color:#888780;">Capacité administrative mobilisée</td>
               <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:13px;color:#111827;font-weight:600;text-align:right;">${coutAn.toLocaleString('fr-FR')} € / an</td>
+            </tr>
+          </table>
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:12px;">
+            <tr>
+              <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:12px;color:#888780;">Clients actifs</td>
+              <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:12px;color:#111827;font-weight:600;text-align:right;">${parametres.clients}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:12px;color:#888780;">Outils / logiciels au quotidien</td>
+              <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:12px;color:#111827;font-weight:600;text-align:right;">${parametres.outils}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:12px;color:#888780;">Heures / semaine relances</td>
+              <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:12px;color:#111827;font-weight:600;text-align:right;">${parametres.relanceHeures} h</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:12px;color:#888780;">Dossiers divergents / mois</td>
+              <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:12px;color:#111827;font-weight:600;text-align:right;">${parametres.dossiersDivergents}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:12px;color:#888780;">Temps moyen retrouver un dossier</td>
+              <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:12px;color:#111827;font-weight:600;text-align:right;">${parametres.tempsStatutMinutes} min</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:12px;color:#888780;">Coût horaire chargé moyen</td>
+              <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:12px;color:#111827;font-weight:600;text-align:right;">${parametres.tauxHoraire} €</td>
             </tr>
           </table>
         </div>

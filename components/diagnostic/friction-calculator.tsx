@@ -6,6 +6,14 @@ export type FrictionResult = {
   score: number
   heuresMois: number
   coutAn: number
+  parametres: {
+    clients: number
+    outils: number
+    relanceHeures: number
+    dossiersDivergents: number
+    tempsStatutMinutes: number
+    tauxHoraire: number
+  }
 }
 
 type Props = {
@@ -44,7 +52,19 @@ export function FrictionCalculator({ onResultChange }: Props) {
     const heuresMois = Math.round(relance * 4.33 + diverg * (statut / 60))
     const coutAn = Math.round(heuresMois * 12 * taux)
 
-    onResultChange({ score, heuresMois, coutAn })
+    onResultChange({
+      score,
+      heuresMois,
+      coutAn,
+      parametres: {
+        clients: values.clients,
+        outils: values.outils,
+        relanceHeures: values.relance,
+        dossiersDivergents: values.diverg,
+        tempsStatutMinutes: values.statut,
+        tauxHoraire: taux,
+      },
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values, taux])
 
