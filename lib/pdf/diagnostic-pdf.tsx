@@ -1,0 +1,194 @@
+import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer'
+import type { AutomationPack } from '@/lib/data/automation-packs'
+import { kls3CompanyInfo } from '@/lib/data/company-info'
+
+type DiagnosticPdfProps = {
+  nom: string
+  cabinet: string
+  email: string
+  score: number
+  heuresMois: number
+  coutAn: number
+  allPacks: AutomationPack[]
+  selectedPackIds: string[]
+  date: string
+}
+
+const styles = StyleSheet.create({
+  page: {
+    padding: 40,
+    fontSize: 10,
+    fontFamily: 'Helvetica',
+    color: '#111827',
+    backgroundColor: '#FFFFFF',
+  },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 24,
+    borderBottom: '1px solid #E5E5E5',
+    paddingBottom: 16,
+  },
+  logo: { width: 40, height: 40 },
+  headerTitle: { fontSize: 16, fontFamily: 'Helvetica-Bold', color: '#4B7BF5' },
+  headerDate: { fontSize: 9, color: '#888780' },
+  sectionTitle: {
+    fontSize: 13,
+    fontFamily: 'Helvetica-Bold',
+    color: '#111827',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  clientBox: {
+    backgroundColor: '#F5F3EF',
+    borderRadius: 6,
+    padding: 12,
+    marginBottom: 4,
+  },
+  clientRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
+  label: { color: '#888780' },
+  value: { fontFamily: 'Helvetica-Bold', color: '#111827' },
+  scoreRow: { flexDirection: 'row', alignItems: 'baseline', marginBottom: 8 },
+  scoreValue: { fontSize: 32, fontFamily: 'Helvetica-Bold', color: '#4B7BF5', marginRight: 6 },
+  scoreLabel: { fontSize: 10, color: '#888780' },
+  scoreBarBg: {
+    height: 6,
+    backgroundColor: '#E5E5E5',
+    borderRadius: 3,
+    marginBottom: 14,
+  },
+  scoreBarFill: {
+    height: 6,
+    backgroundColor: '#4B7BF5',
+    borderRadius: 3,
+  },
+  metricRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderTop: '1px solid #E5E5E5',
+    paddingVertical: 6,
+  },
+  packCard: {
+    border: '1px solid #E5E5E5',
+    borderRadius: 6,
+    padding: 10,
+    marginBottom: 8,
+  },
+  packCardSelected: {
+    border: '1px solid #4B7BF5',
+    backgroundColor: '#EEF2FF',
+  },
+  packHeader: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
+  packTitle: { fontFamily: 'Helvetica-Bold', fontSize: 11 },
+  packBadge: {
+    fontSize: 8,
+    color: '#4B7BF5',
+    fontFamily: 'Helvetica-Bold',
+  },
+  packDescription: { fontSize: 9, color: '#444444', lineHeight: 1.4 },
+  footer: {
+    marginTop: 24,
+    paddingTop: 12,
+    borderTop: '1px solid #E5E5E5',
+    fontSize: 8,
+    color: '#888780',
+  },
+})
+
+export function DiagnosticPdf({
+  nom,
+  cabinet,
+  email,
+  score,
+  heuresMois,
+  coutAn,
+  allPacks,
+  selectedPackIds,
+  date,
+}: DiagnosticPdfProps) {
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.headerRow}>
+          <Image src={kls3CompanyInfo.logoUrl} style={styles.logo} />
+          <View style={{ alignItems: 'flex-end' }}>
+            <Text style={styles.headerTitle}>Diagnostic de friction opérationnelle</Text>
+            <Text style={styles.headerDate}>{date}</Text>
+          </View>
+        </View>
+
+        <Text style={styles.sectionTitle}>Informations</Text>
+        <View style={styles.clientBox}>
+          <View style={styles.clientRow}>
+            <Text style={styles.label}>Nom</Text>
+            <Text style={styles.value}>{nom}</Text>
+          </View>
+          <View style={styles.clientRow}>
+            <Text style={styles.label}>Cabinet</Text>
+            <Text style={styles.value}>{cabinet}</Text>
+          </View>
+          <View style={styles.clientRow}>
+            <Text style={styles.label}>Email</Text>
+            <Text style={styles.value}>{email}</Text>
+          </View>
+        </View>
+
+        <Text style={styles.sectionTitle}>Score de friction opérationnelle</Text>
+        <View style={styles.scoreRow}>
+          <Text style={styles.scoreValue}>{score}</Text>
+          <Text style={styles.scoreLabel}>/100</Text>
+        </View>
+        <View style={styles.scoreBarBg}>
+          <View style={[styles.scoreBarFill, { width: `${score}%` }]} />
+        </View>
+        <View style={styles.metricRow}>
+          <Text style={styles.label}>Temps mobilisé</Text>
+          <Text style={styles.value}>{heuresMois} h / mois</Text>
+        </View>
+        <View style={styles.metricRow}>
+          <Text style={styles.label}>Capacité administrative mobilisée</Text>
+          <Text style={styles.value}>{coutAn.toLocaleString('fr-FR')} € / an</Text>
+        </View>
+
+        <Text style={styles.sectionTitle}>Les Automation Packs KLS3</Text>
+        {allPacks.map((pack) => {
+          const isSelected = selectedPackIds.includes(pack.id)
+          return (
+            <View
+              key={pack.id}
+              style={isSelected ? [styles.packCard, styles.packCardSelected] : styles.packCard}
+            >
+              <View style={styles.packHeader}>
+                <Text style={styles.packTitle}>
+                  {pack.numero} — {pack.titre}
+                </Text>
+                <Text style={styles.packBadge}>
+                  {isSelected ? 'Sélectionné · ' : ''}Potentiel {pack.potentiel}
+                </Text>
+              </View>
+              <Text style={styles.packDescription}>{pack.description}</Text>
+            </View>
+          )
+        })}
+
+        <Text style={{ fontSize: 8, fontStyle: 'italic', color: '#888780', marginTop: 8 }}>
+          Estimation indicative de modélisation, à affiner lors d&apos;un diagnostic approfondi
+          avec votre cabinet.
+        </Text>
+
+        <View style={styles.footer}>
+          <Text>
+            {kls3CompanyInfo.nom} — {kls3CompanyInfo.formeJuridique}
+          </Text>
+          <Text>
+            {kls3CompanyInfo.adresse} · SIRET {kls3CompanyInfo.siret}
+          </Text>
+          <Text>
+            {kls3CompanyInfo.site} · {kls3CompanyInfo.email}
+          </Text>
+        </View>
+      </Page>
+    </Document>
+  )
+}
