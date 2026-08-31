@@ -52,3 +52,16 @@ export interface ReminderStep {
   channel: string
   title: string
 }
+
+export interface ConnectedTool {
+  id: string
+  name: string
+  icon: string
+}
+
+export interface SourceEventField {
+  label: string
+  value: string
+}
+
+export type ToolSyncStatus = 'attente' | 'en_cours' | 'synchronise'

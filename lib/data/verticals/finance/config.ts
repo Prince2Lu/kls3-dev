@@ -15,7 +15,7 @@ export const financeConfig: VerticalConfig = {
     { label: 'Dossiers suivis', value: 5 },
     { label: 'Pièces en attente', value: 12 },
     { label: 'Relances programmées', value: 3 },
-    { label: 'Modules actifs', value: 1 },
+    { label: 'Modules actifs', value: 2 },
   ],
   modules: [
     {
@@ -43,7 +43,7 @@ export const financeConfig: VerticalConfig = {
       id: 'synchronisation',
       label: 'Synchronisation inter-outils',
       description: "Circulation fluide de l'information entre vos outils métier.",
-      status: 'a_venir',
+      status: 'disponible',
       route: '/demo/finance/synchronisation',
     },
     {
