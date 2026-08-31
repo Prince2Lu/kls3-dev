@@ -65,3 +65,14 @@ export interface SourceEventField {
 }
 
 export type ToolSyncStatus = 'attente' | 'en_cours' | 'synchronise'
+
+export interface OnboardingStage {
+  id: string
+  label: string
+}
+
+export interface OtherOnboardingRow {
+  clientName: string
+  currentStageLabel: string
+  stageIndex: number
+}
