@@ -116,3 +116,19 @@ export interface ReportKpi {
   label: string
   value: string | number
 }
+
+export type TaskUrgency = 'urgent' | 'a_traiter' | 'en_attente'
+
+export interface DemoTask {
+  id: string
+  title: string
+  sourcePackLabel: string
+  urgency: TaskUrgency
+  assignee: string | null
+  done: boolean
+}
+
+export interface TeamMember {
+  id: string
+  name: string
+}

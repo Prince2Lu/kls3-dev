@@ -15,7 +15,7 @@ export const financeConfig: VerticalConfig = {
     { label: 'Dossiers suivis', value: 5 },
     { label: 'Pièces en attente', value: 12 },
     { label: 'Relances programmées', value: 3 },
-    { label: 'Modules actifs', value: 5 },
+    { label: 'Modules actifs', value: 6 },
   ],
   modules: [
     {
@@ -57,7 +57,7 @@ export const financeConfig: VerticalConfig = {
       id: 'affectation-pilotage',
       label: 'Affectation & pilotage',
       description: "Une file d'actions unique, triée par urgence.",
-      status: 'a_venir',
+      status: 'disponible',
       route: '/demo/finance/affectation-pilotage',
     },
   ],
