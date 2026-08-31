@@ -98,15 +98,16 @@ export default function ContactForm() {
         </div>
         <div>
           <label htmlFor="telephone" className={labelClass} style={labelStyle}>
-            Téléphone
+            Téléphone <span className="text-kls-accent">*</span>
           </label>
           <input
             type="tel"
             id="telephone"
+            required
             value={formData.telephone}
             onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
             className={inputClass}
-            placeholder="Optionnel"
+            placeholder="Votre numéro de téléphone"
           />
         </div>
       </div>
