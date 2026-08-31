@@ -106,3 +106,13 @@ export interface EventColumnConfig {
   status: EventStatus
   label: string
 }
+
+export interface WeeklyActivityPoint {
+  day: string
+  value: number
+}
+
+export interface ReportKpi {
+  label: string
+  value: string | number
+}

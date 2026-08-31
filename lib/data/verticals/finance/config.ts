@@ -15,7 +15,7 @@ export const financeConfig: VerticalConfig = {
     { label: 'Dossiers suivis', value: 5 },
     { label: 'Pièces en attente', value: 12 },
     { label: 'Relances programmées', value: 3 },
-    { label: 'Modules actifs', value: 4 },
+    { label: 'Modules actifs', value: 5 },
   ],
   modules: [
     {
@@ -50,7 +50,7 @@ export const financeConfig: VerticalConfig = {
       id: 'reporting',
       label: 'Reporting transversal',
       description: "Vue consolidée de l'activité, sans reporting manuel.",
-      status: 'a_venir',
+      status: 'disponible',
       route: '/demo/finance/reporting',
     },
     {
