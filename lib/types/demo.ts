@@ -69,7 +69,12 @@ export type ToolSyncStatus = 'attente' | 'en_cours' | 'synchronise'
 export interface OnboardingStage {
   id: string
   label: string
+  actionLabel: string
+  actionDescription: string
+  doneLabel: string
 }
+
+export type OnboardingActionState = 'idle' | 'en_cours' | 'fait'
 
 export interface OtherOnboardingRow {
   clientName: string

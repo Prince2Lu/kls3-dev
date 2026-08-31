@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import OnboardingActionPanel from '@/components/demo/onboarding/OnboardingActionPanel'
 import OnboardingTracker from '@/components/demo/onboarding/OnboardingTracker'
 import OtherOnboardingsList from '@/components/demo/onboarding/OtherOnboardingsList'
 import {
@@ -8,11 +9,50 @@ import {
   onboardingStages,
   otherOnboardings,
 } from '@/lib/data/verticals/finance/onboarding'
+import type { OnboardingActionState } from '@/lib/types/demo'
+
+const ACTION_DELAY_MS = 900
 
 export default function OnboardingDemo() {
   const [currentStageIndex, setCurrentStageIndex] = useState(0)
+  const [actionState, setActionState] = useState<OnboardingActionState>('idle')
+  const timeoutsRef = useRef<number[]>([])
   const lastIndex = onboardingStages.length - 1
-  const isComplete = currentStageIndex >= lastIndex
+  const stage = onboardingStages[currentStageIndex] ?? onboardingStages[0]
+  const isFinal = currentStageIndex === lastIndex && actionState === 'fait'
+
+  const clearTimers = useCallback(() => {
+    timeoutsRef.current.forEach((id) => window.clearTimeout(id))
+    timeoutsRef.current = []
+  }, [])
+
+  useEffect(() => () => clearTimers(), [clearTimers])
+
+  const handleAction = () => {
+    if (actionState !== 'idle') return
+
+    const stageIndex = currentStageIndex
+    clearTimers()
+    setActionState('en_cours')
+
+    const doneTimer = window.setTimeout(() => {
+      setActionState('fait')
+      if (stageIndex >= lastIndex) return
+
+      const nextTimer = window.setTimeout(() => {
+        setCurrentStageIndex(stageIndex + 1)
+        setActionState('idle')
+      }, ACTION_DELAY_MS)
+      timeoutsRef.current.push(nextTimer)
+    }, ACTION_DELAY_MS)
+    timeoutsRef.current.push(doneTimer)
+  }
+
+  const handleReset = () => {
+    clearTimers()
+    setCurrentStageIndex(0)
+    setActionState('idle')
+  }
 
   return (
     <div>
@@ -39,26 +79,27 @@ export default function OnboardingDemo() {
           Parcours du dossier
         </p>
         <OnboardingTracker stages={onboardingStages} currentStageIndex={currentStageIndex} />
-
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <button
-            type="button"
-            disabled={isComplete}
-            onClick={() => setCurrentStageIndex((index) => Math.min(index + 1, lastIndex))}
-            className="rounded-[100px] px-6 py-3 text-sm font-medium text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
-            style={{ background: isComplete ? 'rgba(75,123,245,0.45)' : '#4B7BF5' }}
-          >
-            {isComplete ? 'Onboarding terminé' : 'Faire avancer le dossier'}
-          </button>
-          <button
-            type="button"
-            onClick={() => setCurrentStageIndex(0)}
-            className="text-sm font-light text-foreground-muted transition-colors hover:text-foreground sm:px-2"
-          >
-            Réinitialiser la démo
-          </button>
-        </div>
       </section>
+
+      <div className="mt-6">
+        <OnboardingActionPanel
+          stage={stage}
+          actionState={actionState}
+          clientName={activeOnboardingClientName}
+          isFinal={isFinal}
+          onAction={handleAction}
+        />
+      </div>
+
+      <div className="mt-6">
+        <button
+          type="button"
+          onClick={handleReset}
+          className="text-sm font-light text-foreground-muted transition-colors hover:text-foreground"
+        >
+          Réinitialiser la démo
+        </button>
+      </div>
 
       <section className="mt-8 rounded-2xl border border-white/[0.07] bg-card p-6 md:p-8">
         <p
