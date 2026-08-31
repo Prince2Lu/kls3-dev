@@ -81,3 +81,22 @@ export interface OtherOnboardingRow {
   currentStageLabel: string
   stageIndex: number
 }
+
+export type EventStatus = 'a_qualifier' | 'en_cours' | 'resolu'
+
+export interface ClientEvent {
+  id: string
+  clientName: string
+  eventType: string
+  status: EventStatus
+}
+
+export interface EventTypePoolEntry {
+  clientName: string
+  eventType: string
+}
+
+export interface EventColumnConfig {
+  status: EventStatus
+  label: string
+}
