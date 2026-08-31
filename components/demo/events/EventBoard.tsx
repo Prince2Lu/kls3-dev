@@ -1,3 +1,5 @@
+'use client'
+
 import type { ClientEvent, EventColumnConfig } from '@/lib/types/demo'
 import EventColumn from './EventColumn'
 

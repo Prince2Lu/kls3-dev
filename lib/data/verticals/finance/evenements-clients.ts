@@ -14,6 +14,8 @@ export const initialEvents: ClientEvent[] = [
   { id: 'evt-5', clientName: 'Camille Rousseau', eventType: 'Changement de siège social', status: 'resolu' },
 ]
 
+export const NEW_EVENT_HIGHLIGHT_MS = 3000
+
 export const eventPool: EventTypePoolEntry[] = [
   { clientName: 'Thomas Weber', eventType: "Changement d'actionnaire" },
   { clientName: 'Élodie Marchand', eventType: 'Document expiré' },

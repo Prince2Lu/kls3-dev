@@ -25,6 +25,8 @@ export const staticDossiers: StaticDossierRow[] = [
   { clientName: 'Groupe Alizé', status: 'complet', itemsReceived: '6/6' },
 ]
 
+export const VERIFICATION_DELAY_MS = 700
+
 export const reminderSteps: ReminderStep[] = [
   { id: 'j3', delayLabel: 'J+3', channel: 'Email', title: 'Première relance' },
   { id: 'j7', delayLabel: 'J+7', channel: 'Email', title: 'Deuxième relance' },

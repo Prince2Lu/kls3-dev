@@ -1,13 +1,28 @@
+'use client'
+
+import { motion } from 'framer-motion'
 import { Check, Circle, Play } from 'lucide-react'
 
 export type OnboardingStepState = 'passed' | 'current' | 'upcoming'
 export type OnboardingConnector = 'solid' | 'dashed' | 'none'
+
+const LINE_DURATION_S = 0.5
 
 interface OnboardingStageStepProps {
   label: string
   state: OnboardingStepState
   connector: OnboardingConnector
 }
+
+const dashedVertical = {
+  backgroundImage:
+    'repeating-linear-gradient(to bottom, rgba(240,237,232,0.25) 0 4px, transparent 4px 8px)',
+} as const
+
+const dashedHorizontal = {
+  backgroundImage:
+    'repeating-linear-gradient(to right, rgba(240,237,232,0.25) 0 4px, transparent 4px 8px)',
+} as const
 
 export default function OnboardingStageStep({
   label,
@@ -17,9 +32,9 @@ export default function OnboardingStageStep({
   const isPassed = state === 'passed'
   const isCurrent = state === 'current'
   const showConnector = connector !== 'none'
+  const connectorSolid = connector === 'solid'
 
   const markerColor = isPassed ? '#5DCAA5' : isCurrent ? '#4B7BF5' : 'rgba(240,237,232,0.25)'
-  const connectorSolid = connector === 'solid'
 
   return (
     <li
@@ -40,37 +55,46 @@ export default function OnboardingStageStep({
             }}
             aria-hidden
           >
-            {isPassed && <Check className="h-4 w-4" />}
+            {isPassed && (
+              <motion.span
+                className="flex"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: LINE_DURATION_S, duration: 0.25, ease: 'easeOut' }}
+              >
+                <Check className="h-4 w-4" />
+              </motion.span>
+            )}
             {isCurrent && <Play className="h-3.5 w-3.5 fill-current" />}
             {state === 'upcoming' && <Circle className="h-3 w-3" />}
           </span>
 
           {showConnector && (
             <>
-              <span
-                className="mt-1 min-h-6 w-px flex-1 lg:hidden"
-                style={
-                  connectorSolid
-                    ? { background: '#5DCAA5' }
-                    : {
-                        backgroundImage:
-                          'repeating-linear-gradient(to bottom, rgba(240,237,232,0.25) 0 4px, transparent 4px 8px)',
-                      }
-                }
-                aria-hidden
-              />
-              <span
-                className="ml-3 hidden h-px flex-1 lg:block"
-                style={
-                  connectorSolid
-                    ? { background: '#5DCAA5' }
-                    : {
-                        backgroundImage:
-                          'repeating-linear-gradient(to right, rgba(240,237,232,0.25) 0 4px, transparent 4px 8px)',
-                      }
-                }
-                aria-hidden
-              />
+              <span className="relative mt-1 min-h-6 w-px flex-1 lg:hidden" aria-hidden>
+                <span className="absolute inset-0" style={dashedVertical} />
+                {connectorSolid ? (
+                  <motion.span
+                    className="absolute inset-0 origin-top"
+                    style={{ background: '#5DCAA5' }}
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: LINE_DURATION_S, ease: 'easeOut' }}
+                  />
+                ) : null}
+              </span>
+              <span className="relative ml-3 hidden h-px flex-1 lg:block" aria-hidden>
+                <span className="absolute inset-0" style={dashedHorizontal} />
+                {connectorSolid ? (
+                  <motion.span
+                    className="absolute inset-0 origin-left"
+                    style={{ background: '#5DCAA5' }}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: LINE_DURATION_S, ease: 'easeOut' }}
+                  />
+                ) : null}
+              </span>
             </>
           )}
         </div>

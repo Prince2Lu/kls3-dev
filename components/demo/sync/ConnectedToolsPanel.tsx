@@ -1,3 +1,4 @@
+import { syncDelays } from '@/lib/data/verticals/finance/synchronisation'
 import type { ConnectedTool, ToolSyncStatus } from '@/lib/types/demo'
 import ToolSyncCard from './ToolSyncCard'
 
@@ -26,7 +27,12 @@ export default function ConnectedToolsPanel({ tools, statuses }: ConnectedToolsP
 
       <div className="mt-8 space-y-3" aria-live="polite" aria-atomic="false">
         {tools.map((tool) => (
-          <ToolSyncCard key={tool.id} tool={tool} status={statuses[tool.id] ?? 'attente'} />
+          <ToolSyncCard
+            key={tool.id}
+            tool={tool}
+            status={statuses[tool.id] ?? 'attente'}
+            delayMs={syncDelays[tool.id] ?? 1000}
+          />
         ))}
       </div>
     </section>

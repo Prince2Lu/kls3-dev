@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Building2,
   Check,
@@ -47,6 +49,7 @@ interface EventCardProps {
 }
 
 export default function EventCard({ event, onAdvance }: EventCardProps) {
+  const isNew = event.isNew === true
   const isResolved = event.status === 'resolu'
   const actionLabel = eventActionLabels[event.status]
   const iconKey = eventTypeIcons[event.eventType]
@@ -61,8 +64,18 @@ export default function EventCard({ event, onAdvance }: EventCardProps) {
 
   return (
     <article
-      className="rounded-xl border border-white/[0.07] px-3.5 py-3"
-      style={{ background: isResolved ? 'rgba(93,202,165,0.08)' : '#111111' }}
+      className="rounded-xl px-3.5 py-3"
+      style={{
+        background: isNew
+          ? 'rgba(75,123,245,0.06)'
+          : isResolved
+            ? 'rgba(93,202,165,0.08)'
+            : '#111111',
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: isNew ? '#4B7BF5' : 'rgba(255,255,255,0.07)',
+        transition: 'border-color 800ms ease, background-color 800ms ease',
+      }}
     >
       <div className="flex items-start gap-3">
         <span

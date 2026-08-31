@@ -89,6 +89,7 @@ export interface ClientEvent {
   clientName: string
   eventType: string
   status: EventStatus
+  isNew?: boolean
 }
 
 export interface EventTypePoolEntry {

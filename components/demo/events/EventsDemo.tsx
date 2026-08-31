@@ -1,12 +1,13 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import EventBoard from '@/components/demo/events/EventBoard'
 import DemoButton from '@/components/demo/shared/DemoButton'
 import {
   columnConfig,
   eventPool,
   initialEvents,
+  NEW_EVENT_HIGHLIGHT_MS,
   nextEventStatus,
 } from '@/lib/data/verticals/finance/evenements-clients'
 import type { ClientEvent } from '@/lib/types/demo'
@@ -14,6 +15,13 @@ import type { ClientEvent } from '@/lib/types/demo'
 export default function EventsDemo() {
   const [events, setEvents] = useState<ClientEvent[]>(initialEvents)
   const nextId = useRef(initialEvents.length + 1)
+  const highlightTimers = useRef<number[]>([])
+
+  useEffect(() => {
+    return () => {
+      highlightTimers.current.forEach((timer) => window.clearTimeout(timer))
+    }
+  }, [])
 
   const handleAdvance = (id: string) => {
     setEvents((current) =>
@@ -26,31 +34,37 @@ export default function EventsDemo() {
   }
 
   const handleSimulate = () => {
-    setEvents((current) => {
-      const existing = new Set(current.map((event) => `${event.clientName}|${event.eventType}`))
-      const unused = eventPool.filter(
-        (entry) => !existing.has(`${entry.clientName}|${entry.eventType}`),
+    const existing = new Set(events.map((event) => `${event.clientName}|${event.eventType}`))
+    const unused = eventPool.filter(
+      (entry) => !existing.has(`${entry.clientName}|${entry.eventType}`),
+    )
+    const pool = unused.length > 0 ? unused : eventPool
+    const pick = pool[Math.floor(Math.random() * pool.length)]
+    if (!pick) return
+
+    const id =
+      typeof crypto !== 'undefined' && 'randomUUID' in crypto
+        ? `evt-${crypto.randomUUID()}`
+        : `evt-${nextId.current}`
+    nextId.current += 1
+
+    setEvents((current) => [
+      ...current,
+      {
+        id,
+        clientName: pick.clientName,
+        eventType: pick.eventType,
+        status: 'a_qualifier',
+        isNew: true,
+      },
+    ])
+
+    const timer = window.setTimeout(() => {
+      setEvents((current) =>
+        current.map((event) => (event.id === id ? { ...event, isNew: false } : event)),
       )
-      const pool = unused.length > 0 ? unused : eventPool
-      const pick = pool[Math.floor(Math.random() * pool.length)]
-      if (!pick) return current
-
-      const id =
-        typeof crypto !== 'undefined' && 'randomUUID' in crypto
-          ? `evt-${crypto.randomUUID()}`
-          : `evt-${nextId.current}`
-      nextId.current += 1
-
-      return [
-        ...current,
-        {
-          id,
-          clientName: pick.clientName,
-          eventType: pick.eventType,
-          status: 'a_qualifier',
-        },
-      ]
-    })
+    }, NEW_EVENT_HIGHLIGHT_MS)
+    highlightTimers.current.push(timer)
   }
 
   const handleReset = () => {
