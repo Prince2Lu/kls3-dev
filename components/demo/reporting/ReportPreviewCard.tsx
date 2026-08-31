@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Loader2 } from 'lucide-react'
 import DemoButton from '@/components/demo/shared/DemoButton'
+import { generateWeeklyReportPdf } from '@/lib/pdf/generateWeeklyReportPdf'
 
 interface ReportPreviewCardProps {
   title: string
@@ -11,14 +13,17 @@ interface ReportPreviewCardProps {
   downloadHint: string
 }
 
+const DOWNLOAD_ERROR = 'Une erreur est survenue, réessayez.'
+
 export default function ReportPreviewCard({
   title,
   weekLabel,
   bullets,
   downloadLabel,
-  downloadHint,
 }: ReportPreviewCardProps) {
   const [entered, setEntered] = useState(false)
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false)
+  const [downloadError, setDownloadError] = useState<string | null>(null)
 
   useEffect(() => {
     let innerFrame = 0
@@ -30,6 +35,19 @@ export default function ReportPreviewCard({
       window.cancelAnimationFrame(innerFrame)
     }
   }, [])
+
+  const handleDownload = async () => {
+    if (isGeneratingPdf) return
+    setDownloadError(null)
+    setIsGeneratingPdf(true)
+    try {
+      await generateWeeklyReportPdf()
+    } catch {
+      setDownloadError(DOWNLOAD_ERROR)
+    } finally {
+      setIsGeneratingPdf(false)
+    }
+  }
 
   return (
     <article
@@ -61,12 +79,18 @@ export default function ReportPreviewCard({
 
       <DemoButton
         type="button"
-        title={downloadHint}
-        onClick={(event) => event.preventDefault()}
-        className="mt-6 rounded-[100px] border border-white/[0.07] px-6 py-3 text-sm font-medium text-foreground-muted"
+        disabled={isGeneratingPdf}
+        onClick={handleDownload}
+        className="mt-6 inline-flex items-center justify-center gap-2 rounded-[100px] border border-white/[0.07] px-6 py-3 text-sm font-medium text-foreground-muted disabled:cursor-not-allowed disabled:opacity-70"
       >
-        {downloadLabel}
+        {isGeneratingPdf && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
+        {isGeneratingPdf ? 'Génération...' : downloadLabel}
       </DemoButton>
+      {downloadError ? (
+        <p className="mt-2 text-xs font-light" style={{ color: '#E5484D' }} role="alert">
+          {downloadError}
+        </p>
+      ) : null}
     </article>
   )
 }
