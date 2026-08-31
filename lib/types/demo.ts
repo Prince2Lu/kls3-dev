@@ -96,6 +96,12 @@ export interface EventTypePoolEntry {
   eventType: string
 }
 
+export interface EventTypeDetail {
+  detectedInfo: string
+  qualificationNote: string
+  resolutionNote: string
+}
+
 export interface EventColumnConfig {
   status: EventStatus
   label: string

@@ -8,8 +8,28 @@ import {
   Users,
   UserStar,
 } from 'lucide-react'
-import type { ClientEvent } from '@/lib/types/demo'
-import { eventActionLabels, eventTypeIcons } from '@/lib/data/verticals/finance/evenements-clients'
+import type { ClientEvent, EventStatus } from '@/lib/types/demo'
+import {
+  eventActionLabels,
+  eventTypeDetails,
+  eventTypeIcons,
+} from '@/lib/data/verticals/finance/evenements-clients'
+
+const FALLBACK_NOTE = 'Détails à venir.'
+
+function contextualNote(eventType: string, status: EventStatus): string {
+  const detail = eventTypeDetails[eventType]
+  if (!detail) return FALLBACK_NOTE
+  if (status === 'a_qualifier') return detail.detectedInfo
+  if (status === 'en_cours') return detail.qualificationNote
+  return detail.resolutionNote
+}
+
+function noteColor(status: EventStatus): string {
+  if (status === 'en_cours') return '#4B7BF5'
+  if (status === 'resolu') return '#5DCAA5'
+  return 'rgba(240,237,232,0.6)'
+}
 
 const ICONS: Record<string, LucideIcon> = {
   'ti-users': Users,
@@ -59,6 +79,13 @@ export default function EventCard({ event, onAdvance }: EventCardProps) {
           <Check className="mt-1 h-4 w-4 flex-none" style={{ color: '#5DCAA5' }} aria-hidden />
         )}
       </div>
+
+      <p
+        className="mt-2.5 text-xs font-light leading-relaxed"
+        style={{ color: noteColor(event.status), fontSize: 12 }}
+      >
+        {contextualNote(event.eventType, event.status)}
+      </p>
 
       {actionLabel && (
         <button

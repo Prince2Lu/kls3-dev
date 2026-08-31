@@ -2,6 +2,7 @@ import type {
   ClientEvent,
   EventColumnConfig,
   EventStatus,
+  EventTypeDetail,
   EventTypePoolEntry,
 } from '@/lib/types/demo'
 
@@ -26,6 +27,40 @@ export const columnConfig: EventColumnConfig[] = [
   { status: 'en_cours', label: 'Mise à jour en cours' },
   { status: 'resolu', label: 'Résolu' },
 ]
+
+export const eventTypeDetails: Record<string, EventTypeDetail> = {
+  "Changement d'actionnaire": {
+    detectedInfo: 'Nouvel actionnaire enregistré : 35 % des parts transférées.',
+    qualificationNote:
+      "Vérification de l'origine des fonds et mise à jour du registre des bénéficiaires effectifs.",
+    resolutionNote: 'Registre des bénéficiaires effectifs mis à jour, dossier conforme.',
+  },
+  'Document expiré': {
+    detectedInfo: "Pièce d'identité du dirigeant arrivée à expiration.",
+    qualificationNote: 'Demande de renouvellement envoyée, document en attente de réception.',
+    resolutionNote: 'Nouveau document reçu et classé, dossier à jour.',
+  },
+  'Changement de dirigeant': {
+    detectedInfo: 'Nouveau dirigeant nommé, publication au registre du commerce détectée.',
+    qualificationNote: 'Vérification des pouvoirs de signature et mise à jour des accès.',
+    resolutionNote: 'Pouvoirs de signature mis à jour, nouveau dirigeant activé.',
+  },
+  'Modification des statuts': {
+    detectedInfo: "Modification statutaire déposée : changement d'objet social.",
+    qualificationNote: 'Analyse des statuts modifiés et mise en cohérence du dossier.',
+    resolutionNote: 'Statuts à jour dans le dossier, aucune incohérence détectée.',
+  },
+  'Changement de siège social': {
+    detectedInfo: 'Nouvelle adresse de siège social publiée.',
+    qualificationNote: "Mise à jour de l'adresse dans l'ensemble des documents actifs.",
+    resolutionNote: 'Adresse mise à jour partout où elle apparaît.',
+  },
+  'Opération inhabituelle': {
+    detectedInfo: 'Mouvement financier significatif détecté, hors profil habituel.',
+    qualificationNote: "Analyse du contexte de l'opération avant qualification.",
+    resolutionNote: 'Opération analysée et documentée, aucune anomalie retenue.',
+  },
+}
 
 export const eventTypeIcons: Record<string, string> = {
   "Changement d'actionnaire": 'ti-users',
