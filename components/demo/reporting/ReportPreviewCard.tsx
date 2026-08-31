@@ -42,7 +42,8 @@ export default function ReportPreviewCard({
     setIsGeneratingPdf(true)
     try {
       await generateWeeklyReportPdf()
-    } catch {
+    } catch (error) {
+      console.error(error)
       setDownloadError(DOWNLOAD_ERROR)
     } finally {
       setIsGeneratingPdf(false)
@@ -80,8 +81,10 @@ export default function ReportPreviewCard({
       <DemoButton
         type="button"
         disabled={isGeneratingPdf}
-        onClick={handleDownload}
-        className="mt-6 inline-flex items-center justify-center gap-2 rounded-[100px] border border-white/[0.07] px-6 py-3 text-sm font-medium text-foreground-muted disabled:cursor-not-allowed disabled:opacity-70"
+        onClick={() => {
+          void handleDownload()
+        }}
+        className="mt-6 inline-flex items-center justify-center gap-2 rounded-[100px] border border-white/[0.07] px-6 py-3 text-sm font-medium text-foreground-muted transition-all duration-200 ease-in-out hover:border-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-70"
       >
         {isGeneratingPdf && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
         {isGeneratingPdf ? 'Génération...' : downloadLabel}
