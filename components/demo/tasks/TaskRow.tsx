@@ -1,3 +1,4 @@
+import DemoButton from '@/components/demo/shared/DemoButton'
 import type { DemoTask, TeamMember } from '@/lib/types/demo'
 import { assignLabel, markDoneLabel, unassignedLabel } from '@/lib/data/verticals/finance/affectation-pilotage'
 import SourceTag from './SourceTag'
@@ -48,14 +49,14 @@ export default function TaskRow({ task, members, onAssign, onMarkDone }: TaskRow
           </select>
 
           {!task.done && (
-            <button
+            <DemoButton
               type="button"
               onClick={() => onMarkDone(task.id)}
               className="rounded-[100px] px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90"
               style={{ background: '#4B7BF5' }}
             >
               {markDoneLabel}
-            </button>
+            </DemoButton>
           )}
         </div>
       </div>

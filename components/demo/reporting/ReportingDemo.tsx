@@ -6,6 +6,7 @@ import ReportGeneratorPanel, {
 } from '@/components/demo/reporting/ReportGeneratorPanel'
 import ReportPreviewCard from '@/components/demo/reporting/ReportPreviewCard'
 import WeeklyActivityChart from '@/components/demo/reporting/WeeklyActivityChart'
+import DemoButton from '@/components/demo/shared/DemoButton'
 import {
   GENERATION_DELAY_MS,
   chartTitle,
@@ -81,13 +82,13 @@ export default function ReportingDemo() {
       )}
 
       <div className="mt-8">
-        <button
+        <DemoButton
           type="button"
           onClick={handleReset}
           className="text-sm font-light text-foreground-muted transition-colors hover:text-foreground"
         >
           Réinitialiser la démo
-        </button>
+        </DemoButton>
       </div>
     </div>
   )

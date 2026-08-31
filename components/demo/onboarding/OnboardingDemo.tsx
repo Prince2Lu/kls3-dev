@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import OnboardingActionPanel from '@/components/demo/onboarding/OnboardingActionPanel'
 import OnboardingTracker from '@/components/demo/onboarding/OnboardingTracker'
 import OtherOnboardingsList from '@/components/demo/onboarding/OtherOnboardingsList'
+import DemoButton from '@/components/demo/shared/DemoButton'
 import {
   activeOnboardingClientName,
   onboardingStages,
@@ -92,13 +93,13 @@ export default function OnboardingDemo() {
       </div>
 
       <div className="mt-6">
-        <button
+        <DemoButton
           type="button"
           onClick={handleReset}
           className="text-sm font-light text-foreground-muted transition-colors hover:text-foreground"
         >
           Réinitialiser la démo
-        </button>
+        </DemoButton>
       </div>
 
       <section className="mt-8 rounded-2xl border border-white/[0.07] bg-card p-6 md:p-8">

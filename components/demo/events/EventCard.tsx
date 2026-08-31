@@ -8,6 +8,7 @@ import {
   Users,
   UserStar,
 } from 'lucide-react'
+import DemoButton from '@/components/demo/shared/DemoButton'
 import type { ClientEvent, EventStatus } from '@/lib/types/demo'
 import {
   eventActionLabels,
@@ -88,14 +89,14 @@ export default function EventCard({ event, onAdvance }: EventCardProps) {
       </p>
 
       {actionLabel && (
-        <button
+        <DemoButton
           type="button"
           onClick={() => onAdvance(event.id)}
           className="mt-3 w-full rounded-[100px] px-3 py-1.5 text-xs font-medium text-white transition-opacity hover:opacity-90"
           style={{ background: '#4B7BF5' }}
         >
           {actionLabel}
-        </button>
+        </DemoButton>
       )}
     </article>
   )

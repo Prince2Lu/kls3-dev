@@ -1,5 +1,6 @@
 'use client'
 
+import DemoButton from '@/components/demo/shared/DemoButton'
 import type { SourceEventField } from '@/lib/types/demo'
 
 interface SourceEventPanelProps {
@@ -58,14 +59,14 @@ export default function SourceEventPanel({
           </label>
         ))}
 
-        <button
+        <DemoButton
           type="submit"
           disabled={saved}
           className="mt-2 w-full rounded-[100px] px-6 py-3 text-sm font-medium text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
           style={{ background: saved ? 'rgba(75,123,245,0.45)' : '#4B7BF5' }}
         >
           {saved ? 'Dossier enregistré' : 'Enregistrer le dossier'}
-        </button>
+        </DemoButton>
       </form>
     </section>
   )

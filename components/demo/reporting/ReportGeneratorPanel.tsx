@@ -1,6 +1,7 @@
 'use client'
 
 import { Loader2 } from 'lucide-react'
+import DemoButton from '@/components/demo/shared/DemoButton'
 
 export type ReportState = 'idle' | 'generation' | 'genere'
 
@@ -39,7 +40,7 @@ export default function ReportGeneratorPanel({
         <p className="mt-2 text-sm font-medium text-accent">{generatedTimeLabel}</p>
       )}
 
-      <button
+      <DemoButton
         type="button"
         disabled={!isIdle}
         onClick={onGenerate}
@@ -51,7 +52,7 @@ export default function ReportGeneratorPanel({
       >
         {isGenerating && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
         {isGenerating ? generatingLabel : generateLabel}
-      </button>
+      </DemoButton>
     </section>
   )
 }

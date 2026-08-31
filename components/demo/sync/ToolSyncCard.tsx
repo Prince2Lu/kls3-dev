@@ -59,6 +59,7 @@ export default function ToolSyncCard({ tool, status }: ToolSyncCardProps) {
           color: badgeColor,
           background: badgeBackground,
           border: '0.5px solid rgba(255,255,255,0.07)',
+          transition: 'background-color 0.3s ease, color 0.3s ease',
         }}
       >
         {isSyncing && <RefreshCw className="h-3 w-3 animate-spin" aria-hidden />}

@@ -1,4 +1,13 @@
+'use client'
+
+import { AnimatePresence, motion } from 'framer-motion'
 import type { ClientEvent, EventColumnConfig } from '@/lib/types/demo'
+import {
+  listItemAnimate,
+  listItemExit,
+  listItemInitial,
+  listItemTransition,
+} from '@/components/demo/shared/motionPresets'
 import EventCard from './EventCard'
 
 interface EventColumnProps {
@@ -23,11 +32,19 @@ export default function EventColumn({ column, events, onAdvance }: EventColumnPr
         <span className="text-xs font-medium text-accent">{events.length}</span>
       </header>
       <ul className="flex flex-col gap-2">
-        {events.map((event) => (
-          <li key={event.id}>
-            <EventCard event={event} onAdvance={onAdvance} />
-          </li>
-        ))}
+        <AnimatePresence initial={false} mode="popLayout">
+          {events.map((event) => (
+            <motion.li
+              key={event.id}
+              initial={listItemInitial}
+              animate={listItemAnimate}
+              exit={listItemExit}
+              transition={listItemTransition}
+            >
+              <EventCard event={event} onAdvance={onAdvance} />
+            </motion.li>
+          ))}
+        </AnimatePresence>
       </ul>
     </section>
   )

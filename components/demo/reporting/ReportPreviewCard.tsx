@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import DemoButton from '@/components/demo/shared/DemoButton'
 
 interface ReportPreviewCardProps {
   title: string
@@ -58,14 +59,14 @@ export default function ReportPreviewCard({
         ))}
       </ul>
 
-      <button
+      <DemoButton
         type="button"
         title={downloadHint}
         onClick={(event) => event.preventDefault()}
         className="mt-6 rounded-[100px] border border-white/[0.07] px-6 py-3 text-sm font-medium text-foreground-muted"
       >
         {downloadLabel}
-      </button>
+      </DemoButton>
     </article>
   )
 }

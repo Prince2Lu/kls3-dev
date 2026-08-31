@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import DemoLayout from '@/components/demo/DemoLayout'
+import DemoButton from '@/components/demo/shared/DemoButton'
 import ConnectedToolsPanel from '@/components/demo/sync/ConnectedToolsPanel'
 import SourceEventPanel from '@/components/demo/sync/SourceEventPanel'
 import {
@@ -70,13 +71,13 @@ export default function SynchronisationDemo() {
       />
 
       <div className="mt-8 text-center">
-        <button
+        <DemoButton
           type="button"
           onClick={handleReset}
           className="text-sm font-light text-foreground-muted transition-colors hover:text-foreground"
         >
           Réinitialiser la démo
-        </button>
+        </DemoButton>
       </div>
     </div>
   )

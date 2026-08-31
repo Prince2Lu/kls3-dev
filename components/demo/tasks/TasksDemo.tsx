@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import TaskQueue from '@/components/demo/tasks/TaskQueue'
+import DemoButton from '@/components/demo/shared/DemoButton'
 import {
   initialTasks,
   teamMembers,
@@ -37,13 +38,13 @@ export default function TasksDemo() {
       />
 
       <div className="mt-8">
-        <button
+        <DemoButton
           type="button"
           onClick={handleReset}
           className="text-sm font-light text-foreground-muted transition-colors hover:text-foreground"
         >
           Réinitialiser la démo
-        </button>
+        </DemoButton>
       </div>
     </div>
   )

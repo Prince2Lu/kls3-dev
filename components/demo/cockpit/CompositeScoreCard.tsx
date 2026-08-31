@@ -1,3 +1,4 @@
+import AnimatedNumber from '@/components/demo/shared/AnimatedNumber'
 import type { CompositeSubScore } from '@/lib/types/demo'
 
 interface CompositeScoreCardProps {
@@ -24,7 +25,9 @@ export default function CompositeScoreCard({
       </p>
 
       <div className="mb-5 flex items-baseline gap-3">
-        <span className="font-display text-5xl font-bold text-accent md:text-6xl">{clamped}</span>
+        <span className="font-display text-5xl font-bold text-accent md:text-6xl">
+          <AnimatedNumber value={clamped} />
+        </span>
         <span className="text-sm font-light text-foreground-muted">/100</span>
       </div>
 
@@ -42,7 +45,9 @@ export default function CompositeScoreCard({
             <li key={sub.label}>
               <div className="mb-1.5 flex items-center justify-between gap-3 text-sm">
                 <span className="font-light text-foreground-muted">{sub.label}</span>
-                <span className="font-medium text-foreground">{subValue}</span>
+                <span className="font-medium text-foreground">
+                  <AnimatedNumber value={subValue} />
+                </span>
               </div>
               <div className="h-1 overflow-hidden rounded-full bg-white/[0.08]">
                 <div

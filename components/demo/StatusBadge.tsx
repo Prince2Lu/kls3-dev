@@ -23,6 +23,7 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
         color: isComplete || isInProgress ? '#4B7BF5' : 'rgba(240,237,232,0.45)',
         background: isComplete || isInProgress ? 'rgba(75,123,245,0.12)' : 'rgba(255,255,255,0.04)',
         border: '0.5px solid rgba(255,255,255,0.07)',
+        transition: 'background-color 0.3s ease, color 0.3s ease',
       }}
     >
       {STATUS_LABELS[status]}

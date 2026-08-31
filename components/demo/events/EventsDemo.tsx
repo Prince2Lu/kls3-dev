@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import EventBoard from '@/components/demo/events/EventBoard'
+import DemoButton from '@/components/demo/shared/DemoButton'
 import {
   columnConfig,
   eventPool,
@@ -59,26 +60,26 @@ export default function EventsDemo() {
 
   return (
     <div>
-      <button
+      <DemoButton
         type="button"
         onClick={handleSimulate}
         className="rounded-[100px] bg-accent px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
       >
         Simuler un nouvel événement
-      </button>
+      </DemoButton>
 
       <div className="mt-8">
         <EventBoard columns={columnConfig} events={events} onAdvance={handleAdvance} />
       </div>
 
       <div className="mt-8">
-        <button
+        <DemoButton
           type="button"
           onClick={handleReset}
           className="text-sm font-light text-foreground-muted transition-colors hover:text-foreground"
         >
           Réinitialiser la démo
-        </button>
+        </DemoButton>
       </div>
     </div>
   )
