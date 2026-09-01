@@ -90,6 +90,7 @@ export async function submitDiagnostic(
       html: buildDiagnosticEmailHtml({
         nom: data.nom,
         cabinet: data.cabinet,
+        email: data.email,
         telephone,
         score: data.score,
         heuresMois: data.heuresMois,
@@ -115,6 +116,7 @@ export async function submitDiagnostic(
       html: buildDiagnosticEmailHtml({
         nom: data.nom,
         cabinet: data.cabinet,
+        email: data.email,
         telephone,
         score: data.score,
         heuresMois: data.heuresMois,

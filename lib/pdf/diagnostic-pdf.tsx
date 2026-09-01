@@ -64,7 +64,10 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 4,
   },
-  clientRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
+  coordGrid: { flexDirection: 'row', marginBottom: 10 },
+  coordGridLast: { flexDirection: 'row' },
+  coordCell: { width: '50%', paddingRight: 8 },
+  coordLabel: { color: '#888780', fontSize: 8, marginBottom: 2 },
   label: { color: '#888780' },
   value: { fontFamily: 'Helvetica-Bold', color: '#111827' },
   scoreRow: { flexDirection: 'row', alignItems: 'baseline', marginBottom: 8 },
@@ -144,23 +147,27 @@ export function DiagnosticPdf({
           </View>
         </View>
 
-        <Text style={styles.sectionTitle}>Informations</Text>
+        <Text style={styles.sectionTitle}>Vos coordonnées</Text>
         <View style={styles.clientBox}>
-          <View style={styles.clientRow}>
-            <Text style={styles.label}>Nom</Text>
-            <Text style={styles.value}>{nom}</Text>
+          <View style={styles.coordGrid}>
+            <View style={styles.coordCell}>
+              <Text style={styles.coordLabel}>Nom et prénom</Text>
+              <Text style={styles.value}>{sanitizeForPdf(nom)}</Text>
+            </View>
+            <View style={styles.coordCell}>
+              <Text style={styles.coordLabel}>Cabinet</Text>
+              <Text style={styles.value}>{sanitizeForPdf(cabinet)}</Text>
+            </View>
           </View>
-          <View style={styles.clientRow}>
-            <Text style={styles.label}>Cabinet</Text>
-            <Text style={styles.value}>{cabinet}</Text>
-          </View>
-          <View style={styles.clientRow}>
-            <Text style={styles.label}>Email</Text>
-            <Text style={styles.value}>{email}</Text>
-          </View>
-          <View style={styles.clientRow}>
-            <Text style={styles.label}>Téléphone</Text>
-            <Text style={styles.value}>{sanitizeForPdf(telephone)}</Text>
+          <View style={styles.coordGridLast}>
+            <View style={styles.coordCell}>
+              <Text style={styles.coordLabel}>Email</Text>
+              <Text style={styles.value}>{sanitizeForPdf(email)}</Text>
+            </View>
+            <View style={styles.coordCell}>
+              <Text style={styles.coordLabel}>Téléphone</Text>
+              <Text style={styles.value}>{sanitizeForPdf(telephone)}</Text>
+            </View>
           </View>
         </View>
 

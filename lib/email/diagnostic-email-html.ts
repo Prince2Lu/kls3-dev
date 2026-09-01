@@ -4,6 +4,7 @@ import { kls3CompanyInfo } from '@/lib/data/company-info'
 type DiagnosticEmailProps = {
   nom: string
   cabinet: string
+  email: string
   telephone: string
   score: number
   heuresMois: number
@@ -30,9 +31,38 @@ function escapeHtml(value: string): string {
     .replace(/'/g, '&#39;')
 }
 
+function contactRow(label: string, value: string): string {
+  return `
+    <tr>
+      <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:13px;color:#888780;">${label}</td>
+      <td style="padding:6px 0;border-top:1px solid #E5E5E5;font-size:13px;color:#111827;font-weight:600;text-align:right;">${escapeHtml(value)}</td>
+    </tr>`
+}
+
+function contactDetailsBlock(
+  nom: string,
+  cabinet: string,
+  email: string,
+  telephone: string,
+  audience: DiagnosticEmailProps['audience']
+): string {
+  const title = audience === 'interne' ? 'Coordonnées du contact' : 'Vos coordonnées'
+  return `
+        <div style="margin:24px 0;padding:20px;background:#F5F3EF;border-radius:8px;">
+          <p style="margin:0 0 8px;font-size:13px;font-weight:600;color:#111827;">${title}</p>
+          <table width="100%" cellpadding="0" cellspacing="0">
+            ${contactRow('Nom et prénom', nom)}
+            ${contactRow('Cabinet', cabinet)}
+            ${contactRow('Email', email)}
+            ${contactRow('Téléphone', telephone)}
+          </table>
+        </div>`
+}
+
 export function buildDiagnosticEmailHtml({
   nom,
   cabinet,
+  email,
   telephone,
   score,
   heuresMois,
@@ -82,7 +112,7 @@ export function buildDiagnosticEmailHtml({
       </div>
       <div style="padding:32px;">
         ${intro}
-        <p style="font-size:14px;color:#333333;">Téléphone : ${escapeHtml(telephone)}</p>
+        ${contactDetailsBlock(nom, cabinet, email, telephone, audience)}
 
         <div style="margin:24px 0;padding:20px;background:#F5F3EF;border-radius:8px;">
           <p style="margin:0;font-size:32px;font-weight:700;color:#4B7BF5;">${score}<span style="font-size:14px;color:#888780;">/100</span></p>
