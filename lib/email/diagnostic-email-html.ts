@@ -4,6 +4,7 @@ import { kls3CompanyInfo } from '@/lib/data/company-info'
 type DiagnosticEmailProps = {
   nom: string
   cabinet: string
+  telephone: string
   score: number
   heuresMois: number
   coutAn: number
@@ -32,6 +33,7 @@ function escapeHtml(value: string): string {
 export function buildDiagnosticEmailHtml({
   nom,
   cabinet,
+  telephone,
   score,
   heuresMois,
   coutAn,
@@ -80,6 +82,7 @@ export function buildDiagnosticEmailHtml({
       </div>
       <div style="padding:32px;">
         ${intro}
+        <p style="font-size:14px;color:#333333;">Téléphone : ${escapeHtml(telephone)}</p>
 
         <div style="margin:24px 0;padding:20px;background:#F5F3EF;border-radius:8px;">
           <p style="margin:0;font-size:32px;font-weight:700;color:#4B7BF5;">${score}<span style="font-size:14px;color:#888780;">/100</span></p>

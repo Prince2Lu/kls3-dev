@@ -13,6 +13,7 @@ type DiagnosticPdfProps = {
   nom: string
   cabinet: string
   email: string
+  telephone: string
   score: number
   heuresMois: number
   coutAn: number
@@ -117,6 +118,7 @@ export function DiagnosticPdf({
   nom,
   cabinet,
   email,
+  telephone,
   score,
   heuresMois,
   coutAn,
@@ -155,6 +157,10 @@ export function DiagnosticPdf({
           <View style={styles.clientRow}>
             <Text style={styles.label}>Email</Text>
             <Text style={styles.value}>{email}</Text>
+          </View>
+          <View style={styles.clientRow}>
+            <Text style={styles.label}>Téléphone</Text>
+            <Text style={styles.value}>{sanitizeForPdf(telephone)}</Text>
           </View>
         </View>
 

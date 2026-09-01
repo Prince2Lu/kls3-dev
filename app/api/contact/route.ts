@@ -22,9 +22,9 @@ export async function POST(request: NextRequest) {
     const telephone = body.telephone?.trim()
     const friction = body.friction?.trim()
 
-    if (!nom || !societe || !email || !friction) {
+    if (!nom || !societe || !email || !telephone || !friction) {
       return NextResponse.json(
-        { error: 'Veuillez remplir les champs obligatoires (nom, société, email, friction).' },
+        { error: 'Veuillez remplir les champs obligatoires (nom, société, email, téléphone, friction).' },
         { status: 400 }
       )
     }
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
         <tr><td><strong>Nom</strong></td><td>${escapeHtml(nom)}</td></tr>
         <tr><td><strong>Société</strong></td><td>${escapeHtml(societe)}</td></tr>
         <tr><td><strong>Email</strong></td><td>${escapeHtml(email)}</td></tr>
-        <tr><td><strong>Téléphone</strong></td><td>${telephone ? escapeHtml(telephone) : '—'}</td></tr>
+        <tr><td><strong>Téléphone</strong></td><td>${escapeHtml(telephone)}</td></tr>
         <tr><td valign="top"><strong>Friction</strong></td><td>${escapeHtml(friction).replace(/\n/g, '<br>')}</td></tr>
       </table>
     `

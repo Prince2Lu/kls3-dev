@@ -35,6 +35,6 @@ export interface ContactFormData {
   nom: string
   societe: string
   email: string
-  telephone?: string
+  telephone: string
   friction: string // description libre de l'opération qui ralentit
 }

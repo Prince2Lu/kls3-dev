@@ -69,7 +69,7 @@ export function ScoreCard({ result, selectedPacks }: Props) {
 export function CaptureForm({ result, selectedPacks }: Props) {
   const [isPending, startTransition] = useTransition()
   const [status, setStatus] = useState<'idle' | 'sent' | 'error'>('idle')
-  const [form, setForm] = useState({ nom: '', cabinet: '', email: '' })
+  const [form, setForm] = useState({ nom: '', cabinet: '', email: '', telephone: '' })
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -124,6 +124,14 @@ export function CaptureForm({ result, selectedPacks }: Props) {
             placeholder="Email professionnel"
             value={form.email}
             onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
+            className="rounded-lg border border-white/[0.07] bg-background px-4 py-3 text-sm text-foreground placeholder:text-foreground-muted focus:border-accent focus:outline-none"
+          />
+          <input
+            type="tel"
+            required
+            placeholder="Téléphone"
+            value={form.telephone}
+            onChange={(e) => setForm((p) => ({ ...p, telephone: e.target.value }))}
             className="rounded-lg border border-white/[0.07] bg-background px-4 py-3 text-sm text-foreground placeholder:text-foreground-muted focus:border-accent focus:outline-none"
           />
           <button
