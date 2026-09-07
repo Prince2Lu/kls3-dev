@@ -14,7 +14,7 @@ const FAQS = [
   },
   {
     q: "Pour quels types d'entreprises intervenez-vous ?",
-    a: 'KLS3 accompagne les entreprises de 10 à 1000 personnes, tous secteurs confondus. Nos interventions concernent toute organisation dont les opérations reposent encore sur des tâches manuelles, des dépendances humaines ou un manque de visibilité.',
+    a: "Cabinets d'expertise comptable multi-activités, études notariales, et plus largement toute structure réglementée organisée en pôles (comptabilité, social, juridique, patrimoine, immobilier...) qui jongle entre plusieurs logiciels métier sans passerelle native.",
   },
   {
     q: 'Combien de temps dure une intervention ?',

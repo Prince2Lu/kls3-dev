@@ -41,8 +41,8 @@ export default function HeroOperational() {
                 letterSpacing: '-0.02em',
               }}
             >
-              Vos opérations ne devraient plus dépendre de{' '}
-              <span className="text-kls-accent">tâches répétitives.</span>
+              <span className="text-kls-accent">L&apos;orchestration intelligente</span>
+              {' '}pour les professions réglementées pluridisciplinaires.
             </h1>
           </StaggerItem>
 
@@ -57,9 +57,8 @@ export default function HeroOperational() {
                 lineHeight: 1.7,
               }}
             >
-              KLS<span style={{ color: '#4B7BF5' }}>3</span> identifie les frictions
-              invisibles qui ralentissent vos opérations et les transforme en systèmes
-              fluides, pilotables et automatisés.
+              KLS<span style={{ color: '#4B7BF5' }}>3</span> connecte vos outils métier pour que chaque événement client circule
+              automatiquement entre vos pôles — sans ressaisie, sans perte d&apos;information.
             </p>
           </StaggerItem>
 
