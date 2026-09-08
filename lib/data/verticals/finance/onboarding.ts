@@ -1,5 +1,10 @@
 import type { OnboardingStage, OtherOnboardingRow } from '@/lib/types/demo'
 
+export const demoHeadingPrefix = 'Onboarding'
+export const demoIntro =
+  'Un parcours identique pour chaque nouveau dossier, étape par étape.'
+export const otherSectionLabel = 'Autres onboardings en cours'
+
 export const onboardingStages: OnboardingStage[] = [
   {
     id: 'contact',

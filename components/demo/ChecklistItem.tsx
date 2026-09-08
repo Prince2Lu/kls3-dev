@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Check, Loader2 } from 'lucide-react'
-import { VERIFICATION_DELAY_MS } from '@/lib/data/verticals/finance/documents-manquants'
 import { fadeWaitTransition } from '@/components/demo/shared/motionPresets'
+import { getDocumentsManquantsPack } from '@/lib/data/verticals/packs'
+import { useDemoVertical } from '@/lib/data/verticals/useDemoVertical'
 
 interface ChecklistItemProps {
   id: string
@@ -22,6 +23,8 @@ function secondaryCopy(phase: ItemPhase) {
 }
 
 export default function ChecklistItem({ id, label, received, onToggle }: ChecklistItemProps) {
+  const vertical = useDemoVertical()
+  const { VERIFICATION_DELAY_MS } = getDocumentsManquantsPack(vertical)
   const [isVerifying, setIsVerifying] = useState(false)
   const timeoutRef = useRef<number | null>(null)
 

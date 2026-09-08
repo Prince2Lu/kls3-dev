@@ -7,23 +7,27 @@ import ReportGeneratorPanel, {
 import ReportPreviewCard from '@/components/demo/reporting/ReportPreviewCard'
 import WeeklyActivityChart from '@/components/demo/reporting/WeeklyActivityChart'
 import DemoButton from '@/components/demo/shared/DemoButton'
-import {
-  GENERATION_DELAY_MS,
-  chartTitle,
-  downloadButtonLabel,
-  downloadHint,
-  formerlyPrefix,
-  generateButtonLabel,
-  generatedTimeLabel,
-  generatingButtonLabel,
-  manualTimeEstimate,
-  reportSummaryBullets,
-  reportTitle,
-  reportWeekLabel,
-  weeklyActivity,
-} from '@/lib/data/verticals/finance/reporting'
+import { getReportingPack } from '@/lib/data/verticals/packs'
+import { useDemoVertical } from '@/lib/data/verticals/useDemoVertical'
 
 export default function ReportingDemo() {
+  const vertical = useDemoVertical()
+  const {
+    GENERATION_DELAY_MS,
+    chartTitle,
+    downloadButtonLabel,
+    downloadHint,
+    formerlyPrefix,
+    generateButtonLabel,
+    generatedTimeLabel,
+    generatingButtonLabel,
+    manualTimeEstimate,
+    reportSummaryBullets,
+    reportTitle,
+    reportWeekLabel,
+    weeklyActivity,
+  } = getReportingPack(vertical)
+
   const [reportState, setReportState] = useState<ReportState>('idle')
   const timeoutRef = useRef<number | null>(null)
 
@@ -77,6 +81,7 @@ export default function ReportingDemo() {
             bullets={reportSummaryBullets}
             downloadLabel={downloadButtonLabel}
             downloadHint={downloadHint}
+            verticalId={vertical}
           />
         </div>
       )}

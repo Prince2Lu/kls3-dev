@@ -2,15 +2,8 @@
 
 import { useCallback, useState } from 'react'
 import type { DemoDocumentItem } from '@/lib/types/demo'
-import {
-  getLiveDossierRow,
-  initialDocuments,
-  interactiveClientContact,
-  interactiveClientName,
-  interactiveDeadlineLabel,
-  reminderSteps,
-  staticDossiers,
-} from '@/lib/data/verticals/finance/documents-manquants'
+import { getDocumentsManquantsPack } from '@/lib/data/verticals/packs'
+import { useDemoVertical } from '@/lib/data/verticals/useDemoVertical'
 import CabinetDashboardPanel from './CabinetDashboardPanel'
 import ClientPortalPanel from './ClientPortalPanel'
 import DemoLayout from './DemoLayout'
@@ -20,6 +13,17 @@ interface DocumentsManquantsDemoProps {
 }
 
 export default function DocumentsManquantsDemo({ cabinetName }: DocumentsManquantsDemoProps) {
+  const vertical = useDemoVertical()
+  const {
+    getLiveDossierRow,
+    initialDocuments,
+    interactiveClientContact,
+    interactiveClientName,
+    interactiveDeadlineLabel,
+    reminderSteps,
+    staticDossiers,
+  } = getDocumentsManquantsPack(vertical)
+
   const [items, setItems] = useState<DemoDocumentItem[]>(initialDocuments)
 
   const onToggle = useCallback((id: string) => {

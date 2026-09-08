@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import TasksDemo from '@/components/demo/tasks/TasksDemo'
 import { getAllVerticalIds, getVerticalConfig } from '@/lib/data/verticals'
-import { introText } from '@/lib/data/verticals/finance/affectation-pilotage'
+import { getAffectationPilotagePack } from '@/lib/data/verticals/packs'
 import { pageContentStyle } from '@/lib/pageLayout'
 
 interface TasksPageProps {
@@ -34,6 +34,8 @@ export default async function TasksPage({ params }: TasksPageProps) {
   const pack = config.modules.find((module) => module.id === 'affectation-pilotage')
   if (!pack || pack.status !== 'disponible') notFound()
 
+  const { introText } = getAffectationPilotagePack(vertical)
+
   return (
     <div className="bg-background">
       <div
@@ -58,7 +60,7 @@ export default async function TasksPage({ params }: TasksPageProps) {
             letterSpacing: '-0.02em',
           }}
         >
-          Pilotage des tâches — {config.scenarioCompanyName}
+          {pack.label} — {config.scenarioCompanyName}
         </h1>
         <p className="mt-3 max-w-xl font-light text-foreground-muted" style={{ fontSize: 13 }}>
           {introText}

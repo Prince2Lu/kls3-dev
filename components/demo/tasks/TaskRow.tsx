@@ -4,7 +4,8 @@ import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import DemoButton from '@/components/demo/shared/DemoButton'
 import type { DemoTask, TeamMember } from '@/lib/types/demo'
-import { assignLabel, markDoneLabel, unassignedLabel } from '@/lib/data/verticals/finance/affectation-pilotage'
+import { getAffectationPilotagePack } from '@/lib/data/verticals/packs'
+import { useDemoVertical } from '@/lib/data/verticals/useDemoVertical'
 import SourceTag from './SourceTag'
 import UrgencyBadge from './UrgencyBadge'
 
@@ -16,6 +17,9 @@ interface TaskRowProps {
 }
 
 export default function TaskRow({ task, members, onAssign, onMarkDone }: TaskRowProps) {
+  const vertical = useDemoVertical()
+  const { assignLabel, markDoneLabel, unassignedLabel } = getAffectationPilotagePack(vertical)
+
   return (
     <article className="rounded-xl border border-white/[0.07] bg-card px-4 py-3.5">
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">

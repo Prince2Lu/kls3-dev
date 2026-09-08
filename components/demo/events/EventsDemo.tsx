@@ -3,16 +3,20 @@
 import { useEffect, useRef, useState } from 'react'
 import EventBoard from '@/components/demo/events/EventBoard'
 import DemoButton from '@/components/demo/shared/DemoButton'
-import {
-  columnConfig,
-  eventPool,
-  initialEvents,
-  NEW_EVENT_HIGHLIGHT_MS,
-  nextEventStatus,
-} from '@/lib/data/verticals/finance/evenements-clients'
+import { getEvenementsClientsPack } from '@/lib/data/verticals/packs'
+import { useDemoVertical } from '@/lib/data/verticals/useDemoVertical'
 import type { ClientEvent } from '@/lib/types/demo'
 
 export default function EventsDemo() {
+  const vertical = useDemoVertical()
+  const {
+    columnConfig,
+    eventPool,
+    initialEvents,
+    NEW_EVENT_HIGHLIGHT_MS,
+    nextEventStatus,
+  } = getEvenementsClientsPack(vertical)
+
   const [events, setEvents] = useState<ClientEvent[]>(initialEvents)
   const nextId = useRef(initialEvents.length + 1)
   const highlightTimers = useRef<number[]>([])

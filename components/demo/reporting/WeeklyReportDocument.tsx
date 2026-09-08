@@ -1,11 +1,6 @@
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer'
-import { financeConfig } from '@/lib/data/verticals/finance/config'
-import {
-  reportSummaryBullets,
-  reportWeekLabel,
-  reportingKpis,
-  weeklyActivity,
-} from '@/lib/data/verticals/finance/reporting'
+import { getVerticalConfig } from '@/lib/data/verticals'
+import { getReportingPack } from '@/lib/data/verticals/packs'
 
 /** Remplace les caractères non supportés par les polices de base du PDF (Helvetica). */
 function sanitizeForPdf(text: string): string {
@@ -104,9 +99,15 @@ const styles = StyleSheet.create({
   },
 })
 
-export function WeeklyReportDocument() {
-  const companyName = sanitizeForPdf(financeConfig.scenarioCompanyName)
-  const weekLabel = sanitizeForPdf(reportWeekLabel)
+interface WeeklyReportDocumentProps {
+  verticalId?: string
+}
+
+export function WeeklyReportDocument({ verticalId = 'finance' }: WeeklyReportDocumentProps) {
+  const config = getVerticalConfig(verticalId)
+  const reporting = getReportingPack(verticalId)
+  const companyName = sanitizeForPdf(config?.scenarioCompanyName ?? 'Demonstration KLS3')
+  const weekLabel = sanitizeForPdf(reporting.reportWeekLabel)
   const subtitle = `${companyName} - ${weekLabel}`
 
   return (
@@ -118,13 +119,13 @@ export function WeeklyReportDocument() {
     >
       <Page size="A4" style={styles.page}>
         <Text style={styles.brand}>KLS3</Text>
-        <Text style={styles.title}>Rapport hebdomadaire</Text>
+        <Text style={styles.title}>{sanitizeForPdf(reporting.reportTitle)}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
         <View style={styles.headerRule} />
 
-        <Text style={styles.sectionTitle}>Indicateurs clés</Text>
+        <Text style={styles.sectionTitle}>Indicateurs cles</Text>
         <View style={styles.kpiGrid}>
-          {reportingKpis.map((kpi) => (
+          {reporting.reportingKpis.map((kpi) => (
             <View key={kpi.label} style={styles.kpiCell}>
               <Text style={styles.kpiValue}>{sanitizeForPdf(String(kpi.value))}</Text>
               <Text style={styles.kpiLabel}>{sanitizeForPdf(kpi.label)}</Text>
@@ -132,8 +133,8 @@ export function WeeklyReportDocument() {
           ))}
         </View>
 
-        <Text style={styles.sectionTitle}>Activité de la semaine</Text>
-        {weeklyActivity.map((point) => (
+        <Text style={styles.sectionTitle}>Activite de la semaine</Text>
+        {reporting.weeklyActivity.map((point) => (
           <View key={point.day} style={styles.listItem}>
             <Text style={styles.bullet}>-</Text>
             <Text style={styles.listText}>
@@ -142,8 +143,8 @@ export function WeeklyReportDocument() {
           </View>
         ))}
 
-        <Text style={styles.sectionTitle}>Synthèse</Text>
-        {reportSummaryBullets.map((bullet) => (
+        <Text style={styles.sectionTitle}>Synthese</Text>
+        {reporting.reportSummaryBullets.map((bullet) => (
           <View key={bullet} style={styles.listItem}>
             <Text style={styles.bullet}>-</Text>
             <Text style={styles.listText}>{sanitizeForPdf(bullet)}</Text>

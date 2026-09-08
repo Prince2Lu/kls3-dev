@@ -11,6 +11,7 @@ interface ReportPreviewCardProps {
   bullets: string[]
   downloadLabel: string
   downloadHint: string
+  verticalId?: string
 }
 
 const DOWNLOAD_ERROR = 'Une erreur est survenue, réessayez.'
@@ -20,6 +21,7 @@ export default function ReportPreviewCard({
   weekLabel,
   bullets,
   downloadLabel,
+  verticalId = 'finance',
 }: ReportPreviewCardProps) {
   const [entered, setEntered] = useState(false)
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false)
@@ -41,7 +43,7 @@ export default function ReportPreviewCard({
     setDownloadError(null)
     setIsGeneratingPdf(true)
     try {
-      await generateWeeklyReportPdf()
+      await generateWeeklyReportPdf(verticalId)
     } catch (error) {
       console.error(error)
       setDownloadError(DOWNLOAD_ERROR)

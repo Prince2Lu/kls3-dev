@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import StatCounter from '@/components/demo/cockpit/StatCounter'
 import ReportingDemo from '@/components/demo/reporting/ReportingDemo'
 import { getAllVerticalIds, getVerticalConfig } from '@/lib/data/verticals'
-import { reportingKpis } from '@/lib/data/verticals/finance/reporting'
+import { getReportingPack } from '@/lib/data/verticals/packs'
 import { pageContentStyle } from '@/lib/pageLayout'
 
 interface ReportingPageProps {
@@ -34,6 +34,8 @@ export default async function ReportingPage({ params }: ReportingPageProps) {
 
   const pack = config.modules.find((module) => module.id === 'reporting')
   if (!pack || pack.status !== 'disponible') notFound()
+
+  const { reportingKpis } = getReportingPack(vertical)
 
   return (
     <div className="bg-background">

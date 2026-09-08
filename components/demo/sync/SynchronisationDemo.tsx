@@ -5,17 +5,21 @@ import DemoLayout from '@/components/demo/DemoLayout'
 import DemoButton from '@/components/demo/shared/DemoButton'
 import ConnectedToolsPanel from '@/components/demo/sync/ConnectedToolsPanel'
 import SourceEventPanel from '@/components/demo/sync/SourceEventPanel'
-import {
-  connectedTools,
-  getInitialToolStatuses,
-  sourceEventFields,
-  sourceEventSubtitle,
-  sourceEventTitle,
-  syncDelays,
-} from '@/lib/data/verticals/finance/synchronisation'
+import { getSynchronisationPack } from '@/lib/data/verticals/packs'
+import { useDemoVertical } from '@/lib/data/verticals/useDemoVertical'
 import type { ToolSyncStatus } from '@/lib/types/demo'
 
 export default function SynchronisationDemo() {
+  const vertical = useDemoVertical()
+  const {
+    connectedTools,
+    getInitialToolStatuses,
+    sourceEventFields,
+    sourceEventSubtitle,
+    sourceEventTitle,
+    syncDelays,
+  } = getSynchronisationPack(vertical)
+
   const [saved, setSaved] = useState(false)
   const [formKey, setFormKey] = useState(0)
   const [toolStatuses, setToolStatuses] = useState<Record<string, ToolSyncStatus>>(
@@ -67,7 +71,13 @@ export default function SynchronisationDemo() {
             onSave={handleSave}
           />
         }
-        right={<ConnectedToolsPanel tools={connectedTools} statuses={toolStatuses} />}
+        right={
+          <ConnectedToolsPanel
+            tools={connectedTools}
+            statuses={toolStatuses}
+            delays={syncDelays}
+          />
+        }
       />
 
       <div className="mt-8 text-center">
