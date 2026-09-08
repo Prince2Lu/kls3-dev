@@ -1,29 +1,23 @@
 import type { DemoTask, TaskUrgency, TeamMember } from '@/lib/types/demo'
 
-function startOfToday(): Date {
-  const date = new Date()
-  date.setHours(0, 0, 0, 0)
-  return date
-}
-
 function addDays(base: Date, days: number): Date {
-  const date = new Date(base)
-  date.setDate(date.getDate() + days)
+  const date = new Date(base.getTime())
+  date.setUTCDate(date.getUTCDate() + days)
   return date
 }
 
 function formatFrDate(date: Date): string {
-  const day = String(date.getDate()).padStart(2, '0')
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const year = date.getFullYear()
+  const day = String(date.getUTCDate()).padStart(2, '0')
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0')
+  const year = date.getUTCFullYear()
   return `${day}/${month}/${year}`
 }
 
-/** Délais légaux calculés à partir de la date du jour (démo). */
-const today = startOfToday()
-const dateRetractation = formatFrDate(addDays(today, 10))
-const datePurge = formatFrDate(addDays(today, 31))
-const dateFormalites = formatFrDate(addDays(today, 45))
+/** Jour de référence démo (fixe) pour éviter un décalage SSR / client. */
+const DEMO_TODAY = new Date(Date.UTC(2026, 8, 8))
+const dateRetractation = formatFrDate(addDays(DEMO_TODAY, 10))
+const datePurge = formatFrDate(addDays(DEMO_TODAY, 31))
+const dateFormalites = formatFrDate(addDays(DEMO_TODAY, 45))
 
 export const teamMembers: TeamMember[] = [
   { id: 'dubois', name: 'Maître A. Dubois' },
