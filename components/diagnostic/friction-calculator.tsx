@@ -21,7 +21,7 @@ type Props = {
 }
 
 const fields = [
-  { key: 'clients', label: 'Nombre de clients actifs', min: 10, max: 400, step: 10, default: 80, unit: '' },
+  { key: 'clients', label: 'Nombre de dossiers/actes actifs', min: 10, max: 400, step: 10, default: 80, unit: '' },
   { key: 'outils', label: 'Outils / logiciels utilisés au quotidien', min: 1, max: 10, step: 1, default: 5, unit: '' },
   { key: 'relance', label: 'Heures / semaine — relances & ressaisie', min: 0, max: 30, step: 1, default: 8, unit: 'h' },
   { key: 'diverg', label: "Dossiers avec infos divergentes entre outils / mois", min: 0, max: 40, step: 1, default: 12, unit: '' },

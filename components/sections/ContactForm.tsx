@@ -107,7 +107,7 @@ export default function ContactForm() {
             value={formData.telephone}
             onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
             className={inputClass}
-            placeholder="Votre numéro de téléphone"
+            placeholder="06 12 34 56 78"
           />
         </div>
       </div>

@@ -5,16 +5,23 @@ import OnboardingActionPanel from '@/components/demo/onboarding/OnboardingAction
 import OnboardingTracker from '@/components/demo/onboarding/OnboardingTracker'
 import OtherOnboardingsList from '@/components/demo/onboarding/OtherOnboardingsList'
 import DemoButton from '@/components/demo/shared/DemoButton'
-import {
-  activeOnboardingClientName,
-  onboardingStages,
-  otherOnboardings,
-} from '@/lib/data/verticals/finance/onboarding'
+import { getOnboardingPack } from '@/lib/data/verticals/packs'
+import { useDemoVertical } from '@/lib/data/verticals/useDemoVertical'
 import type { OnboardingActionState } from '@/lib/types/demo'
 
 const ACTION_DELAY_MS = 900
 
 export default function OnboardingDemo() {
+  const vertical = useDemoVertical()
+  const {
+    activeOnboardingClientName,
+    demoHeadingPrefix,
+    demoIntro,
+    onboardingStages,
+    otherOnboardings,
+    otherSectionLabel,
+  } = getOnboardingPack(vertical)
+
   const [currentStageIndex, setCurrentStageIndex] = useState(0)
   const [actionState, setActionState] = useState<OnboardingActionState>('idle')
   const timeoutsRef = useRef<number[]>([])
@@ -65,11 +72,9 @@ export default function OnboardingDemo() {
           letterSpacing: '-0.02em',
         }}
       >
-        Onboarding — {activeOnboardingClientName}
+        {demoHeadingPrefix} — {activeOnboardingClientName}
       </h1>
-      <p className="mt-3 max-w-xl text-base font-light text-foreground-muted">
-        Un parcours identique pour chaque nouveau dossier, étape par étape.
-      </p>
+      <p className="mt-3 max-w-xl text-base font-light text-foreground-muted">{demoIntro}</p>
 
       <section className="mt-10 rounded-2xl border border-white/[0.07] bg-card p-6 md:p-8">
         <p
@@ -108,7 +113,7 @@ export default function OnboardingDemo() {
           style={{ fontSize: 11, letterSpacing: '0.16em' }}
         >
           <span className="mr-2.5 inline-block h-px w-7 bg-accent align-middle" />
-          Autres onboardings en cours
+          {otherSectionLabel}
         </p>
         <OtherOnboardingsList rows={otherOnboardings} stageCount={onboardingStages.length} />
       </section>

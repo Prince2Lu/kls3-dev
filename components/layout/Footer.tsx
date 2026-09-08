@@ -71,7 +71,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 pt-6" style={{ borderTop: '0.5px solid rgba(255, 255, 255, 0.07)' }}>
-          <p style={{ fontSize: '12px', color: 'rgba(240, 237, 232, 0.65)' }}>© 2026 KLS3</p>
+          <p style={{ fontSize: '12px', color: 'rgba(240, 237, 232, 0.65)' }}>© 2026 KLS3 · Grand-Est & Luxembourg</p>
         </div>
       </div>
     </footer>

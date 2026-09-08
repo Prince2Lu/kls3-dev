@@ -12,21 +12,10 @@ import {
 } from 'lucide-react'
 import DemoButton from '@/components/demo/shared/DemoButton'
 import type { ClientEvent, EventStatus } from '@/lib/types/demo'
-import {
-  eventActionLabels,
-  eventTypeDetails,
-  eventTypeIcons,
-} from '@/lib/data/verticals/finance/evenements-clients'
+import { getEvenementsClientsPack } from '@/lib/data/verticals/packs'
+import { useDemoVertical } from '@/lib/data/verticals/useDemoVertical'
 
 const FALLBACK_NOTE = 'Détails à venir.'
-
-function contextualNote(eventType: string, status: EventStatus): string {
-  const detail = eventTypeDetails[eventType]
-  if (!detail) return FALLBACK_NOTE
-  if (status === 'a_qualifier') return detail.detectedInfo
-  if (status === 'en_cours') return detail.qualificationNote
-  return detail.resolutionNote
-}
 
 function noteColor(status: EventStatus): string {
   if (status === 'en_cours') return '#4B7BF5'
@@ -49,6 +38,18 @@ interface EventCardProps {
 }
 
 export default function EventCard({ event, onAdvance }: EventCardProps) {
+  const vertical = useDemoVertical()
+  const { eventActionLabels, eventTypeDetails, eventTypeIcons } =
+    getEvenementsClientsPack(vertical)
+
+  const contextualNote = (eventType: string, status: EventStatus): string => {
+    const detail = eventTypeDetails[eventType]
+    if (!detail) return FALLBACK_NOTE
+    if (status === 'a_qualifier') return detail.detectedInfo
+    if (status === 'en_cours') return detail.qualificationNote
+    return detail.resolutionNote
+  }
+
   const isNew = event.isNew === true
   const isResolved = event.status === 'resolu'
   const actionLabel = eventActionLabels[event.status]

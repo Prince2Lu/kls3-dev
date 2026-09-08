@@ -33,9 +33,12 @@ function downloadBlob(blob: Blob, filename: string) {
   }, 2000)
 }
 
-export async function generateWeeklyReportPdf(): Promise<void> {
+export async function generateWeeklyReportPdf(verticalId = 'finance'): Promise<void> {
   const pdf = getPdfRenderer()
-  const blob = await pdf(createElement(WeeklyReportDocument)).toBlob()
+  const document = createElement(WeeklyReportDocument, { verticalId })
+  const blob = await pdf(
+    document as unknown as Parameters<typeof pdf>[0],
+  ).toBlob()
 
   if (!(blob instanceof Blob) || blob.size === 0) {
     throw new Error('PDF vide')

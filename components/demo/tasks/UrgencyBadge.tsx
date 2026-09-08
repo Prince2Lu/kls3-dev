@@ -1,5 +1,8 @@
+'use client'
+
 import type { TaskUrgency } from '@/lib/types/demo'
-import { urgencyLabels } from '@/lib/data/verticals/finance/affectation-pilotage'
+import { getAffectationPilotagePack } from '@/lib/data/verticals/packs'
+import { useDemoVertical } from '@/lib/data/verticals/useDemoVertical'
 
 const STYLES: Record<TaskUrgency, { background: string; color: string }> = {
   urgent: { background: 'rgba(229,72,77,0.15)', color: '#E5484D' },
@@ -12,6 +15,8 @@ interface UrgencyBadgeProps {
 }
 
 export default function UrgencyBadge({ urgency }: UrgencyBadgeProps) {
+  const vertical = useDemoVertical()
+  const { urgencyLabels } = getAffectationPilotagePack(vertical)
   const style = STYLES[urgency]
 
   return (

@@ -35,7 +35,9 @@ export type DiagnosticActionResult = { ok: true } | { ok: false; error: string }
 export async function submitDiagnostic(
   data: DiagnosticSubmission
 ): Promise<DiagnosticActionResult> {
-  if (!data.email || !data.cabinet || !data.nom || !data.telephone?.trim()) {
+  const telephone = data.telephone?.trim()
+
+  if (!data.email || !data.cabinet || !data.nom || !telephone) {
     return { ok: false, error: 'Merci de renseigner tous les champs.' }
   }
 
@@ -63,7 +65,7 @@ export async function submitDiagnostic(
         nom: data.nom,
         cabinet: data.cabinet,
         email: data.email,
-        telephone: data.telephone.trim(),
+        telephone,
         score: data.score,
         heuresMois: data.heuresMois,
         coutAn: data.coutAn,
@@ -88,7 +90,8 @@ export async function submitDiagnostic(
       html: buildDiagnosticEmailHtml({
         nom: data.nom,
         cabinet: data.cabinet,
-        telephone: data.telephone.trim(),
+        email: data.email,
+        telephone,
         score: data.score,
         heuresMois: data.heuresMois,
         coutAn: data.coutAn,
@@ -113,7 +116,8 @@ export async function submitDiagnostic(
       html: buildDiagnosticEmailHtml({
         nom: data.nom,
         cabinet: data.cabinet,
-        telephone: data.telephone.trim(),
+        email: data.email,
+        telephone,
         score: data.score,
         heuresMois: data.heuresMois,
         coutAn: data.coutAn,

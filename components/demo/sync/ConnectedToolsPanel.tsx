@@ -1,13 +1,17 @@
-import { syncDelays } from '@/lib/data/verticals/finance/synchronisation'
 import type { ConnectedTool, ToolSyncStatus } from '@/lib/types/demo'
 import ToolSyncCard from './ToolSyncCard'
 
 interface ConnectedToolsPanelProps {
   tools: ConnectedTool[]
   statuses: Record<string, ToolSyncStatus>
+  delays: Record<string, number>
 }
 
-export default function ConnectedToolsPanel({ tools, statuses }: ConnectedToolsPanelProps) {
+export default function ConnectedToolsPanel({
+  tools,
+  statuses,
+  delays,
+}: ConnectedToolsPanelProps) {
   const syncedCount = tools.filter((tool) => statuses[tool.id] === 'synchronise').length
 
   return (
@@ -31,7 +35,7 @@ export default function ConnectedToolsPanel({ tools, statuses }: ConnectedToolsP
             key={tool.id}
             tool={tool}
             status={statuses[tool.id] ?? 'attente'}
-            delayMs={syncDelays[tool.id] ?? 1000}
+            delayMs={delays[tool.id] ?? 1000}
           />
         ))}
       </div>
