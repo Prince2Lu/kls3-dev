@@ -192,7 +192,7 @@ export function DiagnosticPdf({
 
         <Text style={styles.sectionTitle}>Paramètres du diagnostic</Text>
         <View style={styles.metricRow}>
-          <Text style={styles.label}>Nombre de clients actifs</Text>
+          <Text style={styles.label}>Nombre de dossiers/actes actifs</Text>
           <Text style={styles.value}>{parametres.clients}</Text>
         </View>
         <View style={styles.metricRow}>
