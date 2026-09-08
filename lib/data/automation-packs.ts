@@ -12,9 +12,9 @@ export const automationPacks: AutomationPack[] = [
   {
     id: 'onboarding',
     numero: '01',
-    titre: 'Client signé → dossier opérationnel',
+    titre: 'Acte signé → dossier opérationnel',
     description:
-      "La signature déclenche la création du dossier, l'affectation et les accès dans tous vos outils.",
+      'La signature déclenche le classement, les formalités post-acte (publicité foncière, enregistrement) et la mise à jour des accès dans tous vos outils.',
     potentiel: 'Très fort',
     iconPath: 'M4 12h6l2-3 2 6 2-3h4',
   },
@@ -32,7 +32,7 @@ export const automationPacks: AutomationPack[] = [
     numero: '03',
     titre: 'Événements clients',
     description:
-      'Changement de dirigeant, de RIB, de salarié : un seul déclencheur, toutes les actions transverses.',
+      "Signature d'un acte, changement de coordonnées bancaires, nouvel intervenant sur un dossier : un seul déclencheur, toutes les actions transverses — immobilier, famille, patrimoine, droit des affaires.",
     potentiel: 'Très fort',
     iconPath: 'M12 3a9 9 0 100 18 9 9 0 000-18z M12 7v5l3.5 2',
   },
@@ -59,7 +59,7 @@ export const automationPacks: AutomationPack[] = [
     numero: '06',
     titre: 'Affectation & pilotage',
     description:
-      'Répartition des dossiers et tâches selon la charge réelle de vos collaborateurs.',
+      'Répartition des dossiers selon la charge réelle, et suivi automatique des délais légaux (rétractation, purge, formalités).',
     potentiel: 'Fort',
     iconPath: 'M8 8a3 3 0 106 0 3 3 0 10-6 0 M16 16a3 3 0 106 0 3 3 0 10-6 0 M10.2 9.8 13.8 14.2',
   },
