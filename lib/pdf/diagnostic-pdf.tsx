@@ -169,10 +169,6 @@ export function DiagnosticPdf({
               <Text style={styles.value}>{sanitizeForPdf(telephone)}</Text>
             </View>
           </View>
-          <View style={styles.clientRow}>
-            <Text style={styles.label}>Téléphone</Text>
-            <Text style={styles.value}>{sanitizeForPdf(telephone)}</Text>
-          </View>
         </View>
 
         <Text style={styles.sectionTitle}>Score de friction opérationnelle</Text>
