@@ -4,7 +4,7 @@ import { useState, FormEvent } from 'react'
 import { type ContactFormData } from '@/lib/types/kls3'
 
 const inputClass =
-  'w-full px-4 py-3 bg-[#111111] border border-kls-border rounded-lg text-kls-text placeholder:text-[rgba(240,237,232,0.35)] focus:outline-none focus:border-[#4B7BF5] transition-colors'
+  'w-full px-4 py-3 bg-[#0D0D0D] border border-kls-border rounded-lg text-kls-text placeholder:text-[rgba(240,237,232,0.35)] focus:outline-none focus:border-[#4B7BF5] transition-colors'
 
 const labelClass = 'block mb-2'
 const labelStyle = {

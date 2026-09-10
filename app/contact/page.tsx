@@ -45,7 +45,7 @@ export default function ContactPage() {
           paddingBottom: 'clamp(60px, 8vw, 128px)',
         }}
       >
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-24">
+        <div className="grid grid-cols-1 gap-x-16 gap-y-16 lg:grid-cols-2 lg:gap-x-24">
           <div className="max-w-xl">
             <p className="section-label mb-8">Contact</p>
             <h1
@@ -139,7 +139,7 @@ export default function ContactPage() {
           </div>
 
           <div className="w-full min-w-0">
-            <div className="mb-12">
+            <div>
               <p className="section-label mb-6">Comment ça se passe</p>
               <ol style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {CONTACT_STEPS.map((step) => (
@@ -198,8 +198,31 @@ export default function ContactPage() {
                 ))}
               </ol>
             </div>
+          </div>
 
-            <ContactForm />
+          <div className="lg:col-span-2">
+            <p
+              className="mb-6"
+              style={{
+                fontSize: '11px',
+                letterSpacing: '0.16em',
+                color: '#4B7BF5',
+                textTransform: 'uppercase',
+                fontFamily: 'var(--font-body)',
+              }}
+            >
+              Formulaire de contact
+            </p>
+            <div
+              className="p-6 sm:p-8 lg:p-10"
+              style={{
+                background: '#111111',
+                border: '0.5px solid rgba(255,255,255,0.07)',
+                borderRadius: 16,
+              }}
+            >
+              <ContactForm />
+            </div>
 
             <div
               className="mt-10 pt-8"
