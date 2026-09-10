@@ -1,0 +1,14 @@
+# KLS3
+
+> KLS3 orchestre les opérations des professions réglementées pluridisciplinaires (entreprises de 10 à 1000 personnes) en Grand-Est et au Luxembourg. L'activité consiste à relier les outils métier des différents pôles pour que les événements clients se propagent sans ressaisie.
+
+KLS3 identifie les frictions opérationnelles invisibles (tâches répétitives, données dispersées, relances manuelles, manque de visibilité, processus fragiles) et les transforme en systèmes fluides et pilotables. Le site décrit l'offre, des cas concrets, un blog, un formulaire de contact et un diagnostic en ligne. Fondateurs : Éric Scarpino (direction de missions) et Lilian Scarpino (direction commerciale).
+
+## Pages
+
+- [Accueil](https://www.kls3-dev.com/) : positionnement et sections Frictions (`/#frictions`), Solutions (`/#solutions`), Méthode (`/#methode`)
+- [Cas concrets](https://www.kls3-dev.com/cas-clients) : exemples de transformations opérationnelles
+- [Blog](https://www.kls3-dev.com/blog) : articles sur les frictions, le pilotage et l'organisation
+- [Contact](https://www.kls3-dev.com/contact) : prise de rendez-vous
+- [Diagnostic](https://www.kls3-dev.com/diagnostic) : questionnaire pour un premier diagnostic gratuit
+- [À propos](https://www.kls3-dev.com/a-propos) : équipe et activité

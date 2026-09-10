@@ -5,12 +5,12 @@ import Link from 'next/link'
 import { Calendar, Clock, ArrowRight } from 'lucide-react'
 import BlogCard from '@/components/ui/BlogCard'
 import SectionLabel from '@/components/ui/SectionLabel'
-import { type BlogPost } from '@/lib/mdx'
+import { type BlogListingPost } from '@/lib/mdx'
 
 const ARTICLES_PAR_PAGE = 6
 
 interface BlogPageClientProps {
-  posts: BlogPost[]
+  posts: BlogListingPost[]
 }
 
 const categoryColors: Record<string, string> = {

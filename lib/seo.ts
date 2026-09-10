@@ -14,12 +14,13 @@ export function pageMetadata(
     path?: string
     type?: 'website' | 'article'
     publishedTime?: string
+    absolute?: boolean
   }
 ): Metadata {
   const ogTitle = socialTitle(title)
 
   return {
-    title,
+    title: options?.absolute ? { absolute: title } : title,
     description,
     openGraph: {
       title: ogTitle,

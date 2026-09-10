@@ -36,6 +36,13 @@ export default function Footer() {
                 Blog
               </Link>
               <Link
+                href="/diagnostic"
+                className="transition-colors hover:text-[#F0EDE8]"
+                style={mainLinkStyle}
+              >
+                Diagnostic gratuit
+              </Link>
+              <Link
                 href="/a-propos"
                 className="transition-colors hover:text-[#F0EDE8]"
                 style={mainLinkStyle}

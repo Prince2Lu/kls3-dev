@@ -3,10 +3,10 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Calendar, Clock } from 'lucide-react'
-import { type BlogPost } from '@/lib/mdx'
+import { type BlogListingPost } from '@/lib/mdx'
 
 interface BlogCardProps {
-  post: BlogPost
+  post: BlogListingPost
 }
 
 export default function BlogCard({ post }: BlogCardProps) {

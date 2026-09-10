@@ -18,6 +18,24 @@ export interface BlogPost {
   image?: string
 }
 
+/** Card/listing fields only — never pass `content` to client components. */
+export type BlogListingPost = Pick<
+  BlogPost,
+  'slug' | 'titre_seo' | 'meta_description' | 'categorie' | 'publishedAt' | 'readTime' | 'image'
+>
+
+export function toListingPost(post: BlogPost): BlogListingPost {
+  return {
+    slug: post.slug,
+    titre_seo: post.titre_seo,
+    meta_description: post.meta_description,
+    categorie: post.categorie,
+    publishedAt: post.publishedAt,
+    readTime: post.readTime,
+    image: post.image,
+  }
+}
+
 export interface TocItem {
   id: string
   text: string
