@@ -77,17 +77,20 @@ export default function CasClientsPage() {
               </p>
             </div>
 
-            <div className="relative hidden min-h-[420px] overflow-hidden lg:block">
+            <div
+              className="relative hidden min-h-[420px] overflow-hidden lg:block"
+              style={{
+                borderRadius: 16,
+                background: '#FFFFFF',
+                boxShadow: '0 16px 48px rgba(0, 0, 0, 0.42)',
+              }}
+            >
               <Image
                 src="/cas-clients-illustration.png"
                 alt="Illustration des cas concrets KLS3"
                 fill
                 sizes="(min-width: 1024px) 50vw, 0px"
                 className="object-cover"
-                style={{
-                  borderRadius: 16,
-                  border: '0.5px solid rgba(255,255,255,0.07)',
-                }}
               />
             </div>
           </div>
