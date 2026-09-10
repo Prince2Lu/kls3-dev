@@ -3,12 +3,13 @@ import PageHero from '@/components/sections/PageHero'
 import QuoteCTA from '@/components/sections/QuoteCTA'
 import { Stagger, StaggerItem } from '@/components/ui/Motion'
 import { pageSectionVerticalStyle } from '@/lib/pageLayout'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Frictions opérationnelles',
-  description:
-    'Reporting manuel, validations lentes, relances répétitives, données dispersées : KLS3 aide les entreprises à identifier et supprimer les frictions qui ralentissent leurs opérations.',
-}
+export const metadata: Metadata = pageMetadata(
+  'Frictions opérationnelles',
+  'Reporting manuel, validations lentes, relances répétitives, données dispersées : KLS3 aide les entreprises à identifier et supprimer les frictions qui ralentissent leurs opérations.',
+  { path: '/frictions' }
+)
 
 const detailedFrictions = [
   {

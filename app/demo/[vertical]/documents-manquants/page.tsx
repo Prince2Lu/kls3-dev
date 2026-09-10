@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import DocumentsManquantsDemo from '@/components/demo/DocumentsManquantsDemo'
 import { getAllVerticalIds, getVerticalConfig } from '@/lib/data/verticals'
 import { pageContentStyle } from '@/lib/pageLayout'
+import { demoMetadata } from '@/lib/seo'
 
 interface DocumentsManquantsPageProps {
   params: Promise<{ vertical: string }>
@@ -20,10 +21,10 @@ export async function generateMetadata({
   const config = getVerticalConfig(vertical)
   const pack = config?.modules.find((module) => module.id === 'documents-manquants')
 
-  return {
-    title: pack ? `Démonstration — ${pack.label}` : 'Démonstration',
-    robots: { index: false, follow: false },
-  }
+  return demoMetadata(
+    pack ? `Démonstration — ${pack.label}` : 'Démonstration',
+    `/demo/${vertical}/documents-manquants`
+  )
 }
 
 export default async function DocumentsManquantsPage({ params }: DocumentsManquantsPageProps) {

@@ -3,12 +3,13 @@ import CaseStudyBlock from '@/components/sections/CaseStudyBlock'
 import QuoteCTA from '@/components/sections/QuoteCTA'
 import { caseStudies } from '@/lib/data/caseStudies'
 import { pageContentStyle } from '@/lib/pageLayout'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Cas concrets',
-  description:
-    'Quelques exemples de frictions opérationnelles supprimées grâce à des systèmes plus fluides et plus pilotables.',
-}
+export const metadata: Metadata = pageMetadata(
+  'Cas concrets',
+  'Quelques exemples de frictions opérationnelles supprimées grâce à des systèmes plus fluides et plus pilotables.',
+  { path: '/cas-clients' }
+)
 
 export default function CasClientsPage() {
   return (

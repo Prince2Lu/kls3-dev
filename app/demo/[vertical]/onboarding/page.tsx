@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import OnboardingDemo from '@/components/demo/onboarding/OnboardingDemo'
 import { getAllVerticalIds, getVerticalConfig } from '@/lib/data/verticals'
 import { pageContentStyle } from '@/lib/pageLayout'
+import { demoMetadata } from '@/lib/seo'
 
 interface OnboardingPageProps {
   params: Promise<{ vertical: string }>
@@ -18,10 +19,10 @@ export async function generateMetadata({ params }: OnboardingPageProps): Promise
   const config = getVerticalConfig(vertical)
   const pack = config?.modules.find((module) => module.id === 'onboarding')
 
-  return {
-    title: pack ? `Démonstration — ${pack.label}` : 'Démonstration',
-    robots: { index: false, follow: false },
-  }
+  return demoMetadata(
+    pack ? `Démonstration — ${pack.label}` : 'Démonstration',
+    `/demo/${vertical}/onboarding`
+  )
 }
 
 export default async function OnboardingPage({ params }: OnboardingPageProps) {

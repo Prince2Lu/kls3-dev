@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import EventsDemo from '@/components/demo/events/EventsDemo'
 import { getAllVerticalIds, getVerticalConfig } from '@/lib/data/verticals'
 import { pageContentStyle } from '@/lib/pageLayout'
+import { demoMetadata } from '@/lib/seo'
 
 interface EventsPageProps {
   params: Promise<{ vertical: string }>
@@ -18,10 +19,10 @@ export async function generateMetadata({ params }: EventsPageProps): Promise<Met
   const config = getVerticalConfig(vertical)
   const pack = config?.modules.find((module) => module.id === 'evenements-clients')
 
-  return {
-    title: pack ? `Démonstration — ${pack.label}` : 'Démonstration',
-    robots: { index: false, follow: false },
-  }
+  return demoMetadata(
+    pack ? `Démonstration — ${pack.label}` : 'Démonstration',
+    `/demo/${vertical}/evenements-clients`
+  )
 }
 
 export default async function EventsPage({ params }: EventsPageProps) {

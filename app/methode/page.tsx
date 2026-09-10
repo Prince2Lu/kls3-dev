@@ -3,6 +3,7 @@ import PageHero from '@/components/sections/PageHero'
 import QuoteCTA from '@/components/sections/QuoteCTA'
 import { Stagger, StaggerItem } from '@/components/ui/Motion'
 import { pageSectionVerticalStyle } from '@/lib/pageLayout'
+import { pageMetadata } from '@/lib/seo'
 
 const transformationSteps = [
   {
@@ -27,11 +28,11 @@ const transformationSteps = [
   },
 ] as const
 
-export const metadata: Metadata = {
-  title: 'Méthode',
-  description:
-    'KLS3 applique une approche opérationnelle simple : identifier les frictions réelles, simplifier les opérations inutiles, automatiser les tâches répétitives et rendre les opérations pilotables.',
-}
+export const metadata: Metadata = pageMetadata(
+  'Méthode',
+  'KLS3 applique une approche opérationnelle simple : identifier les frictions réelles, simplifier les opérations inutiles, automatiser les tâches répétitives et rendre les opérations pilotables.',
+  { path: '/methode' }
+)
 
 export default function MethodePage() {
   return (

@@ -21,6 +21,12 @@ export const metadata: Metadata = {
     description:
       "KLS3 identifie les frictions invisibles qui ralentissent vos opérations et les transforme en systèmes fluides, pilotables et automatisés.",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "KLS3 — Operational Intelligence",
+    description:
+      "KLS3 identifie les frictions invisibles qui ralentissent vos opérations et les transforme en systèmes fluides, pilotables et automatisés.",
+  },
   robots: {
     index: true,
     follow: true,

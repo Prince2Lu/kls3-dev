@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import SynchronisationDemo from '@/components/demo/sync/SynchronisationDemo'
 import { getAllVerticalIds, getVerticalConfig } from '@/lib/data/verticals'
 import { pageContentStyle } from '@/lib/pageLayout'
+import { demoMetadata } from '@/lib/seo'
 
 interface SynchronisationPageProps {
   params: Promise<{ vertical: string }>
@@ -20,10 +21,10 @@ export async function generateMetadata({
   const config = getVerticalConfig(vertical)
   const pack = config?.modules.find((module) => module.id === 'synchronisation')
 
-  return {
-    title: pack ? `Démonstration — ${pack.label}` : 'Démonstration',
-    robots: { index: false, follow: false },
-  }
+  return demoMetadata(
+    pack ? `Démonstration — ${pack.label}` : 'Démonstration',
+    `/demo/${vertical}/synchronisation`
+  )
 }
 
 export default async function SynchronisationPage({ params }: SynchronisationPageProps) {

@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import { legalH1Style, legalH2Style, legalMainStyle, legalPStyle } from '@/lib/legalPageStyles'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Mentions légales | KLS3',
-  description: 'Mentions légales du site kls3-dev.com',
-}
+export const metadata: Metadata = pageMetadata(
+  'Mentions légales | KLS3',
+  'Mentions légales du site kls3-dev.com',
+  { path: '/mentions-legales' }
+)
 
 export default function MentionsLegales() {
   return (

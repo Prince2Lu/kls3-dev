@@ -6,6 +6,7 @@ import ModuleGrid from '@/components/demo/cockpit/ModuleGrid'
 import StatCounter from '@/components/demo/cockpit/StatCounter'
 import { getAllVerticalIds, getVerticalConfig } from '@/lib/data/verticals'
 import { pageContentStyle } from '@/lib/pageLayout'
+import { demoMetadata } from '@/lib/seo'
 
 interface DemoCockpitPageProps {
   params: Promise<{ vertical: string }>
@@ -19,10 +20,10 @@ export async function generateMetadata({ params }: DemoCockpitPageProps): Promis
   const { vertical } = await params
   const config = getVerticalConfig(vertical)
 
-  return {
-    title: config ? `Démonstration — ${config.label}` : 'Démonstration',
-    robots: { index: false, follow: false },
-  }
+  return demoMetadata(
+    config ? `Démonstration — ${config.label}` : 'Démonstration',
+    `/demo/${vertical}`
+  )
 }
 
 export default async function DemoCockpitPage({ params }: DemoCockpitPageProps) {

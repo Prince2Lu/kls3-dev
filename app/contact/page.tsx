@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import ContactForm from '@/components/sections/ContactForm'
 import { pageContentStyle } from '@/lib/pageLayout'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Contact',
-  description:
-    'Décrivez l\'opération qui vous ralentit le plus. KLS3 identifie vos frictions invisibles et vous propose les leviers d\'amélioration les plus rapides.',
-}
+export const metadata: Metadata = pageMetadata(
+  'Contact',
+  'Décrivez l\'opération qui vous ralentit le plus. KLS3 identifie vos frictions invisibles et vous propose les leviers d\'amélioration les plus rapides.',
+  { path: '/contact' }
+)
 
 export default function ContactPage() {
   return (

@@ -3,12 +3,13 @@ import PageHero from '@/components/sections/PageHero'
 import QuoteCTA from '@/components/sections/QuoteCTA'
 import { Stagger, StaggerItem } from '@/components/ui/Motion'
 import { pageSectionVerticalStyle } from '@/lib/pageLayout'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Solutions opérationnelles',
-  description:
-    'KLS3 construit des systèmes fluides, pilotables et adaptés à vos opérations réelles : fluidification, intelligence opérationnelle, automatisation sur-mesure et infrastructure métier.',
-}
+export const metadata: Metadata = pageMetadata(
+  'Solutions opérationnelles',
+  'KLS3 construit des systèmes fluides, pilotables et adaptés à vos opérations réelles : fluidification, intelligence opérationnelle, automatisation sur-mesure et infrastructure métier.',
+  { path: '/solutions' }
+)
 
 const solutions = [
   {

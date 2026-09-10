@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/seo/JsonLd'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'À propos | KLS3',
-  description: 'KLS3, partenaire d\'intelligence opérationnelle. Qui sommes-nous, notre équipe et nos valeurs.',
-}
+export const metadata: Metadata = pageMetadata(
+  'À propos | KLS3',
+  'KLS3, partenaire d\'intelligence opérationnelle. Qui sommes-nous, notre équipe et nos valeurs.',
+  { path: '/a-propos' }
+)
 
 const sectionLabelStyle = {
   display: 'inline-flex',

@@ -5,6 +5,7 @@ import TasksDemo from '@/components/demo/tasks/TasksDemo'
 import { getAllVerticalIds, getVerticalConfig } from '@/lib/data/verticals'
 import { getAffectationPilotagePack } from '@/lib/data/verticals/packs'
 import { pageContentStyle } from '@/lib/pageLayout'
+import { demoMetadata } from '@/lib/seo'
 
 interface TasksPageProps {
   params: Promise<{ vertical: string }>
@@ -19,10 +20,10 @@ export async function generateMetadata({ params }: TasksPageProps): Promise<Meta
   const config = getVerticalConfig(vertical)
   const pack = config?.modules.find((module) => module.id === 'affectation-pilotage')
 
-  return {
-    title: pack ? `Démonstration — ${pack.label}` : 'Démonstration',
-    robots: { index: false, follow: false },
-  }
+  return demoMetadata(
+    pack ? `Démonstration — ${pack.label}` : 'Démonstration',
+    `/demo/${vertical}/affectation-pilotage`
+  )
 }
 
 export default async function TasksPage({ params }: TasksPageProps) {

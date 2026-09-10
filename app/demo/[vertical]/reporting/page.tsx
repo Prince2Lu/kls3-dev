@@ -6,6 +6,7 @@ import ReportingDemo from '@/components/demo/reporting/ReportingDemo'
 import { getAllVerticalIds, getVerticalConfig } from '@/lib/data/verticals'
 import { getReportingPack } from '@/lib/data/verticals/packs'
 import { pageContentStyle } from '@/lib/pageLayout'
+import { demoMetadata } from '@/lib/seo'
 
 interface ReportingPageProps {
   params: Promise<{ vertical: string }>
@@ -20,10 +21,10 @@ export async function generateMetadata({ params }: ReportingPageProps): Promise<
   const config = getVerticalConfig(vertical)
   const pack = config?.modules.find((module) => module.id === 'reporting')
 
-  return {
-    title: pack ? `Démonstration — ${pack.label}` : 'Démonstration',
-    robots: { index: false, follow: false },
-  }
+  return demoMetadata(
+    pack ? `Démonstration — ${pack.label}` : 'Démonstration',
+    `/demo/${vertical}/reporting`
+  )
 }
 
 export default async function ReportingPage({ params }: ReportingPageProps) {

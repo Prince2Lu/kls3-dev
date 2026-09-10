@@ -2,19 +2,13 @@ import type { Metadata } from 'next'
 import { automationPacks } from '@/lib/data/automation-packs'
 import { DiagnosticHero } from '@/components/diagnostic/diagnostic-hero'
 import { DiagnosticInteractive } from '@/components/diagnostic/diagnostic-interactive'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Diagnostic de friction opérationnelle',
-  description:
-    "Estimez en 30 secondes le temps et le coût mobilisés par la coordination manuelle entre vos outils, et découvrez les Automation Packs KLS3 adaptés à votre activité.",
-  openGraph: {
-    title: 'Diagnostic de friction opérationnelle',
-    description:
-      "KLS3 identifie les frictions invisibles entre vos logiciels et les transforme en systèmes automatisés.",
-    type: 'website',
-    locale: 'fr_FR',
-  },
-}
+export const metadata: Metadata = pageMetadata(
+  'Diagnostic de friction opérationnelle',
+  'Estimez en 30 secondes le temps et le coût mobilisés par la coordination manuelle entre vos outils, et découvrez les Automation Packs KLS3 adaptés à votre activité.',
+  { path: '/diagnostic' }
+)
 
 export default function DiagnosticPage() {
   return (

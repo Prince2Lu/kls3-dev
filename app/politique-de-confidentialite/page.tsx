@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import { legalH1Style, legalH2Style, legalMainStyle, legalPStyle } from '@/lib/legalPageStyles'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Politique de confidentialité | KLS3',
-  description: 'Politique de confidentialité du site kls3-dev.com',
-}
+export const metadata: Metadata = pageMetadata(
+  'Politique de confidentialité | KLS3',
+  'Politique de confidentialité du site kls3-dev.com',
+  { path: '/politique-de-confidentialite' }
+)
 
 export default function PolitiqueConfidentialite() {
   return (

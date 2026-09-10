@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getPostBySlug } from '@/lib/mdx'
+import { pageMetadata } from '@/lib/seo'
 
 interface BlogLayoutProps {
   params: Promise<{ slug: string }>
@@ -11,21 +12,14 @@ export async function generateMetadata({ params }: BlogLayoutProps): Promise<Met
   const post = getPostBySlug(slug)
 
   if (!post) {
-    return {
-      title: 'Article non trouvé',
-    }
+    return pageMetadata('Article non trouvé', 'Cet article est introuvable.')
   }
 
-  return {
-    title: post.titre_seo,
-    description: post.meta_description,
-    openGraph: {
-      title: post.titre_seo,
-      description: post.meta_description,
-      type: 'article',
-      publishedTime: post.publishedAt,
-    },
-  }
+  return pageMetadata(post.titre_seo, post.meta_description, {
+    path: `/blog/${post.slug}`,
+    type: 'article',
+    publishedTime: post.publishedAt,
+  })
 }
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
