@@ -317,7 +317,7 @@ export default function APropos() {
           Faisons connaissance.
         </h2>
         <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.65)', margin: 0 }}>
-          Premier échange gratuit et sans engagement.
+          Premier diagnostic gratuit et sans engagement.
         </p>
         <Link
           href="/contact"

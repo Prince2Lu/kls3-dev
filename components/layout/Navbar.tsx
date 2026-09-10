@@ -165,7 +165,7 @@ export default function Navbar() {
               <Link href="/contact" className={ctaClassName} style={{ ...ctaStyle, padding: '8px 20px' }}>
                 Analyser mes opérations →
               </Link>
-              <span style={ctaReassuranceStyle}>Sans engagement · Réponse sous 48h</span>
+              <span style={ctaReassuranceStyle}>Diagnostic gratuit · Réponse sous 48h</span>
             </div>
 
             <button

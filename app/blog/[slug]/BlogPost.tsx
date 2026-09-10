@@ -103,7 +103,7 @@ export default function BlogPost({ post }: BlogPostProps) {
                       Cet article vous a intéressé ?
                     </h3>
                     <p className="text-white/70 mb-6 text-lg">
-                      Parlons de votre projet. Premier échange gratuit et sans engagement.
+                      Parlons de votre projet. Premier diagnostic gratuit et sans engagement.
                     </p>
                     <Link
                       href="/contact"

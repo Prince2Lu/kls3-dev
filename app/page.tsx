@@ -52,7 +52,7 @@ export default function Home() {
               letterSpacing: '0.04em',
             }}
           >
-            Sans engagement · Réponse sous 48h
+            Diagnostic gratuit · Réponse sous 48h
           </span>
         </div>
       </div>
@@ -83,7 +83,7 @@ export default function Home() {
               name: 'Comment KLS3 identifie-t-il les frictions dans mon organisation ?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: "Nous commençons par un échange de découverte sans engagement pour comprendre votre contexte. Nous analysons ensuite les flux réels de votre organisation pour identifier précisément où l'énergie est gaspillée et pourquoi.",
+                text: "Nous commençons par un échange de découverte sans engagement pour comprendre votre contexte. Nous analysons ensuite les flux réels de votre organisation — pas les processus théoriques — pour identifier précisément où l'énergie est gaspillée et pourquoi, avant de vous proposer, si pertinent, un pilote ciblé (500 à 3000€) puis un Automation Pack sur mesure.",
               },
             },
             {
@@ -139,7 +139,7 @@ export default function Home() {
               name: 'Comment se déroule la première prise de contact ?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: "La première étape est un échange de découverte sans engagement. Vous décrivez l'opération qui vous ralentit le plus, nous vous proposons un cadrage précis avec des objectifs mesurables et un périmètre défini.",
+                text: "La première étape est un échange de découverte sans engagement. Vous décrivez l'opération qui vous ralentit le plus, nous vous proposons un cadrage précis avec des objectifs mesurables et un périmètre défini. Ce cadrage peut déboucher, si pertinent, sur un pilote payant (500 à 3000€) puis un Automation Pack sur mesure.",
               },
             },
             {

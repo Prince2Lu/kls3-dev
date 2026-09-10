@@ -10,7 +10,7 @@ const FAQS = [
   },
   {
     q: 'Comment KLS3 identifie-t-il les frictions dans mon organisation ?',
-    a: "Nous commençons par un échange de découverte sans engagement pour comprendre votre contexte. Nous analysons ensuite les flux réels de votre organisation — pas les processus théoriques — pour identifier précisément où l'énergie est gaspillée et pourquoi.",
+    a: "Nous commençons par un échange de découverte sans engagement pour comprendre votre contexte. Nous analysons ensuite les flux réels de votre organisation — pas les processus théoriques — pour identifier précisément où l'énergie est gaspillée et pourquoi, avant de vous proposer, si pertinent, un pilote ciblé (500 à 3000€) puis un Automation Pack sur mesure.",
   },
   {
     q: "Pour quels types d'entreprises intervenez-vous ?",
@@ -38,7 +38,7 @@ const FAQS = [
   },
   {
     q: 'Comment se déroule la première prise de contact ?',
-    a: "La première étape est un échange de découverte sans engagement. Vous décrivez l'opération qui vous ralentit le plus, nous vous proposons un cadrage précis avec des objectifs mesurables et un périmètre défini.",
+    a: "La première étape est un échange de découverte sans engagement. Vous décrivez l'opération qui vous ralentit le plus, nous vous proposons un cadrage précis avec des objectifs mesurables et un périmètre défini. Ce cadrage peut déboucher, si pertinent, sur un pilote payant (500 à 3000€) puis un Automation Pack sur mesure.",
   },
   {
     q: 'KLS3 intervient-il à distance ou sur site ?',
