@@ -18,6 +18,51 @@ export interface BlogPost {
   image?: string
 }
 
+export interface TocItem {
+  id: string
+  text: string
+}
+
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]+>/g, '').trim()
+}
+
+function slugifyHeading(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+/** Adds stable h2 ids and builds a TOC without DOM APIs, so SSR HTML includes the article body. */
+export function processArticleHtml(html: string): { html: string; toc: TocItem[] } {
+  const toc: TocItem[] = []
+  let index = 0
+
+  const processed = html.replace(
+    /<h2\b([^>]*)>([\s\S]*?)<\/h2>/gi,
+    (_match, attrs: string, inner: string) => {
+      const text = stripHtml(inner)
+      const existingId = /\sid=["']([^"']+)["']/i.exec(attrs)
+      const id = existingId?.[1] || slugifyHeading(text) || `section-${index}`
+      index += 1
+      toc.push({ id, text })
+
+      if (existingId) {
+        return `<h2${attrs}>${inner}</h2>`
+      }
+
+      const trimmedAttrs = attrs.trim()
+      const attrStr = trimmedAttrs ? ` ${trimmedAttrs}` : ''
+      return `<h2${attrStr} id="${id}">${inner}</h2>`
+    }
+  )
+
+  return { html: processed, toc }
+}
+
 export function getAllPosts(): BlogPost[] {
   if (!fs.existsSync(BLOG_DIR)) return []
 

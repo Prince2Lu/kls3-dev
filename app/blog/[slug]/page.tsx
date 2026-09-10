@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getPostBySlug, getAllPosts } from '@/lib/mdx'
 import JsonLd from '@/components/seo/JsonLd'
-import BlogPostClient from './BlogPostClient'
+import BlogPost from './BlogPost'
 
 const BASE_URL = 'https://www.kls3-dev.com'
 
@@ -63,7 +63,7 @@ export default async function BlogPostPage({
           },
         }}
       />
-      <BlogPostClient post={post} />
+      <BlogPost post={post} />
     </>
   )
 }

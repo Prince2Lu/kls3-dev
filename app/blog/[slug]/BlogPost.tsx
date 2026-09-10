@@ -1,9 +1,6 @@
-'use client'
-
 import { Calendar, Clock, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { type BlogPost } from '@/lib/mdx'
+import { processArticleHtml, type BlogPost as BlogPostData } from '@/lib/mdx'
 
 const categoryColors: Record<string, string> = {
   'Intelligence artificielle': 'bg-brand-cyan/10 text-brand-cyan-light border-brand-cyan/30',
@@ -11,60 +8,12 @@ const categoryColors: Record<string, string> = {
   'SaaS': 'bg-brand-green/10 text-brand-green-light border-brand-green/30',
 }
 
-interface TocItem {
-  id: string
-  text: string
+interface BlogPostProps {
+  post: BlogPostData
 }
 
-function extractTableOfContents(html: string): TocItem[] {
-  if (typeof window === 'undefined') return []
-
-  const div = document.createElement('div')
-  div.innerHTML = html
-  const headings = div.querySelectorAll('h2')
-
-  return Array.from(headings).map((h, index) => {
-    const id = h.id || `section-${index}`
-    if (!h.id) h.id = id
-    return {
-      id,
-      text: h.textContent || ''
-    }
-  })
-}
-
-function addIdsToHeadings(html: string): string {
-  if (typeof window === 'undefined') return html
-
-  const div = document.createElement('div')
-  div.innerHTML = html
-  const headings = div.querySelectorAll('h2')
-
-  headings.forEach((h, index) => {
-    if (!h.id) {
-      const id = h.textContent?.toLowerCase().replace(/[^a-z0-9]+/g, '-') || `section-${index}`
-      h.id = id
-    }
-  })
-
-  return div.innerHTML
-}
-
-interface BlogPostClientProps {
-  post: BlogPost
-}
-
-export default function BlogPostClient({ post }: BlogPostClientProps) {
-  const [processedContent, setProcessedContent] = useState('')
-  const [toc, setToc] = useState<TocItem[]>([])
-
-  useEffect(() => {
-    if (post) {
-      const contentWithIds = addIdsToHeadings(post.content)
-      setProcessedContent(contentWithIds)
-      setToc(extractTableOfContents(contentWithIds))
-    }
-  }, [post])
+export default function BlogPost({ post }: BlogPostProps) {
+  const { html, toc } = processArticleHtml(post.content)
 
   return (
     <>
@@ -136,7 +85,7 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
               >
                 <div
                   className="article-content"
-                  dangerouslySetInnerHTML={{ __html: processedContent }}
+                  dangerouslySetInnerHTML={{ __html: html }}
                 />
               </div>
 
