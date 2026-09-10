@@ -25,6 +25,30 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/transformation-digitale',
+        destination: '/',
+        statusCode: 301,
+      },
+      {
+        source: '/transformation-digitale/',
+        destination: '/',
+        statusCode: 301,
+      },
+      {
+        source: '/5-freins-frequents-a-la-transformation-digitale-en-pme-et-comment-les-lever',
+        destination: '/blog/transformation-operationnelle-pme-4-pieges-changement',
+        statusCode: 301,
+      },
+      {
+        source: '/5-freins-frequents-a-la-transformation-digitale-en-pme-et-comment-les-lever/',
+        destination: '/blog/transformation-operationnelle-pme-4-pieges-changement',
+        statusCode: 301,
+      },
+    ]
+  },
 };
 
 export default nextConfig;
