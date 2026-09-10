@@ -62,6 +62,36 @@ export default function CasClientsPage() {
               Quelques exemples de frictions opérationnelles supprimées grâce à des systèmes plus
               fluides et plus pilotables.
             </p>
+            <p
+              className="mt-6 max-w-2xl"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(15px, 2vw, 17px)',
+                fontWeight: 300,
+                color: 'rgba(240, 237, 232, 0.6)',
+                lineHeight: 1.7,
+              }}
+            >
+              Ces trois cas illustrent la même méthode appliquée à des frictions différentes :
+              identifier ce qui ralentit réellement l&apos;organisation, simplifier avant
+              d&apos;automatiser, et rendre le résultat pilotable dans la durée. Les secteurs
+              varient, l&apos;approche reste la même.
+            </p>
+            <p
+              className="mt-6 max-w-2xl"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(15px, 2vw, 17px)',
+                fontWeight: 300,
+                color: 'rgba(240, 237, 232, 0.6)',
+                lineHeight: 1.7,
+              }}
+            >
+              Chaque exemple décrit une friction concrète, ce qui a été simplifié, et le résultat
+              obtenu pour les équipes. Ce ne sont pas des démonstrations d&apos;outils : ce sont
+              des opérations qui perdaient du temps, de la visibilité ou de la fiabilité, puis
+              qui sont devenues plus simples à tenir au quotidien.
+            </p>
           </div>
 
           <div className="mt-16" />
@@ -69,6 +99,22 @@ export default function CasClientsPage() {
           {caseStudies.map((cas, i) => (
             <CaseStudyBlock key={cas.id} cas={cas} isLast={i === caseStudies.length - 1} />
           ))}
+
+          <p
+            className="mt-16 max-w-2xl"
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: 'clamp(15px, 2vw, 17px)',
+              fontWeight: 300,
+              color: 'rgba(240, 237, 232, 0.6)',
+              lineHeight: 1.7,
+            }}
+          >
+            Chacune de ces transformations est partie d&apos;un signal simple — un temps perdu, une
+            donnée introuvable, un oubli répété — jamais d&apos;un projet informatique déclaré comme
+            tel. C&apos;est cette lecture opérationnelle, plutôt que technologique, qui permet à
+            KLS3 d&apos;intervenir vite et sans bouleverser les outils déjà en place.
+          </p>
         </div>
       </section>
 
