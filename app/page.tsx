@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import HeroOperational from '@/components/sections/HeroOperational'
 import FrictionsScanner from '@/components/sections/FrictionsScanner'
@@ -9,6 +10,16 @@ import BlogPreview from '@/components/sections/BlogPreview'
 import FinalCTA from '@/components/sections/FinalCTA'
 import FaqSection from '@/components/sections/FaqSection'
 import JsonLd from '@/components/seo/JsonLd'
+import { pageMetadata } from '@/lib/seo'
+
+const title = 'KLS3 — Orchestration opérationnelle pour professions réglementées'
+const description =
+  'KLS3 connecte les outils métier de vos pôles pour que les événements clients se propagent automatiquement, sans ressaisie. Grand-Est & Luxembourg.'
+
+export const metadata: Metadata = {
+  ...pageMetadata(title, description, { path: '/' }),
+  title: { absolute: title },
+}
 
 export default function Home() {
   return (
