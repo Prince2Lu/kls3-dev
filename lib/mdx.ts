@@ -7,6 +7,7 @@ const BLOG_DIR = path.join(process.cwd(), 'content/blog')
 export interface BlogPost {
   slug: string
   titre_seo: string
+  h1_affiche?: string
   meta_description: string
   categorie: string
   mot_cle_principal: string
@@ -102,6 +103,7 @@ export function getAllPosts(): BlogPost[] {
       return {
         slug: filename.replace('.mdx', ''),
         titre_seo: data.titre_seo || '',
+        h1_affiche: data.h1_affiche || undefined,
         meta_description: data.meta_description || '',
         categorie: data.categorie || '',
         mot_cle_principal: data.mot_cle_principal || '',
@@ -133,6 +135,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
   return {
     slug,
     titre_seo: data.titre_seo || '',
+    h1_affiche: data.h1_affiche || undefined,
     meta_description: data.meta_description || '',
     categorie: data.categorie || '',
     mot_cle_principal: data.mot_cle_principal || '',

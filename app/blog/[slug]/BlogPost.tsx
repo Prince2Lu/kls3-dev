@@ -40,7 +40,7 @@ export default function BlogPost({ post }: BlogPostProps) {
 
             {/* Titre */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight" style={{ letterSpacing: '-1px' }}>
-              {post.titre_seo}
+              {post.h1_affiche || post.titre_seo}
             </h1>
 
             {/* Meta description */}
