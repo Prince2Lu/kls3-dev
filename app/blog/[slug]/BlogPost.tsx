@@ -1,4 +1,5 @@
 import { Calendar, Clock, ArrowLeft } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { processArticleHtml, type BlogPost as BlogPostData } from '@/lib/mdx'
 
@@ -50,10 +51,14 @@ export default function BlogPost({ post }: BlogPostProps) {
             {/* Image hero */}
             {post.image && (
               <div className="w-full h-[420px] rounded-2xl overflow-hidden border border-white/10 mb-10">
-                <img
+                <Image
                   src={post.image}
                   alt={post.titre_seo}
-                  className="w-full h-full object-cover"
+                  width={1536}
+                  height={1024}
+                  preload
+                  sizes="(max-width: 896px) 100vw, 896px"
+                  className="h-full w-full object-cover"
                 />
               </div>
             )}
