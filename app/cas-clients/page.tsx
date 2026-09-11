@@ -31,8 +31,8 @@ export default function CasClientsPage() {
             paddingBottom: 'clamp(45px, 5.6vw, 90px)',
           }}
         >
-          <div className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-2 lg:gap-16">
-            <div>
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-10">
+            <div className="min-w-0">
               <p
                 style={{
                   fontSize: '11px',
@@ -77,14 +77,14 @@ export default function CasClientsPage() {
               </p>
             </div>
 
-            <div className="hidden self-center lg:block">
+            <div className="hidden min-w-0 lg:block">
               <Image
                 src="/cas-clients-illustration.png"
                 alt="Illustration des cas concrets KLS3"
                 width={1672}
                 height={941}
-                sizes="(min-width: 1024px) 50vw, 0px"
-                className="h-auto w-full"
+                sizes="(min-width: 1024px) 67vw, 0px"
+                className="h-auto w-full max-w-full"
                 unoptimized
               />
             </div>
