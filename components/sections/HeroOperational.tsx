@@ -57,7 +57,9 @@ export default function HeroOperational() {
                 lineHeight: 1.7,
               }}
             >
-              KLS<span style={{ color: '#4B7BF5' }}>3</span> connecte vos outils métier pour que chaque événement client circule
+              KLS<span style={{ color: '#4B7BF5' }}>3</span>
+              {' '}
+              connecte vos outils métier pour que chaque événement client circule
               automatiquement entre vos pôles — sans ressaisie, sans perte d&apos;information.
             </p>
           </StaggerItem>

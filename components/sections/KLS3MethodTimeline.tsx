@@ -56,70 +56,70 @@ export default function KLS3MethodTimeline() {
           KLS3 avance par étapes courtes et validées, jamais par un projet fermé décidé d&apos;avance.
         </p>
 
-        <Stagger className="mt-12 grid grid-cols-1 lg:grid-cols-3">
-          {parcoursSteps.map((step, index) => {
-            const isLast = index === parcoursSteps.length - 1
+        <Stagger className="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-6">
+          {parcoursSteps.map((step) => {
             return (
-              <StaggerItem
-                key={step.number}
-                className={`py-8 first:pt-0 last:pb-0 lg:px-8 lg:py-0 lg:first:pl-0 lg:last:pr-0 ${
-                  isLast
-                    ? ''
-                    : 'border-b-[0.5px] border-[rgba(255,255,255,0.07)] lg:border-b-0 lg:border-r-[0.5px]'
-                }`}
-              >
-                <span
-                  className="font-display block"
-                  aria-hidden
+              <StaggerItem key={step.number}>
+                <div
+                  className="px-6 py-8 lg:p-8"
                   style={{
-                    fontSize: 40,
-                    fontWeight: 700,
-                    lineHeight: 1,
-                    color: '#4B7BF5',
-                    opacity: 0.2,
-                    letterSpacing: '-0.03em',
+                    background: '#111111',
+                    borderRadius: 16,
                   }}
                 >
-                  {step.number}
-                </span>
-                <h3
-                  className="mt-4"
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1.25rem',
-                    fontWeight: 600,
-                    letterSpacing: '-0.02em',
-                    color: '#F0EDE8',
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {step.title}
-                </h3>
-                <p
-                  className="mt-2"
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: 12,
-                    fontWeight: 500,
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                    color: '#4B7BF5',
-                  }}
-                >
-                  {step.tag}
-                </p>
-                <p
-                  className="mt-3"
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '0.9375rem',
-                    fontWeight: 300,
-                    color: 'rgba(240, 237, 232, 0.45)',
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {step.text}
-                </p>
+                  <span
+                    className="font-display block"
+                    aria-hidden
+                    style={{
+                      fontSize: 40,
+                      fontWeight: 700,
+                      lineHeight: 1,
+                      color: '#4B7BF5',
+                      opacity: 0.2,
+                      letterSpacing: '-0.03em',
+                    }}
+                  >
+                    {step.number}
+                  </span>
+                  <h3
+                    className="mt-4"
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '1.25rem',
+                      fontWeight: 600,
+                      letterSpacing: '-0.02em',
+                      color: '#F0EDE8',
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {step.title}
+                  </h3>
+                  <p
+                    className="mt-2"
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: 12,
+                      fontWeight: 500,
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                      color: '#4B7BF5',
+                    }}
+                  >
+                    {step.tag}
+                  </p>
+                  <p
+                    className="mt-3"
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.9375rem',
+                      fontWeight: 300,
+                      color: 'rgba(240, 237, 232, 0.45)',
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    {step.text}
+                  </p>
+                </div>
               </StaggerItem>
             )
           })}
