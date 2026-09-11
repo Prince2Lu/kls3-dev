@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect, useRef } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Calendar, Clock, ArrowRight } from 'lucide-react'
 import BlogCard from '@/components/ui/BlogCard'
@@ -134,10 +135,14 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
                   {/* Image à gauche */}
                   {featuredPost.image && (
                     <div className="relative h-64 lg:h-full">
-                      <img
+                      <Image
                         src={featuredPost.image}
                         alt={featuredPost.titre_seo}
-                        className="w-full h-full object-cover"
+                        width={1536}
+                        height={1024}
+                        preload
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        className="h-full w-full object-cover"
                       />
                     </div>
                   )}
