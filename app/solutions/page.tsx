@@ -42,7 +42,7 @@ export default function SolutionsPage() {
         title="Des systèmes conçus autour des opérations réelles."
         subtitle="KLS3 construit des systèmes fluides, pilotables et adaptés à vos opérations."
         ctaLabel="Découvrir notre approche"
-        ctaHref="/methode"
+        ctaHref="/#methode"
       />
 
       <section className="border-b border-kls-border">
