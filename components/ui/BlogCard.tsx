@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Calendar, Clock } from 'lucide-react'
@@ -25,8 +26,14 @@ export default function BlogCard({ post }: BlogCardProps) {
         >
           {post.image && (
             <div className="relative w-full h-48 overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={post.image} alt={post.titre_seo} className="w-full h-full object-cover" />
+              <Image
+                src={post.image}
+                alt={post.titre_seo}
+                width={1536}
+                height={1024}
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="h-full w-full object-cover"
+              />
             </div>
           )}
           <div className="p-6 flex flex-col gap-4">
