@@ -1,0 +1,551 @@
+{
+  "name": "KLS3 - Dashboard SEO Hebdomadaire",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 20 * * 0"
+            }
+          ]
+        }
+      },
+      "id": "3735d5ee-911d-4cb8-9bdf-8209c982f683",
+      "name": "Cron - Dimanche 20h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -304,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.kls3-dev.com/sitemap.xml",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "065b7802-34f7-438d-9c87-3c39a50b6627",
+      "name": "Fetch Sitemap",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -80,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extrait toutes les URLs du sitemap.xml brut\nconst xml = $input.first().json.data || $input.first().json.body || '';\nconst matches = [...xml.matchAll(/<loc>(.*?)<\\/loc>/g)];\nconst urls = matches.map(m => m[1]);\nreturn urls.map(url => ({ json: { url } }));"
+      },
+      "id": "a5613901-ef31-4148-bd99-d0e59ef503c2",
+      "name": "Parse Sitemap URLs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Crawle chaque URL du sitemap et calcule les metriques SEO on-page\nconst items = $input.all();\nconst results = [];\n\nfor (const item of items) {\n  const url = item.json.url;\n  try {\n    const res = await this.helpers.httpRequest({\n      url,\n      method: 'GET',\n      returnFullResponse: true,\n      ignoreHttpStatusErrors: true\n    });\n    const html = res.body || '';\n    const htmlSize = Buffer.byteLength(html, 'utf8');\n\n    const titleMatch = html.match(/<title>(.*?)<\\/title>/i);\n    const title = titleMatch ? titleMatch[1] : '';\n\n    const bodyMatch = html.match(/<body[^>]*>([\\s\\S]*)<\\/body>/i);\n    const bodyHtml = bodyMatch ? bodyMatch[1] : html;\n    const textOnly = bodyHtml\n      .replace(/<script[\\s\\S]*?<\\/script>/gi, '')\n      .replace(/<style[\\s\\S]*?<\\/style>/gi, '')\n      .replace(/<[^>]+>/g, ' ')\n      .replace(/&[a-z]+;/gi, ' ')\n      .replace(/\\s+/g, ' ')\n      .trim();\n\n    const wordCount = textOnly.length ? textOnly.split(' ').filter(Boolean).length : 0;\n    const textSize = Buffer.byteLength(textOnly, 'utf8');\n    const ratio = htmlSize > 0 ? +(textSize / htmlSize).toFixed(3) : 0;\n\n    const rawLinks = [...html.matchAll(/href=\"(\\/[a-zA-Z0-9\\-_\\/]*)\"/g)].map(m => m[1]);\n    const internalLinks = [...new Set(rawLinks)].filter(\n      l => !l.match(/\\.(png|jpg|jpeg|svg|webp|css|js|ico)$/i)\n    );\n\n    results.push({\n      json: {\n        _source: 'onpage',\n        url,\n        httpStatus: res.statusCode,\n        title,\n        titleLength: title.length,\n        wordCount,\n        textHtmlRatio: ratio,\n        internalLinksCount: internalLinks.length\n      }\n    });\n  } catch (e) {\n    results.push({\n      json: { _source: 'onpage', url, error: e.message }\n    });\n  }\n}\n\nreturn results;"
+      },
+      "id": "3c103493-9845-4f0e-ba54-b580fde55c0e",
+      "name": "Crawl Pages SEO On-Page",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        368,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://www.googleapis.com/webmasters/v3/sites/{{ encodeURIComponent('https://www.kls3-dev.com/') }}/searchAnalytics/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ startDate: $now.minus(7,'days').toFormat('yyyy-MM-dd'), endDate: $now.toFormat('yyyy-MM-dd'), dimensions: ['page'], rowLimit: 100 }) }}",
+        "options": {}
+      },
+      "id": "e5e34c83-4634-4b79-86a1-c2b30aa4ba44",
+      "name": "GSC Search Analytics",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        144,
+        192
+      ],
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "k1bVkCPj8f19vUiY",
+          "name": "Google Search Console"
+        }
+      },
+      "notes": "Necessite une credential Google OAuth2 avec le scope https://www.googleapis.com/auth/webmasters.readonly, autorisee sur la propriete Search Console kls3-dev.com. A creer dans n8n > Credentials > Google OAuth2 API si elle n'existe pas encore avec ce scope."
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = ($input.first().json.rows) || [];\nreturn rows.map(r => ({\n  json: {\n    _source: 'gsc',\n    url: r.keys[0],\n    clicks: r.clicks,\n    impressions: r.impressions,\n    ctr: +(r.ctr * 100).toFixed(2),\n    position: +r.position.toFixed(1)\n  }\n}));"
+      },
+      "id": "596c60e8-af3d-483f-869b-ade108d3f4de",
+      "name": "Shape GSC Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        368,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Verifie les Core Web Vitals sur les pages cles via PageSpeed Insights (API publique)\n// Remplace COLLE_TA_CLE_API_ICI par une cle API Google Cloud (PageSpeed Insights API activee, gratuite)\nconst API_KEY = 'AIzaSyDrrDvZ6_1PVMBO3yklDoAD47h3jUldpo4';\nconst keyPages = [\n  'https://www.kls3-dev.com/',\n  'https://www.kls3-dev.com/blog',\n  'https://www.kls3-dev.com/contact',\n  'https://www.kls3-dev.com/cas-clients',\n  'https://www.kls3-dev.com/diagnostic'\n];\n\nconst results = [];\nfor (const url of keyPages) {\n  try {\n    const psiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=mobile&key=${API_KEY}`;\n    const res = await this.helpers.httpRequest({ url: psiUrl, method: 'GET', json: true });\n    const lighthouse = res.lighthouseResult;\n    results.push({\n      json: {\n        _source: 'psi',\n        url,\n        performanceScore: Math.round((lighthouse.categories.performance.score || 0) * 100),\n        lcp: lighthouse.audits['largest-contentful-paint'].displayValue,\n        cls: lighthouse.audits['cumulative-layout-shift'].displayValue\n      }\n    });\n  } catch (e) {\n    results.push({ json: { _source: 'psi', url, error: e.message } });\n  }\n}\nreturn results;"
+      },
+      "id": "f22396ce-1681-40a4-8206-d01531607435",
+      "name": "PageSpeed Pages Cles",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        592,
+        360
+      ],
+      "notes": "Necessite une cle API Google Cloud pour l'API PageSpeed Insights (gratuite, quota genereux). A creer dans Google Cloud Console > APIs & Services > Identifiants."
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1DhoRAUNFiv_XBFquWoIlt9_uzhe9vw2yBfecrgVi0Fo",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Historique",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "b11a4b61-e99d-47fb-b540-e4f0b2ad4430",
+      "name": "Lire Historique SEO",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        816,
+        528
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "KgnG7a1VK6P3t5of",
+          "name": "Google Sheets account"
+        }
+      },
+      "notes": "Cree un nouveau Google Sheet 'SEO Historique KLS3' avec un onglet 'Historique' et ces colonnes en ligne 1 : date, totalClicks, totalImpressions, avgPosition, totalPages, avgWordCount, avgRatio, titlesTooLong, lowRatioPages, thinPages, weakLinkedPages, psiHomepageScore, issuesJSON. Colle l'ID du Sheet (dans l'URL) a la place de 1DhoRAUNFiv_XBFquWoIlt9_uzhe9vw2yBfecrgVi0Fo."
+    },
+    {
+      "parameters": {},
+      "id": "b4a0dc82-5862-4e52-880d-36a9895c52b8",
+      "name": "Merge OnPage + GSC",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        592,
+        96
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "ccd00bca-8490-4b32-9c02-cae9fd627890",
+      "name": "Merge + PSI",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        816,
+        192
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "c861e179-1626-4704-b68a-94f3689902c2",
+      "name": "Merge + Historique",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1040,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all().map(i => i.json);\n\nconst onpage = items.filter(i => i._source === 'onpage' && !i.error);\nconst gsc = items.filter(i => i._source === 'gsc');\nconst psi = items.filter(i => i._source === 'psi' && !i.error);\nconst historyRows = items.filter(i => i.date);\n\n// Jointure onpage + gsc par url\nconst pages = onpage.map(p => {\n  const g = gsc.find(x => x.url === p.url || p.url.endsWith(x.url) || x.url.endsWith(p.url.replace(/^https?:\\/\\/[^\\/]+/, '')));\n  return { ...p, clicks: g ? g.clicks : 0, impressions: g ? g.impressions : 0, position: g ? g.position : null };\n});\n\n// Snapshot precedent (derniere ligne par date)\nconst previous = historyRows.sort((a, b) => new Date(b.date) - new Date(a.date))[0] || null;\n\n// Detection d'anomalies\nconst anomalies = [];\n\nconst titlesTooLong = pages.filter(p => p.titleLength > 60);\ntitlesTooLong.forEach(p => anomalies.push({\n  name: `Title trop long (${p.titleLength}c) - ${p.url}`,\n  desc: `Le title de ${p.url} fait ${p.titleLength} caracteres, au-dela des 60 recommandes.`,\n  priority: 'P2'\n}));\n\nconst lowRatio = pages.filter(p => p.textHtmlRatio < 0.10);\nlowRatio.forEach(p => anomalies.push({\n  name: `Ratio texte/HTML faible - ${p.url}`,\n  desc: `Ratio de ${p.textHtmlRatio} sur ${p.url}, sous le seuil de 0.10.`,\n  priority: 'P2'\n}));\n\nconst thin = pages.filter(p => p.wordCount < 300);\nthin.forEach(p => anomalies.push({\n  name: `Page mince (${p.wordCount} mots) - ${p.url}`,\n  desc: `${p.url} ne contient que ${p.wordCount} mots visibles.`,\n  priority: 'P3'\n}));\n\nconst weakLinked = pages.filter(p => p.internalLinksCount <= 1);\nweakLinked.forEach(p => anomalies.push({\n  name: `Maillage interne faible - ${p.url}`,\n  desc: `${p.url} n'a que ${p.internalLinksCount} lien(s) interne(s) sortant(s) detecte(s).`,\n  priority: 'P2'\n}));\n\nconst errors404 = onpage.filter(p => p.httpStatus === 404);\nerrors404.forEach(p => anomalies.push({\n  name: `404 detectee - ${p.url}`,\n  desc: `${p.url} retourne un 404 lors du crawl hebdomadaire.`,\n  priority: 'P1'\n}));\n\n// Comparaison avec la semaine precedente\nconst totalClicks = pages.reduce((s, p) => s + (p.clicks || 0), 0);\nconst totalImpressions = pages.reduce((s, p) => s + (p.impressions || 0), 0);\nconst positions = pages.filter(p => p.position).map(p => p.position);\nconst avgPosition = positions.length ? +(positions.reduce((a, b) => a + b, 0) / positions.length).toFixed(1) : null;\nconst avgWordCount = pages.length ? Math.round(pages.reduce((s, p) => s + p.wordCount, 0) / pages.length) : 0;\nconst avgRatio = pages.length ? +(pages.reduce((s, p) => s + p.textHtmlRatio, 0) / pages.length).toFixed(3) : 0;\n\nconst deltas = previous ? {\n  clicksDelta: totalClicks - previous.totalClicks,\n  impressionsDelta: totalImpressions - previous.totalImpressions,\n  positionDelta: avgPosition !== null && previous.avgPosition ? +(avgPosition - previous.avgPosition).toFixed(1) : null\n} : { clicksDelta: null, impressionsDelta: null, positionDelta: null };\n\nconst psiHomepage = psi.find(p => p.url === 'https://www.kls3-dev.com/');\n\nconst snapshotRow = {\n  date: $now.toFormat('yyyy-MM-dd'),\n  totalClicks,\n  totalImpressions,\n  avgPosition,\n  totalPages: pages.length,\n  avgWordCount,\n  avgRatio,\n  titlesTooLong: titlesTooLong.length,\n  lowRatioPages: lowRatio.length,\n  thinPages: thin.length,\n  weakLinkedPages: weakLinked.length,\n  psiHomepageScore: psiHomepage ? psiHomepage.performanceScore : null,\n  issuesJSON: JSON.stringify(anomalies.map(a => a.name))\n};\n\nreturn [{\n  json: {\n    pages,\n    psi,\n    deltas,\n    snapshotRow,\n    anomalies,\n    generatedAt: $now.toISO()\n  }\n}];"
+      },
+      "id": "39575c13-8da5-41d8-aefa-5b75a6f881eb",
+      "name": "Consolider + Deltas + Anomalies",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1264,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1DhoRAUNFiv_XBFquWoIlt9_uzhe9vw2yBfecrgVi0Fo",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Historique",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "c45f57eb-945d-420e-8f9b-63ceaca4e73e",
+      "name": "Append Nouveau Snapshot",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1712,
+        192
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "KgnG7a1VK6P3t5of",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.anthropicBody }}",
+        "options": {}
+      },
+      "id": "9c533a00-6fa7-448a-bc2d-9310b92fbcb1",
+      "name": "Anthropic - Generer Synthese",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1712,
+        384
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "HvoZJIsIuzU8eEFp",
+          "name": "Anthropic API Key"
+        }
+      },
+      "notes": "Reutilise la credential Anthropic deja configuree pour le pipeline blog. Verifie que le header d'auth s'appelle bien x-api-key dans cette credential HTTP Header Auth."
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $('Consolider + Deltas + Anomalies').first().json;\nconst aiText = $input.first().json.content?.[0]?.text || 'Synthese indisponible cette semaine.';\n\nconst rows = data.pages.map(p => `\n  <tr>\n    <td style=\"padding:8px;border-bottom:1px solid #eee;font-size:13px;\">${p.url.replace('https://www.kls3-dev.com','')}</td>\n    <td style=\"padding:8px;border-bottom:1px solid #eee;text-align:center;\">${p.clicks || 0}</td>\n    <td style=\"padding:8px;border-bottom:1px solid #eee;text-align:center;\">${p.impressions || 0}</td>\n    <td style=\"padding:8px;border-bottom:1px solid #eee;text-align:center;\">${p.position || '-'}</td>\n    <td style=\"padding:8px;border-bottom:1px solid #eee;text-align:center;\">${p.wordCount}</td>\n  </tr>`).join('');\n\nconst html = `\n<div style=\"font-family:Arial,sans-serif;max-width:700px;margin:0 auto;color:#111;\">\n  <h1 style=\"color:#1E2D4A;\">Dashboard SEO KLS3 - ${data.snapshotRow.date}</h1>\n  <div style=\"background:#F5F3EF;padding:16px;border-radius:8px;margin-bottom:20px;white-space:pre-line;\">${aiText}</div>\n  <h2 style=\"color:#1E2D4A;font-size:16px;\">KPI de la semaine</h2>\n  <ul>\n    <li>Clics totaux : ${data.snapshotRow.totalClicks} (${data.deltas.clicksDelta !== null ? (data.deltas.clicksDelta >= 0 ? '+' : '') + data.deltas.clicksDelta : 'n/a'} vs semaine derniere)</li>\n    <li>Impressions totales : ${data.snapshotRow.totalImpressions} (${data.deltas.impressionsDelta !== null ? (data.deltas.impressionsDelta >= 0 ? '+' : '') + data.deltas.impressionsDelta : 'n/a'})</li>\n    <li>Position moyenne : ${data.snapshotRow.avgPosition || 'n/a'} (${data.deltas.positionDelta !== null ? data.deltas.positionDelta : 'n/a'})</li>\n    <li>Score PageSpeed homepage : ${data.psi.find(p => p.url.endsWith('.com/'))?.performanceScore || 'n/a'}/100</li>\n  </ul>\n  <h2 style=\"color:#1E2D4A;font-size:16px;\">Anomalies detectees cette semaine (${data.anomalies.length})</h2>\n  <ul>${data.anomalies.map(a => `<li><strong>[${a.priority}]</strong> ${a.name}</li>`).join('')}</ul>\n  <h2 style=\"color:#1E2D4A;font-size:16px;\">Detail par page</h2>\n  <table style=\"width:100%;border-collapse:collapse;font-size:13px;\">\n    <tr style=\"background:#1E2D4A;color:#fff;\"><th style=\"padding:8px;\">Page</th><th>Clics</th><th>Impressions</th><th>Position</th><th>Mots</th></tr>\n    ${rows}\n  </table>\n  <p style=\"margin-top:20px;font-size:12px;color:#888;\">Colle cette liste d anomalies a Claude pour qu il cree les cartes correspondantes sur le board Trello KLS3 SEO.</p>\n</div>`;\n\nreturn [{ json: { html, subject: `[KLS3] Dashboard SEO du ${data.snapshotRow.date}` } }];"
+      },
+      "id": "fd7876ef-6156-4a7b-a65f-d291db48bb6c",
+      "name": "Construire Email HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpBearerAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ from: 'contact@kls3-dev.com', to: ['contact@kls3-dev.com'], subject: $json.subject, html: $json.html }) }}",
+        "options": {}
+      },
+      "id": "cdeda7ca-2f39-4652-8022-2a1072b17e23",
+      "name": "Envoyer Email Resend",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2160,
+        384
+      ],
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "XIaUWJFtn1Z4O4y3",
+          "name": "Resend API"
+        }
+      },
+      "notes": "Necessite une credential HTTP Header Auth nommee par exemple 'Resend API' avec le header Authorization = Bearer RESEND_API_KEY (la meme cle que celle utilisee dans .env.local du site)."
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: $input.first().json.snapshotRow }];"
+      },
+      "id": "2e7721e0-3d29-4984-ab47-0093f14f7dbe",
+      "name": "Aplatir Snapshot",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\nconst promptText = \"Tu es un expert SEO qui redige une synthese hebdomadaire pour Eric, fondateur de KLS3. Voici les donnees brutes de la semaine (JSON) : \" + JSON.stringify(data) + \". Redige en francais, ton direct et professionnel (style KLS3, vouvoiement). IMPORTANT : reponds uniquement en HTML simple, sans markdown, en utilisant ces balises : <p> pour les paragraphes, <strong> pour le gras, <ul><li> pour les listes. N utilise JAMAIS de dieses, asterisques, ou autre syntaxe markdown. Structure : un paragraphe de synthese de 3-4 phrases sur l etat general du SEO, puis une liste <ul> de 3 a 5 actions prioritaires classees par impact, chaque <li> commencant par <strong>le titre de l action</strong> suivi d une phrase d explication.\";\n\nconst bodyObject = {\n  model: \"claude-sonnet-4-6\",\n  max_tokens: 1500,\n  messages: [{ role: \"user\", content: promptText }]\n};\n\nreturn [{ json: { anthropicBody: JSON.stringify(bodyObject) } }];"
+      },
+      "id": "9c3c228d-5844-498d-a487-8d19e912607a",
+      "name": "Construire Prompt Anthropic",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        384
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Cron - Dimanche 20h": {
+      "main": [
+        [
+          {
+            "node": "Fetch Sitemap",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "GSC Search Analytics",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "PageSpeed Pages Cles",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Lire Historique SEO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Sitemap": {
+      "main": [
+        [
+          {
+            "node": "Parse Sitemap URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Sitemap URLs": {
+      "main": [
+        [
+          {
+            "node": "Crawl Pages SEO On-Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crawl Pages SEO On-Page": {
+      "main": [
+        [
+          {
+            "node": "Merge OnPage + GSC",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GSC Search Analytics": {
+      "main": [
+        [
+          {
+            "node": "Shape GSC Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shape GSC Data": {
+      "main": [
+        [
+          {
+            "node": "Merge OnPage + GSC",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge OnPage + GSC": {
+      "main": [
+        [
+          {
+            "node": "Merge + PSI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PageSpeed Pages Cles": {
+      "main": [
+        [
+          {
+            "node": "Merge + PSI",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge + PSI": {
+      "main": [
+        [
+          {
+            "node": "Merge + Historique",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lire Historique SEO": {
+      "main": [
+        [
+          {
+            "node": "Merge + Historique",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge + Historique": {
+      "main": [
+        [
+          {
+            "node": "Consolider + Deltas + Anomalies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consolider + Deltas + Anomalies": {
+      "main": [
+        [
+          {
+            "node": "Aplatir Snapshot",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Construire Prompt Anthropic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic - Generer Synthese": {
+      "main": [
+        [
+          {
+            "node": "Construire Email HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construire Email HTML": {
+      "main": [
+        [
+          {
+            "node": "Envoyer Email Resend",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aplatir Snapshot": {
+      "main": [
+        [
+          {
+            "node": "Append Nouveau Snapshot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construire Prompt Anthropic": {
+      "main": [
+        [
+          {
+            "node": "Anthropic - Generer Synthese",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "9163cca4-e142-4030-acae-20882a2584c1",
+  "meta": {
+    "instanceId": "a32b17b741a642cbf9ed2f8de8f3bb2d317edcba818985f14a0c421da9f1b6ca"
+  },
+  "id": "tXvAeeUcpjmA3FH0",
+  "tags": []
+}
