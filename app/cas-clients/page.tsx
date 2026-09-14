@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import CaseStudyBlock from '@/components/sections/CaseStudyBlock'
 import QuoteCTA from '@/components/sections/QuoteCTA'
 import { caseStudies } from '@/lib/data/caseStudies'
@@ -97,6 +98,28 @@ export default function CasClientsPage() {
           ))}
 
           <p className="mt-16 max-w-2xl" style={introBodyStyle}>
+            Ces trois exemples viennent de secteurs différents, mais la méthode reste
+            transposable aux cabinets d&apos;expertise comptable multi-activités et aux
+            études notariales que nous accompagnons aujourd&apos;hui dans le Grand-Est et
+            au Luxembourg : la friction change de forme, la démarche de diagnostic
+            puis de pilote reste identique. Découvrez un exemple concret appliqué à un
+            cabinet comptable dans notre article sur{' '}
+            <Link
+              href="/blog/automatisation-cabinet-comptable-double-saisie"
+              style={{ color: '#4B7BF5', textDecoration: 'underline', textUnderlineOffset: 3 }}
+            >
+              l&apos;automatisation et la fin de la double saisie
+            </Link>
+            , ou à une étude notariale avec la{' '}
+            <Link
+              href="/blog/digitalisation-notariat-frictions-actes-notaries"
+              style={{ color: '#4B7BF5', textDecoration: 'underline', textUnderlineOffset: 3 }}
+            >
+              digitalisation du notariat
+            </Link>.
+          </p>
+
+          <p className="mt-8 max-w-2xl" style={introBodyStyle}>
             Chacune de ces transformations est partie d&apos;un signal simple — un temps perdu, une
             donnée introuvable, un oubli répété — jamais d&apos;un projet informatique déclaré comme
             tel. C&apos;est cette lecture opérationnelle, plutôt que technologique, qui permet à

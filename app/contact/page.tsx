@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import ContactForm from '@/components/sections/ContactForm'
 import { pageContentStyle } from '@/lib/pageLayout'
 import { pageMetadata } from '@/lib/seo'
@@ -191,6 +192,21 @@ export default function ContactPage() {
               ))}
             </ol>
           </div>
+
+          <p className="mt-16" style={bodyStyle}>
+            Le premier échange ne débouche sur aucun engagement. Nous prenons
+            connaissance de votre situation, nous vous répondons sous 48 heures avec
+            une lecture claire des leviers disponibles, et vous décidez ensuite si
+            vous souhaitez aller plus loin avec un diagnostic approfondi ou un
+            premier pilote ciblé. Avant de nous contacter, vous pouvez aussi consulter
+            notre article sur les{' '}
+            <Link
+              href="/blog/couts-caches-operationnels-marges-organisation"
+              style={{ color: '#4B7BF5', textDecoration: 'underline', textUnderlineOffset: 3 }}
+            >
+              coûts cachés opérationnels et leur impact sur vos marges
+            </Link>.
+          </p>
 
           <div className="mt-16">
             <p

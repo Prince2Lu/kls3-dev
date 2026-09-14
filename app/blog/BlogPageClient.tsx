@@ -100,8 +100,13 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
           <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
             Articles & <span className="gradient-text">ressources</span>
           </h1>
-          <p className="text-xl text-foreground/70 leading-relaxed max-w-3xl mx-auto">
-            Réflexions et retours d'expérience sur l'IA, la gestion de projet et le développement SaaS.
+          <p className="text-lg md:text-xl text-foreground/70 leading-relaxed max-w-3xl mx-auto">
+            Ce blog rassemble les frictions opérationnelles les plus fréquentes dans
+            les entreprises de 10 à 1000 personnes, avec un focus particulier sur les
+            cabinets comptables et les études notariales : reporting manuel, relances
+            répétitives, dépendance humaine, manque de visibilité. Chaque article
+            propose une lecture concrète du problème et une méthode applicable dès
+            cette semaine, sans jargon technique.
           </p>
         </div>
       </section>

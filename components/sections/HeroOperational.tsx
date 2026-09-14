@@ -64,6 +64,29 @@ export default function HeroOperational() {
             </p>
           </StaggerItem>
 
+          <StaggerItem>
+            <p
+              className="mt-6 max-w-2xl"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(15px, 2vw, 17px)',
+                fontWeight: 300,
+                color: 'rgba(240, 237, 232, 0.6)',
+                lineHeight: 1.7,
+              }}
+            >
+              KLS<span style={{ color: '#4B7BF5' }}>3</span>
+              {' '}
+              accompagne en priorité les cabinets d&apos;expertise comptable
+              multi-activités et les études notariales du Grand-Est et du Luxembourg,
+              ainsi que les structures pluridisciplinaires de professions réglementées
+              confrontées aux mêmes frictions. Notre approche ne remplace aucun outil
+              existant : elle connecte ceux que vous utilisez déjà pour que
+              l&apos;information circule sans ressaisie, quel que soit le nombre de
+              pôles métier que compte votre organisation.
+            </p>
+          </StaggerItem>
+
           <StaggerItem className="mt-12 flex flex-col md:flex-row items-start gap-5">
             <Link
               href="/contact"

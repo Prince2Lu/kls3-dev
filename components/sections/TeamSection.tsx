@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import SectionLabel from '@/components/ui/SectionLabel'
 import { sectionContainerStyle } from '@/lib/pageLayout'
 
@@ -73,6 +74,29 @@ export default function TeamSection() {
                 </p>
               ))}
             </div>
+
+            <p
+              className="mt-8"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '1.0625rem',
+                fontWeight: 300,
+                color: 'rgba(240, 237, 232, 0.6)',
+                lineHeight: 1.8,
+              }}
+            >
+              Pour en savoir plus sur notre méthode et notre équipe, consultez{' '}
+              <Link
+                href="/blog/kls3-qui-sommes-nous-comment-nous-travaillons"
+                style={{
+                  color: '#4B7BF5',
+                  textDecoration: 'underline',
+                  textUnderlineOffset: 3,
+                }}
+              >
+                notre article de présentation
+              </Link>.
+            </p>
           </div>
 
           <div className="flex flex-wrap gap-3 lg:flex-col lg:flex-nowrap" style={{ flex: '0 0 auto', maxWidth: 180 }}>

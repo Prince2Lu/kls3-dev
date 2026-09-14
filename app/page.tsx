@@ -12,7 +12,7 @@ import FaqSection from '@/components/sections/FaqSection'
 import JsonLd from '@/components/seo/JsonLd'
 import { pageMetadata } from '@/lib/seo'
 
-const title = 'KLS3 — Orchestration opérationnelle pour professions réglementées'
+const title = 'KLS3 : orchestration pour professions réglementées'
 const description =
   'KLS3 connecte les outils métier de vos pôles pour que les événements clients se propagent automatiquement, sans ressaisie. Grand-Est & Luxembourg.'
 
