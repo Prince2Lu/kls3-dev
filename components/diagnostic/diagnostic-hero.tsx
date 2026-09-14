@@ -110,7 +110,7 @@ export function DiagnosticHero() {
                   <text
                     x={24}
                     y={n.y + 20}
-                    fontFamily="Inter"
+                    fontFamily="var(--font-body)"
                     fontSize={11}
                     fill="rgba(240,237,232,0.45)"
                   >
@@ -123,7 +123,7 @@ export function DiagnosticHero() {
                 x={248}
                 y={156}
                 textAnchor="middle"
-                fontFamily="Syne"
+                fontFamily="var(--font-display)"
                 fontSize={17}
                 fontWeight={700}
                 fill="#4B7BF5"
@@ -131,7 +131,7 @@ export function DiagnosticHero() {
                 KLS3
               </text>
               <rect x={352} y={132} width={60} height={36} rx={8} fill="#111111" stroke="rgba(255,255,255,0.07)" />
-              <text x={364} y={154} fontFamily="Inter" fontSize={11} fill="rgba(240,237,232,0.45)">
+              <text x={364} y={154} fontFamily="var(--font-body)" fontSize={11} fill="rgba(240,237,232,0.45)">
                 Client
               </text>
             </g>

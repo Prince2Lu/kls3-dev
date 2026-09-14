@@ -58,7 +58,7 @@ export default function BlogPreviewCard({ post }: BlogPreviewCardProps) {
         )}
         <h3
           style={{
-            fontFamily: 'Syne, sans-serif',
+            fontFamily: 'var(--font-display)',
             fontWeight: 600,
             fontSize: 17,
             color: '#F0EDE8',

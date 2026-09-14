@@ -42,7 +42,7 @@ export default function BlogPreview() {
         >
           <h2
             style={{
-              fontFamily: 'Syne, sans-serif',
+              fontFamily: 'var(--font-display)',
               fontWeight: 700,
               fontSize: 'clamp(28px, 4vw, 42px)',
               color: '#F0EDE8',

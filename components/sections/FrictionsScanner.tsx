@@ -50,10 +50,6 @@ const AUTOPLAY_MS = 3200
 const BAR_COUNT = 34
 const BP = 720
 
-interface FrictionsScannerProps {
-  loadFonts?: boolean
-}
-
 function useContainerWidth(): [RefObject<HTMLElement | null>, number] {
   const ref = useRef<HTMLElement>(null)
   const [w, setW] = useState(0)
@@ -102,20 +98,7 @@ function useInjectStyles() {
   }, [])
 }
 
-function useFonts(enabled: boolean) {
-  useEffect(() => {
-    if (!enabled) return
-    const href =
-      'https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap'
-    if (document.querySelector(`link[href="${href}"]`)) return
-    const link = document.createElement('link')
-    link.rel = 'stylesheet'
-    link.href = href
-    document.head.appendChild(link)
-  }, [enabled])
-}
-
-export default function FrictionsScanner({ loadFonts = true }: FrictionsScannerProps) {
+export default function FrictionsScanner() {
   const [sel, setSel] = useState(0)
   const [paused, setPaused] = useState(false)
   const tabRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -126,7 +109,6 @@ export default function FrictionsScanner({ loadFonts = true }: FrictionsScannerP
   const tiny = width > 0 && width <= 480
 
   useInjectStyles()
-  useFonts(loadFonts)
 
   useEffect(() => {
     if (paused || reduceMotion) return

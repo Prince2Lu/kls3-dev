@@ -1,5 +1,3 @@
-/* Polices Syne (titres) + Inter (corps) */
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap');
 @import "tailwindcss";
 
 /* Charge la palette KLS3 définie dans tailwind.config.ts
@@ -8,8 +6,8 @@
 
 :root {
   /* Typographie */
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-display: var(--font-syne), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
   --font-heading: var(--font-display); /* alias de compatibilité */
 
   /* Palette KLS3 (thème sombre) */
