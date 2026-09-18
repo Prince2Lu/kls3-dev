@@ -29,6 +29,7 @@ export type DiagnosticSubmission = {
   /** ids des packs sélectionnés — voir lib/data/automation-packs.ts */
   packsSelectionnes: string[]
   website?: string
+  turnstileToken?: string
 }
 
 export type DiagnosticActionResult = { ok: true } | { ok: false; error: string }
