@@ -147,8 +147,8 @@ export async function submitDiagnostic(
       },
     ]
 
-    const { error } = await resend.batch.send([
-      {
+    const [internalResult, clientResult] = await Promise.all([
+      resend.emails.send({
         from: FROM_ADDRESS,
         to: process.env.CONTACT_EMAIL,
         replyTo: email,
@@ -167,8 +167,8 @@ export async function submitDiagnostic(
           audience: 'interne',
         }),
         attachments,
-      },
-      {
+      }),
+      resend.emails.send({
         from: FROM_ADDRESS,
         to: email,
         replyTo: process.env.CONTACT_EMAIL,
@@ -187,11 +187,14 @@ export async function submitDiagnostic(
           audience: 'client',
         }),
         attachments,
-      },
+      }),
     ])
 
-    if (error) {
-      console.error('[diagnostic] échec envoi batch interne/client', error)
+    if (internalResult.error || clientResult.error) {
+      console.error('[diagnostic] échec envoi interne/client', {
+        internalError: internalResult.error,
+        clientError: clientResult.error,
+      })
       return { ok: false, error: "L'envoi a échoué, merci de réessayer." }
     }
 
