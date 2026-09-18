@@ -76,23 +76,48 @@ export async function POST(request: NextRequest) {
       </table>
     `
 
-    const { data, error } = await resend.emails.send({
-      from: 'KLS3 <noreply@kls3-dev.com>',
-      to: process.env.CONTACT_EMAIL,
-      replyTo: email,
-      subject: `[KLS3] Nouvelle demande d'analyse — ${societe}`,
-      html: emailHtml,
-    })
+    const clientEmailHtml = `
+      <div style="font-family:Arial,Helvetica,sans-serif;background:#F5F3EF;padding:32px">
+        <div style="max-width:600px;margin:0 auto;background:#FFFFFF;border:1px solid #E5E5E5;border-radius:12px;overflow:hidden">
+          <div style="background:#0D0D0D;padding:24px 32px;color:#F0EDE8;font-size:20px;font-weight:700">
+            KLS<span style="color:#4B7BF5">3</span>
+          </div>
+          <div style="padding:32px;color:#333333;font-size:14px;line-height:1.6">
+            <p>Bonjour ${escapeHtml(nom)},</p>
+            <p>Nous avons bien reçu votre demande concernant ${escapeHtml(societe)}.</p>
+            <p>L'équipe KLS3 va l'étudier et reviendra vers vous rapidement.</p>
+            <p style="margin-top:24px">À bientôt,<br><strong>L'équipe KLS3</strong></p>
+          </div>
+        </div>
+      </div>
+    `
+
+    const { error } = await resend.batch.send([
+      {
+        from: 'KLS3 <noreply@kls3-dev.com>',
+        to: process.env.CONTACT_EMAIL,
+        replyTo: email,
+        subject: `[KLS3] Nouvelle demande d'analyse — ${societe}`,
+        html: emailHtml,
+      },
+      {
+        from: 'KLS3 <noreply@kls3-dev.com>',
+        to: email,
+        replyTo: process.env.CONTACT_EMAIL,
+        subject: 'Nous avons bien reçu votre demande — KLS3',
+        html: clientEmailHtml,
+      },
+    ])
 
     if (error) {
-      console.error('Resend error:', error)
+      console.error('Resend batch error:', error)
       return NextResponse.json(
         { error: 'Erreur lors de l\'envoi. Veuillez réessayer.' },
         { status: 500 }
       )
     }
 
-    return NextResponse.json({ success: true, id: data?.id }, { status: 200 })
+    return NextResponse.json({ success: true }, { status: 200 })
   } catch (error) {
     console.error('Contact form error:', error)
     return NextResponse.json({ error: 'Une erreur inattendue est survenue.' }, { status: 500 })
