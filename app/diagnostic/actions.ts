@@ -28,23 +28,81 @@ export type DiagnosticSubmission = {
   }
   /** ids des packs sélectionnés — voir lib/data/automation-packs.ts */
   packsSelectionnes: string[]
+  website?: string
 }
 
 export type DiagnosticActionResult = { ok: true } | { ok: false; error: string }
 
+const FIELD_LIMITS = { nom: 100, cabinet: 150, email: 254, telephone: 40 } as const
+
+function cleanField(value: unknown, maxLength: number): string | null {
+  if (typeof value !== 'string') return null
+  const cleaned = value.trim()
+  if (!cleaned || cleaned.length > maxLength || /[\r\n\u0000-\u001F\u007F]/.test(cleaned)) return null
+  return cleaned
+}
+
+function isFiniteNumberBetween(value: unknown, min: number, max: number): value is number {
+  return typeof value === 'number' && Number.isFinite(value) && value >= min && value <= max
+}
+
 export async function submitDiagnostic(
   data: DiagnosticSubmission
 ): Promise<DiagnosticActionResult> {
-  const telephone = data.telephone?.trim()
+  if (typeof data.website === 'string' && data.website.trim()) {
+    return { ok: true }
+  }
 
-  if (!data.email || !data.cabinet || !data.nom || !telephone) {
+  const nom = cleanField(data.nom, FIELD_LIMITS.nom)
+  const cabinet = cleanField(data.cabinet, FIELD_LIMITS.cabinet)
+  const email = cleanField(data.email, FIELD_LIMITS.email)
+  const telephone = cleanField(data.telephone, FIELD_LIMITS.telephone)
+
+  if (!email || !cabinet || !nom || !telephone) {
     return { ok: false, error: 'Merci de renseigner tous les champs.' }
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailRegex.test(data.email)) {
+  if (!emailRegex.test(email)) {
     return { ok: false, error: 'Adresse email invalide.' }
   }
+
+  const p = data.parametres
+  if (
+    !p ||
+    !isFiniteNumberBetween(p.clients, 10, 400) ||
+    !isFiniteNumberBetween(p.outils, 1, 10) ||
+    !isFiniteNumberBetween(p.relanceHeures, 0, 30) ||
+    !isFiniteNumberBetween(p.dossiersDivergents, 0, 40) ||
+    !isFiniteNumberBetween(p.tempsStatutMinutes, 0, 30) ||
+    !isFiniteNumberBetween(p.tauxHoraire, 10, 120)
+  ) {
+    return { ok: false, error: 'Les données du diagnostic sont invalides.' }
+  }
+
+  const allowedPackIds = new Set(automationPacks.map((pack) => pack.id))
+  const packsSelectionnes = Array.isArray(data.packsSelectionnes)
+    ? [...new Set(data.packsSelectionnes.filter((id) => allowedPackIds.has(id)))].slice(
+        0,
+        automationPacks.length
+      )
+    : []
+  const score = Math.min(
+    100,
+    Math.max(
+      0,
+      Math.round(
+        (p.outils / 10) * 20 +
+          (p.relanceHeures / 30) * 30 +
+          (p.dossiersDivergents / 40) * 25 +
+          (p.tempsStatutMinutes / 30) * 25
+      )
+    )
+  )
+  const heuresMois = Math.round(
+    p.relanceHeures * 4.33 + p.dossiersDivergents * (p.tempsStatutMinutes / 60)
+  )
+  const coutAn = Math.round(heuresMois * 12 * p.tauxHoraire)
 
   if (!process.env.RESEND_API_KEY || !process.env.CONTACT_EMAIL) {
     return {
@@ -62,68 +120,49 @@ export async function submitDiagnostic(
   try {
     const pdfBuffer = await renderToBuffer(
       DiagnosticPdf({
-        nom: data.nom,
-        cabinet: data.cabinet,
-        email: data.email,
+        nom,
+        cabinet,
+        email,
         telephone,
-        score: data.score,
-        heuresMois: data.heuresMois,
-        coutAn: data.coutAn,
-        parametres: data.parametres,
+        score,
+        heuresMois,
+        coutAn,
+        parametres: p,
         allPacks: automationPacks,
-        selectedPackIds: data.packsSelectionnes,
+        selectedPackIds: packsSelectionnes,
         date,
       })
     )
 
     const attachments = [
       {
-        filename: `diagnostic-kls3-${data.cabinet.replace(/\s+/g, '-').toLowerCase()}.pdf`,
+        filename: `diagnostic-kls3-${cabinet
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^a-zA-Z0-9]+/g, '-')
+          .replace(/^-|-$/g, '')
+          .toLowerCase()
+          .slice(0, 80) || 'cabinet'}.pdf`,
         content: pdfBuffer,
       },
     ]
 
-    const { error: clientError } = await resend.emails.send({
-      from: FROM_ADDRESS,
-      to: data.email,
-      subject: 'Votre diagnostic de friction opérationnelle — KLS3',
-      html: buildDiagnosticEmailHtml({
-        nom: data.nom,
-        cabinet: data.cabinet,
-        email: data.email,
-        telephone,
-        score: data.score,
-        heuresMois: data.heuresMois,
-        coutAn: data.coutAn,
-        parametres: data.parametres,
-        allPacks: automationPacks,
-        selectedPackIds: data.packsSelectionnes,
-        audience: 'client',
-      }),
-      attachments,
-    })
-
-    if (clientError) {
-      console.error('[diagnostic] échec envoi email client', clientError)
-      return { ok: false, error: "L'envoi a échoué, merci de réessayer." }
-    }
-
     const { error: internalError } = await resend.emails.send({
       from: FROM_ADDRESS,
       to: process.env.CONTACT_EMAIL,
-      replyTo: data.email,
-      subject: `[Diagnostic] Nouvelle soumission — ${data.cabinet}`,
+      replyTo: email,
+      subject: `[Diagnostic] Nouvelle soumission — ${cabinet}`,
       html: buildDiagnosticEmailHtml({
-        nom: data.nom,
-        cabinet: data.cabinet,
-        email: data.email,
+        nom,
+        cabinet,
+        email,
         telephone,
-        score: data.score,
-        heuresMois: data.heuresMois,
-        coutAn: data.coutAn,
-        parametres: data.parametres,
+        score,
+        heuresMois,
+        coutAn,
+        parametres: p,
         allPacks: automationPacks,
-        selectedPackIds: data.packsSelectionnes,
+        selectedPackIds: packsSelectionnes,
         audience: 'interne',
       }),
       attachments,

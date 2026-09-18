@@ -4,6 +4,26 @@ import { type ContactFormData } from '@/lib/types/kls3'
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy_key_for_build')
 
+const FIELD_LIMITS = {
+  nom: 100,
+  societe: 150,
+  email: 254,
+  telephone: 40,
+  friction: 4000,
+} as const
+
+function cleanField(value: unknown, maxLength: number, allowLineBreaks = false): string | null {
+  if (typeof value !== 'string') return null
+  const cleaned = value.trim()
+  const forbiddenCharacters = allowLineBreaks
+    ? /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/
+    : /[\u0000-\u001F\u007F]/
+  if (!cleaned || cleaned.length > maxLength || forbiddenCharacters.test(cleaned)) {
+    return null
+  }
+  return cleaned
+}
+
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, '&amp;')
@@ -16,11 +36,15 @@ function escapeHtml(value: string): string {
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as Partial<ContactFormData>
-    const nom = body.nom?.trim()
-    const societe = body.societe?.trim()
-    const email = body.email?.trim()
-    const telephone = body.telephone?.trim()
-    const friction = body.friction?.trim()
+    if (typeof body.website === 'string' && body.website.trim()) {
+      return NextResponse.json({ success: true }, { status: 200 })
+    }
+
+    const nom = cleanField(body.nom, FIELD_LIMITS.nom)
+    const societe = cleanField(body.societe, FIELD_LIMITS.societe)
+    const email = cleanField(body.email, FIELD_LIMITS.email)
+    const telephone = cleanField(body.telephone, FIELD_LIMITS.telephone)
+    const friction = cleanField(body.friction, FIELD_LIMITS.friction, true)
 
     if (!nom || !societe || !email || !telephone || !friction) {
       return NextResponse.json(

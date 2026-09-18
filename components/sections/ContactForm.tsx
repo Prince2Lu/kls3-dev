@@ -21,6 +21,7 @@ export default function ContactForm() {
     email: '',
     telephone: '',
     friction: '',
+    website: '',
   })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
@@ -41,7 +42,7 @@ export default function ContactForm() {
         throw new Error(data.error || 'Une erreur est survenue')
       }
       setStatus('success')
-      setFormData({ nom: '', societe: '', email: '', telephone: '', friction: '' })
+      setFormData({ nom: '', societe: '', email: '', telephone: '', friction: '', website: '' })
     } catch (error) {
       setStatus('error')
       setErrorMessage(error instanceof Error ? error.message : 'Une erreur est survenue')
@@ -50,6 +51,18 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="absolute -left-[9999px]" aria-hidden="true">
+        <label htmlFor="website">Site web</label>
+        <input
+          type="text"
+          id="website"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={formData.website}
+          onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+        />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="nom" className={labelClass} style={labelStyle}>
@@ -59,6 +72,7 @@ export default function ContactForm() {
             type="text"
             id="nom"
             required
+            maxLength={100}
             value={formData.nom}
             onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
             className={inputClass}
@@ -73,6 +87,7 @@ export default function ContactForm() {
             type="text"
             id="societe"
             required
+            maxLength={150}
             value={formData.societe}
             onChange={(e) => setFormData({ ...formData, societe: e.target.value })}
             className={inputClass}
@@ -90,6 +105,7 @@ export default function ContactForm() {
             type="email"
             id="email"
             required
+            maxLength={254}
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             className={inputClass}
@@ -104,6 +120,7 @@ export default function ContactForm() {
             type="tel"
             id="telephone"
             required
+            maxLength={40}
             value={formData.telephone}
             onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
             className={inputClass}
@@ -120,6 +137,7 @@ export default function ContactForm() {
         <textarea
           id="friction"
           required
+          maxLength={4000}
           rows={6}
           value={formData.friction}
           onChange={(e) => setFormData({ ...formData, friction: e.target.value })}
