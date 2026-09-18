@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import { type ContactFormData } from '@/lib/types/kls3'
+import { TurnstileWidget } from '@/components/ui/turnstile-widget'
 
 const inputClass =
   'w-full px-4 py-3 bg-[#0D0D0D] border border-kls-border rounded-lg text-kls-text placeholder:text-[rgba(240,237,232,0.35)] focus:outline-none focus:border-[#4B7BF5] transition-colors'
@@ -25,9 +26,18 @@ export default function ContactForm() {
   })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
+  const [turnstileToken, setTurnstileToken] = useState('')
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0)
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+
+    if (!turnstileToken) {
+      setStatus('error')
+      setErrorMessage('Veuillez confirmer que vous êtes humain.')
+      return
+    }
+
     setStatus('loading')
     setErrorMessage('')
 
@@ -35,7 +45,7 @@ export default function ContactForm() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstileToken }),
       })
       const data = await response.json()
       if (!response.ok) {
@@ -46,6 +56,9 @@ export default function ContactForm() {
     } catch (error) {
       setStatus('error')
       setErrorMessage(error instanceof Error ? error.message : 'Une erreur est survenue')
+    } finally {
+      setTurnstileToken('')
+      setTurnstileResetKey((key) => key + 1)
     }
   }
 
@@ -146,6 +159,12 @@ export default function ContactForm() {
         />
       </div>
 
+      <TurnstileWidget
+        key={turnstileResetKey}
+        action="contact"
+        onTokenChange={setTurnstileToken}
+      />
+
       {status === 'error' && (
         <div
           className="p-4 rounded-lg"
@@ -176,7 +195,7 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        disabled={status === 'loading'}
+        disabled={status === 'loading' || !turnstileToken}
         className="w-full rounded-full transition-colors hover:bg-[#3D6AE0] disabled:opacity-50 disabled:cursor-not-allowed sm:w-auto"
         style={{
           backgroundColor: '#4B7BF5',

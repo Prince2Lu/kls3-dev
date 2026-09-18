@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { type ContactFormData } from '@/lib/types/kls3'
+import { verifyTurnstileToken } from '@/lib/security/turnstile'
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy_key_for_build')
 
@@ -56,6 +57,14 @@ export async function POST(request: NextRequest) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
       return NextResponse.json({ error: 'Adresse email invalide.' }, { status: 400 })
+    }
+
+    const isHuman = await verifyTurnstileToken(body.turnstileToken, 'contact')
+    if (!isHuman) {
+      return NextResponse.json(
+        { error: 'La vérification anti-robot a échoué. Veuillez réessayer.' },
+        { status: 400 }
+      )
     }
 
     if (!process.env.RESEND_API_KEY || !process.env.CONTACT_EMAIL) {

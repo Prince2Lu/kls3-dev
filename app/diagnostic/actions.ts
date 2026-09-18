@@ -5,6 +5,7 @@ import { renderToBuffer } from '@react-pdf/renderer'
 import { automationPacks } from '@/lib/data/automation-packs'
 import { DiagnosticPdf } from '@/lib/pdf/diagnostic-pdf'
 import { buildDiagnosticEmailHtml } from '@/lib/email/diagnostic-email-html'
+import { verifyTurnstileToken } from '@/lib/security/turnstile'
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy_key_for_build')
 
@@ -29,6 +30,7 @@ export type DiagnosticSubmission = {
   /** ids des packs sélectionnés — voir lib/data/automation-packs.ts */
   packsSelectionnes: string[]
   website?: string
+  turnstileToken?: string
 }
 
 export type DiagnosticActionResult = { ok: true } | { ok: false; error: string }
@@ -78,6 +80,14 @@ export async function submitDiagnostic(
     !isFiniteNumberBetween(p.tauxHoraire, 10, 120)
   ) {
     return { ok: false, error: 'Les données du diagnostic sont invalides.' }
+  }
+
+  const isHuman = await verifyTurnstileToken(data.turnstileToken, 'diagnostic')
+  if (!isHuman) {
+    return {
+      ok: false,
+      error: 'La vérification anti-robot a échoué. Veuillez réessayer.',
+    }
   }
 
   const allowedPackIds = new Set(automationPacks.map((pack) => pack.id))

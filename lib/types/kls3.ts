@@ -38,4 +38,5 @@ export interface ContactFormData {
   telephone: string
   friction: string // description libre de l'opération qui ralentit
   website?: string // honeypot anti-spam — doit rester vide
+  turnstileToken?: string
 }
