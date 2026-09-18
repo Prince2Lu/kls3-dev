@@ -147,29 +147,51 @@ export async function submitDiagnostic(
       },
     ]
 
-    const { error: internalError } = await resend.emails.send({
-      from: FROM_ADDRESS,
-      to: process.env.CONTACT_EMAIL,
-      replyTo: email,
-      subject: `[Diagnostic] Nouvelle soumission — ${cabinet}`,
-      html: buildDiagnosticEmailHtml({
-        nom,
-        cabinet,
-        email,
-        telephone,
-        score,
-        heuresMois,
-        coutAn,
-        parametres: p,
-        allPacks: automationPacks,
-        selectedPackIds: packsSelectionnes,
-        audience: 'interne',
-      }),
-      attachments,
-    })
+    const { error } = await resend.batch.send([
+      {
+        from: FROM_ADDRESS,
+        to: process.env.CONTACT_EMAIL,
+        replyTo: email,
+        subject: `[Diagnostic] Nouvelle soumission — ${cabinet}`,
+        html: buildDiagnosticEmailHtml({
+          nom,
+          cabinet,
+          email,
+          telephone,
+          score,
+          heuresMois,
+          coutAn,
+          parametres: p,
+          allPacks: automationPacks,
+          selectedPackIds: packsSelectionnes,
+          audience: 'interne',
+        }),
+        attachments,
+      },
+      {
+        from: FROM_ADDRESS,
+        to: email,
+        replyTo: process.env.CONTACT_EMAIL,
+        subject: 'Votre diagnostic de friction opérationnelle — KLS3',
+        html: buildDiagnosticEmailHtml({
+          nom,
+          cabinet,
+          email,
+          telephone,
+          score,
+          heuresMois,
+          coutAn,
+          parametres: p,
+          allPacks: automationPacks,
+          selectedPackIds: packsSelectionnes,
+          audience: 'client',
+        }),
+        attachments,
+      },
+    ])
 
-    if (internalError) {
-      console.error('[diagnostic] échec envoi email interne', internalError)
+    if (error) {
+      console.error('[diagnostic] échec envoi batch interne/client', error)
       return { ok: false, error: "L'envoi a échoué, merci de réessayer." }
     }
 
