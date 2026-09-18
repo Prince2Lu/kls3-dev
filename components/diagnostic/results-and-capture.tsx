@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react'
 import type { AutomationPack } from '@/lib/data/automation-packs'
 import type { FrictionResult } from './friction-calculator'
 import { submitDiagnostic } from '@/app/diagnostic/actions'
+import { TurnstileWidget } from '@/components/ui/turnstile-widget'
 
 type Props = {
   result: FrictionResult
@@ -69,6 +70,9 @@ export function ScoreCard({ result, selectedPacks }: Props) {
 export function CaptureForm({ result, selectedPacks }: Props) {
   const [isPending, startTransition] = useTransition()
   const [status, setStatus] = useState<'idle' | 'sent' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
+  const [turnstileToken, setTurnstileToken] = useState('')
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0)
   const [form, setForm] = useState({
     nom: '',
     cabinet: '',
@@ -79,16 +83,29 @@ export function CaptureForm({ result, selectedPacks }: Props) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+
+    if (!turnstileToken) {
+      setStatus('error')
+      setErrorMessage('Veuillez confirmer que vous êtes humain.')
+      return
+    }
+
+    setErrorMessage('')
     startTransition(async () => {
       const res = await submitDiagnostic({
         ...form,
+        turnstileToken,
         score: result.score,
         heuresMois: result.heuresMois,
         coutAn: result.coutAn,
         parametres: result.parametres,
         packsSelectionnes: selectedPacks.map((p) => p.id),
       })
+
       setStatus(res.ok ? 'sent' : 'error')
+      setErrorMessage(res.ok ? '' : res.error)
+      setTurnstileToken('')
+      setTurnstileResetKey((key) => key + 1)
     })
   }
 
@@ -156,15 +173,20 @@ export function CaptureForm({ result, selectedPacks }: Props) {
             onChange={(e) => setForm((p) => ({ ...p, telephone: e.target.value }))}
             className="rounded-lg border border-white/[0.07] bg-background px-4 py-3 text-sm text-foreground placeholder:text-foreground-muted focus:border-accent focus:outline-none"
           />
+          <TurnstileWidget
+            key={turnstileResetKey}
+            action="diagnostic"
+            onTokenChange={setTurnstileToken}
+          />
           <button
             type="submit"
-            disabled={isPending}
+            disabled={isPending || !turnstileToken}
             className="mt-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:opacity-50"
           >
             {isPending ? 'Envoi…' : 'Envoyer ma sélection'}
           </button>
           {status === 'error' && (
-            <p className="text-xs text-red-400">Une erreur est survenue, merci de réessayer.</p>
+            <p className="text-xs text-red-400">{errorMessage}</p>
           )}
         </form>
       )}
