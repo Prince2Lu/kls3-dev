@@ -69,7 +69,13 @@ export function ScoreCard({ result, selectedPacks }: Props) {
 export function CaptureForm({ result, selectedPacks }: Props) {
   const [isPending, startTransition] = useTransition()
   const [status, setStatus] = useState<'idle' | 'sent' | 'error'>('idle')
-  const [form, setForm] = useState({ nom: '', cabinet: '', email: '', telephone: '' })
+  const [form, setForm] = useState({
+    nom: '',
+    cabinet: '',
+    email: '',
+    telephone: '',
+    website: '',
+  })
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -89,7 +95,7 @@ export function CaptureForm({ result, selectedPacks }: Props) {
   return (
     <div className="rounded-2xl border border-white/[0.07] bg-card p-8">
       <h3 className="mb-2 font-display text-xl font-bold text-foreground">
-        Recevoir mon diagnostic personnalisé
+        Transmettre mon diagnostic à KLS3
       </h3>
       <p className="mb-6 text-sm font-light text-foreground-muted">
         Nous revenons vers vous sous 48h avec une lecture de vos résultats et des packs
@@ -102,9 +108,22 @@ export function CaptureForm({ result, selectedPacks }: Props) {
         </p>
       ) : (
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <div className="absolute -left-[9999px]" aria-hidden="true">
+            <label htmlFor="diagnostic-website">Site web</label>
+            <input
+              id="diagnostic-website"
+              name="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={form.website}
+              onChange={(e) => setForm((p) => ({ ...p, website: e.target.value }))}
+            />
+          </div>
           <input
             type="text"
             required
+            maxLength={100}
             placeholder="Nom et prénom"
             value={form.nom}
             onChange={(e) => setForm((p) => ({ ...p, nom: e.target.value }))}
@@ -113,6 +132,7 @@ export function CaptureForm({ result, selectedPacks }: Props) {
           <input
             type="text"
             required
+            maxLength={150}
             placeholder="Nom du cabinet"
             value={form.cabinet}
             onChange={(e) => setForm((p) => ({ ...p, cabinet: e.target.value }))}
@@ -121,6 +141,7 @@ export function CaptureForm({ result, selectedPacks }: Props) {
           <input
             type="email"
             required
+            maxLength={254}
             placeholder="Email professionnel"
             value={form.email}
             onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
@@ -129,6 +150,7 @@ export function CaptureForm({ result, selectedPacks }: Props) {
           <input
             type="tel"
             required
+            maxLength={40}
             placeholder="Téléphone"
             value={form.telephone}
             onChange={(e) => setForm((p) => ({ ...p, telephone: e.target.value }))}
