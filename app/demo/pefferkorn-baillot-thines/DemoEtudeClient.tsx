@@ -17,11 +17,12 @@ import {
   Phone,
   RotateCcw,
   Send,
+  Settings,
   ShieldCheck,
   UserRound,
 } from 'lucide-react'
 
-type View = 'dashboard' | 'dossiers' | 'relances' | 'gains'
+type View = 'dashboard' | 'dossiers' | 'relances' | 'gains' | 'settings'
 type ScenarioKey = 'prudent' | 'median' | 'haut'
 
 type DocumentItem = {
@@ -45,6 +46,61 @@ type GainInputs = {
   reminders: number
   minutes: number
   automated: number
+}
+
+type ReminderTemplate = {
+  id: string
+  title: string
+  days: number
+  subject: string
+  body: string
+}
+
+const initialTemplates: ReminderTemplate[] = [
+  {
+    id: 'first', title: 'Première relance', days: 3,
+    subject: 'Pièces attendues pour votre dossier {{dossier}}',
+    body: 'Bonjour {{client}},\n\nPour poursuivre votre dossier {{dossier}}, nous attendons encore les pièces suivantes :\n{{pieces}}\n\nVous pouvez contacter {{clerc}} pour toute question.\n\nBien cordialement,\n{{etude}}',
+  },
+  {
+    id: 'second', title: 'Deuxième relance', days: 7,
+    subject: 'Rappel : pièces manquantes pour votre dossier {{dossier}}',
+    body: 'Bonjour {{client}},\n\nSauf erreur de notre part, les pièces suivantes restent attendues pour votre dossier {{dossier}} :\n{{pieces}}\n\nSi vous rencontrez une difficulté, merci de contacter {{clerc}} afin que nous puissions vous accompagner.\n\nBien cordialement,\n{{etude}}',
+  },
+  {
+    id: 'third', title: 'Troisième relance', days: 14,
+    subject: 'Point sur votre dossier {{dossier}}',
+    body: 'Bonjour {{client}},\n\nVotre dossier {{dossier}} reste en attente des éléments suivants :\n{{pieces}}\n\nPour faire le point et convenir de la suite, nous vous invitons à contacter {{clerc}}.\n\nBien cordialement,\n{{etude}}',
+  },
+]
+
+function fillTemplate(text: string, dossier: Dossier) {
+  const values: Record<string, string> = {
+    client: dossier.client,
+    dossier: dossier.id,
+    pieces: dossier.documents.filter((doc) => !doc.received).map((doc) => `• ${doc.label}`).join('\n'),
+    clerc: dossier.clerk,
+    etude: 'Étude PEFFERKORN, BAILLOT & THINES',
+  }
+  return text.replace(/\{\{(client|dossier|pieces|clerc|etude)\}\}/g, (_, key: string) => values[key])
+}
+
+function EmailPreview({ template, dossier }: { template: ReminderTemplate; dossier: Dossier }) {
+  const complete = dossier.documents.every((doc) => doc.received)
+  return (
+    <div className="mt-5 rounded-xl border border-[#4B7BF5]/25 bg-[#0D0D0D] p-5" aria-label={`Aperçu de la ${template.title.toLowerCase()}`}>
+      {complete ? (
+        <p className="text-sm text-emerald-300">Dossier complet : aucune relance à préparer.</p>
+      ) : (
+        <>
+          <p className="text-sm text-[#F0EDE8]/50">À : {dossier.client} · dossier fictif</p>
+          <p className="mt-3 text-base font-medium text-[#F0EDE8]">Objet : {fillTemplate(template.subject, dossier)}</p>
+          <p className="mt-4 whitespace-pre-wrap text-base leading-7 text-[#F0EDE8]/75">{fillTemplate(template.body, dossier)}</p>
+        </>
+      )}
+      <p className="mt-4 text-sm text-[#F0EDE8]/40">Aperçu uniquement · aucun e-mail envoyé</p>
+    </div>
+  )
 }
 
 const initialDossiers: Dossier[] = [
@@ -106,6 +162,7 @@ const navItems: Array<{
   { id: 'dossiers', label: 'Dossiers incomplets', icon: FolderOpen },
   { id: 'relances', label: 'Relances et exceptions', icon: BellRing },
   { id: 'gains', label: 'Estimation des gains', icon: Calculator },
+  { id: 'settings', label: 'Paramètres', icon: Settings },
 ]
 
 function Brand() {
@@ -287,7 +344,7 @@ function DashboardView({ dossiers, onOpen }: { dossiers: Dossier[]; onOpen: () =
   )
 }
 
-function DossiersView({ dossiers, setDossiers }: { dossiers: Dossier[]; setDossiers: (value: Dossier[]) => void }) {
+function DossiersView({ dossiers, setDossiers, firstDelay }: { dossiers: Dossier[]; setDossiers: (value: Dossier[]) => void; firstDelay: number }) {
   const [selectedId, setSelectedId] = useState(dossiers[0].id)
   const selected = dossiers.find((dossier) => dossier.id === selectedId) ?? dossiers[0]
   const received = selected.documents.filter((doc) => doc.received).length
@@ -389,7 +446,7 @@ function DossiersView({ dossiers, setDossiers }: { dossiers: Dossier[]; setDossi
               {progress === 100 ? <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-300" /> : <BellRing className="mt-0.5 h-5 w-5 shrink-0 text-[#4B7BF5]" />}
               <div>
                 <p className="text-sm font-medium text-[#F0EDE8]">
-                  {progress === 100 ? 'Dossier complet : les relances sont arrêtées.' : 'Prochaine relance préparée à J+3.'}
+                  {progress === 100 ? 'Dossier complet : les relances sont arrêtées.' : `Prochaine relance préparée à J+${firstDelay}.`}
                 </p>
                 <p className="mt-1 text-xs leading-5 text-[#F0EDE8]/40">
                   {progress === 100 ? 'Le clerc référent peut reprendre le dossier.' : 'Le message reprend uniquement les pièces encore attendues.'}
@@ -403,13 +460,12 @@ function DossiersView({ dossiers, setDossiers }: { dossiers: Dossier[]; setDossi
   )
 }
 
-function RelancesView() {
+function RelancesView({ templates, dossiers }: { templates: ReminderTemplate[]; dossiers: Dossier[] }) {
   const [sent, setSent] = useState(false)
-  const steps = [
-    { delay: 'J+3', title: 'Première relance', channel: 'E-mail personnalisé', icon: Mail },
-    { delay: 'J+7', title: 'Deuxième relance', channel: 'E-mail et notification interne', icon: BellRing },
-    { delay: 'J+14', title: 'Intervention du clerc', channel: 'Appel proposé si nécessaire', icon: Phone },
-  ]
+  const [previewId, setPreviewId] = useState<string | null>(null)
+  const dossier = dossiers[0]
+  const complete = dossier.documents.every((doc) => doc.received)
+  const exceptionComplete = dossiers[1].documents.every((doc) => doc.received)
 
   return (
     <div>
@@ -421,23 +477,31 @@ function RelancesView() {
 
       <div className="mt-8 grid gap-6 xl:grid-cols-[1fr_0.9fr]">
         <section className="rounded-2xl border border-white/[0.07] bg-[#111111] p-5 md:p-7">
-          <h2 className="text-xl font-semibold text-[#F0EDE8]">Parcours proposé · M. et Mme Laurent</h2>
+          <h2 className="text-xl font-semibold text-[#F0EDE8]">Parcours proposé · {dossier.client}</h2>
+          <p className="mt-3 text-sm text-[#F0EDE8]/45">Délais calculés depuis la demande initiale des pièces.</p>
+          {complete && <p className="mt-4 rounded-xl bg-emerald-400/10 p-4 text-sm text-emerald-300" role="status">Dossier complet : les relances sont arrêtées.</p>}
           <div className="mt-6 space-y-3">
-            {steps.map((step, index) => {
-              const Icon = step.icon
+            {templates.map((step, index) => {
+              const Icon = index === 2 ? Phone : index === 1 ? BellRing : Mail
               return (
-                <div key={step.delay} className="flex gap-4 rounded-xl border border-white/[0.07] p-4">
+                <div key={step.id} className="rounded-xl border border-white/[0.07] p-4">
+                <div className="flex gap-4">
                   <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#4B7BF5]/10">
                     <Icon className="h-4 w-4 text-[#4B7BF5]" />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <p className="text-sm font-medium text-[#F0EDE8]">{step.title}</p>
-                      <span className="rounded-full bg-white/[0.05] px-2.5 py-1 text-xs text-[#F0EDE8]/50">{step.delay}</span>
+                      <span className="rounded-full bg-white/[0.05] px-2.5 py-1 text-xs text-[#F0EDE8]/50">J+{step.days}</span>
                     </div>
-                    <p className="mt-1 text-xs text-[#F0EDE8]/40">{step.channel}</p>
-                    {index === 0 && <p className="mt-3 text-xs leading-5 text-[#F0EDE8]/55">Objet : pièces encore attendues pour votre dossier V-2026-184</p>}
+                    <p className="mt-1 text-sm text-[#F0EDE8]/40">{complete ? 'Arrêtée · dossier complet' : index === 2 ? 'E-mail préparé et intervention du clerc si nécessaire' : 'E-mail personnalisé'}</p>
+                    {!complete && <p className="mt-3 text-sm leading-5 text-[#F0EDE8]/55">Objet : {fillTemplate(step.subject, dossier)}</p>}
+                    <button type="button" disabled={complete} aria-expanded={previewId === step.id} onClick={() => setPreviewId(previewId === step.id ? null : step.id)} className="mt-3 text-sm font-medium text-[#AFC4FF] enabled:hover:underline disabled:opacity-40">
+                      {previewId === step.id ? 'Fermer l’aperçu' : 'Aperçu du mail'}
+                    </button>
                   </div>
+                </div>
+                {previewId === step.id && !complete && <EmailPreview template={step} dossier={dossier} />}
                 </div>
               )
             })}
@@ -451,7 +515,7 @@ function RelancesView() {
           </div>
           <div className="mt-6 rounded-xl border border-amber-300/20 bg-amber-300/[0.05] p-4">
             <p className="text-sm font-medium text-[#F0EDE8]">Famille Perrin · Succession</p>
-            <p className="mt-2 text-sm leading-6 text-[#F0EDE8]/50">Le client a répondu sans joindre les relevés bancaires. Une réponse personnalisée est conseillée.</p>
+            <p className="mt-2 text-sm leading-6 text-[#F0EDE8]/50">{exceptionComplete ? 'Toutes les pièces sont reçues. Le clerc peut reprendre le dossier.' : 'Le client a répondu avec des pièces encore manquantes. Une réponse personnalisée est conseillée.'}</p>
             <div className="mt-4 flex flex-wrap gap-2 text-xs text-[#F0EDE8]/45">
               <span className="rounded-full border border-white/[0.08] px-3 py-1">Assigné à Julie M.</span>
               <span className="rounded-full border border-white/[0.08] px-3 py-1">Réponse reçue aujourd’hui</span>
@@ -468,6 +532,68 @@ function RelancesView() {
           <p className="mt-4 text-center text-xs text-[#F0EDE8]/35">Action simulée, aucune donnée n’est envoyée.</p>
         </section>
       </div>
+    </div>
+  )
+}
+
+function SettingsView({ templates, onSave, dossier }: { templates: ReminderTemplate[]; onSave: (value: ReminderTemplate[]) => void; dossier: Dossier }) {
+  const [drafts, setDrafts] = useState(templates)
+  const [previewId, setPreviewId] = useState<string | null>(null)
+  const [saved, setSaved] = useState(false)
+  const valid = drafts.every((template, index) =>
+    Number.isInteger(template.days) && template.days >= 1 && template.days <= 365 &&
+    (index === 0 || template.days > drafts[index - 1].days) &&
+    template.subject.trim().length > 0 && template.body.trim().length > 0,
+  )
+  const update = (id: string, patch: Partial<ReminderTemplate>) => {
+    setDrafts((current) => current.map((template) => template.id === id ? { ...template, ...patch } : template))
+    setSaved(false)
+  }
+  const save = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (!valid) return
+    onSave(drafts)
+    setSaved(true)
+  }
+  const inputClass = 'mt-2 w-full rounded-xl border border-white/10 bg-[#0D0D0D] px-4 py-3 text-base text-[#F0EDE8] outline-none focus:border-[#4B7BF5]'
+
+  return (
+    <div>
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#4B7BF5]">Paramètres</p>
+      <h1 className="mt-3 text-3xl font-semibold text-[#F0EDE8] md:text-4xl">Vos modèles de relance</h1>
+      <p className="mt-3 max-w-3xl text-base text-[#F0EDE8]/50">Délais en jours depuis la demande initiale des pièces. Les relances s’arrêtent lorsque le dossier est complet.</p>
+      <p className="mt-4 text-sm leading-6 text-[#AFC4FF]">Variables : {'{{client}} · {{dossier}} · {{pieces}} · {{clerc}} · {{etude}}'}</p>
+      <form onSubmit={save} className="mt-7 space-y-5">
+        {drafts.map((template) => (
+          <section key={template.id} className="rounded-2xl border border-white/[0.07] bg-[#111111] p-5 md:p-6">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-xl font-semibold text-[#F0EDE8]">{template.title}</h2>
+              <span className="rounded-full bg-[#4B7BF5]/10 px-3 py-1 text-sm text-[#AFC4FF]">J+{template.days}</span>
+            </div>
+            <div className="mt-5 grid gap-5 sm:grid-cols-[150px_1fr]">
+              <label className="block text-sm text-[#F0EDE8]/65">Délai (jours)
+                <input aria-label={`Délai — ${template.title}`} type="number" min={1} max={365} step={1} required value={template.days} onChange={(event) => update(template.id, { days: Number(event.target.value) })} className={inputClass} />
+              </label>
+              <label className="block text-sm text-[#F0EDE8]/65">Objet du mail
+                <input aria-label={`Objet — ${template.title}`} required value={template.subject} onChange={(event) => update(template.id, { subject: event.target.value })} className={inputClass} />
+              </label>
+            </div>
+            <label className="mt-5 block text-sm text-[#F0EDE8]/65">Texte du mail
+              <textarea aria-label={`Texte — ${template.title}`} required rows={8} value={template.body} onChange={(event) => update(template.id, { body: event.target.value })} className={`${inputClass} resize-y leading-6`} />
+            </label>
+            <button type="button" aria-expanded={previewId === template.id} onClick={() => setPreviewId(previewId === template.id ? null : template.id)} className="mt-4 inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-sm font-medium text-[#AFC4FF] hover:border-[#4B7BF5]/40">
+              <Mail className="h-4 w-4" />{previewId === template.id ? 'Fermer l’aperçu' : 'Aperçu'}
+            </button>
+            {previewId === template.id && <EmailPreview template={template} dossier={dossier} />}
+          </section>
+        ))}
+        {!valid && <p role="alert" className="text-sm text-amber-300">Renseignez les objets et textes, puis trois délais entiers croissants entre 1 et 365 jours.</p>}
+        <div className="flex flex-wrap items-center gap-4">
+          <button type="submit" disabled={!valid} className="rounded-xl bg-[#4B7BF5] px-5 py-3 text-sm font-semibold text-white enabled:hover:bg-[#5D89F6] disabled:opacity-40">Enregistrer</button>
+          <p role="status" className="text-sm text-emerald-300">{saved ? 'Paramètres enregistrés pour cette session de démonstration.' : ''}</p>
+        </div>
+        <p className="text-sm text-[#F0EDE8]/40">Aucun envoi réel. Les modifications sont conservées pendant cette session et réinitialisées au rechargement.</p>
+      </form>
     </div>
   )
 }
@@ -579,6 +705,7 @@ function GainsView() {
 function AppShell({ onLogout }: { onLogout: () => void }) {
   const [view, setView] = useState<View>('dashboard')
   const [dossiers, setDossiers] = useState(initialDossiers)
+  const [templates, setTemplates] = useState(initialTemplates)
 
   return (
     <div className="min-h-screen bg-[#0D0D0D]">
@@ -621,9 +748,10 @@ function AppShell({ onLogout }: { onLogout: () => void }) {
         <main className="min-w-0 flex-1 px-5 py-8 md:px-8 lg:px-10 lg:py-10">
           <div className="mx-auto max-w-6xl">
             {view === 'dashboard' && <DashboardView dossiers={dossiers} onOpen={() => setView('dossiers')} />}
-            {view === 'dossiers' && <DossiersView dossiers={dossiers} setDossiers={setDossiers} />}
-            {view === 'relances' && <RelancesView />}
+            {view === 'dossiers' && <DossiersView dossiers={dossiers} setDossiers={setDossiers} firstDelay={templates[0].days} />}
+            {view === 'relances' && <RelancesView templates={templates} dossiers={dossiers} />}
             {view === 'gains' && <GainsView />}
+            {view === 'settings' && <SettingsView templates={templates} onSave={setTemplates} dossier={dossiers[0]} />}
             <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.07] pt-5 text-xs text-[#F0EDE8]/30">
               <span>Présentation KLS3 · 2 octobre 2026</span>
               <span className="inline-flex items-center gap-2"><FileCheck2 className="h-3.5 w-3.5" /> Données fictives, sans stockage</span>
