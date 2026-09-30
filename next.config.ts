@@ -25,6 +25,19 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: '/demo/pefferkorn-baillot-thines/:path*',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow, noarchive, nosnippet, noimageindex',
+          },
+        ],
+      },
+    ]
+  },
   async redirects() {
     return [
       {
