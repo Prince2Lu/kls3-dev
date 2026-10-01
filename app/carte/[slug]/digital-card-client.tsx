@@ -23,6 +23,7 @@ type PublicCard = {
   linkedin: string
   website: string
   photoUrl: string
+  logoUrl: string
   bio: string
   projects: CardProject[]
 }
@@ -91,8 +92,8 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
         <div className="p-7">
           <div className="mb-6 flex justify-center">
             <img
-              src="/logo-kls3-512-transparent.png"
-              alt="KLS3"
+              src={card.logoUrl || "/logo-kls3-512-transparent.png"}
+              alt={card.company || "KLS3"}
               width={96}
               height={96}
               className="h-16 w-16 object-contain"
