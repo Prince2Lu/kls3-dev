@@ -117,7 +117,11 @@ export default function APropos() {
             gap: 16,
           }}
         >
-          <div style={cardStyle}>
+          <Link
+            href="/carte/eric"
+            aria-label="Voir la carte de contact d'Éric Scarpino"
+            style={{ ...cardStyle, display: 'block', textDecoration: 'none', color: 'inherit' }}
+          >
             <div
               style={{
                 fontSize: 11,
@@ -148,8 +152,22 @@ export default function APropos() {
               France, Allemagne, Luxembourg et Belgique pour des structures allant de la startup au
               grand groupe.
             </p>
-          </div>
-          <div style={cardStyle}>
+            <div
+              style={{
+                marginTop: 22,
+                fontSize: 13,
+                fontWeight: 600,
+                color: '#4B7BF5',
+              }}
+            >
+              Voir la carte de contact →
+            </div>
+          </Link>
+          <Link
+            href="/carte/lilian"
+            aria-label="Voir la carte de contact de Lilian Scarpino"
+            style={{ ...cardStyle, display: 'block', textDecoration: 'none', color: 'inherit' }}
+          >
             <div
               style={{
                 fontSize: 11,
@@ -179,7 +197,17 @@ export default function APropos() {
               En charge du développement commercial et de la relation client. Interlocuteur
               privilégié pour les premiers échanges et la définition de vos besoins.
             </p>
-          </div>
+            <div
+              style={{
+                marginTop: 22,
+                fontSize: 13,
+                fontWeight: 600,
+                color: '#4B7BF5',
+              }}
+            >
+              Voir la carte de contact →
+            </div>
+          </Link>
         </div>
         <p
           style={{
