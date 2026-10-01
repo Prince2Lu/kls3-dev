@@ -94,9 +94,9 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
             <img
               src={card.logoUrl || "/logo-kls3-512-transparent.png"}
               alt={card.company || "KLS3"}
-              width={96}
-              height={96}
-              className="h-16 w-16 object-contain"
+              width={240}
+              height={240}
+              className="h-40 w-40 object-contain"
             />
           </div>
 
@@ -166,12 +166,16 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
 
           <div className="mt-6 space-y-2">
             {card.linkedin && (
-              <a href={card.linkedin} target="_blank" rel="noreferrer" className="block rounded-xl border border-white/10 px-4 py-3 text-sm">
+              <a href={card.linkedin}
+                target="_blank"
+                rel="noreferrer noopener" target="_blank" rel="noreferrer" className="block rounded-xl border border-white/10 px-4 py-3 text-sm">
                 LinkedIn
               </a>
             )}
             {card.website && (
-              <a href={card.website} target="_blank" rel="noreferrer" className="block rounded-xl border border-white/10 px-4 py-3 text-sm">
+              <a href={card.website}
+                target="_blank"
+                rel="noreferrer noopener" target="_blank" rel="noreferrer" className="block rounded-xl border border-white/10 px-4 py-3 text-sm">
                 Site KLS3
               </a>
             )}
@@ -185,6 +189,8 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
                   <a
                     key={`${project.label}-${project.url}`}
                     href={project.url}
+                  target="_blank"
+                  rel="noreferrer noopener"
                     target="_blank"
                     rel="noreferrer"
                     className="block rounded-xl bg-white/[0.03] px-4 py-3 text-sm"
