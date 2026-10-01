@@ -167,15 +167,13 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
           <div className="mt-6 space-y-2">
             {card.linkedin && (
               <a href={card.linkedin}
-                target="_blank"
-                rel="noreferrer noopener" target="_blank" rel="noreferrer" className="block rounded-xl border border-white/10 px-4 py-3 text-sm">
+                target="_blank" rel="noreferrer noopener" className="block rounded-xl border border-white/10 px-4 py-3 text-sm">
                 LinkedIn
               </a>
             )}
             {card.website && (
               <a href={card.website}
-                target="_blank"
-                rel="noreferrer noopener" target="_blank" rel="noreferrer" className="block rounded-xl border border-white/10 px-4 py-3 text-sm">
+                target="_blank" rel="noreferrer noopener" className="block rounded-xl border border-white/10 px-4 py-3 text-sm">
                 Site KLS3
               </a>
             )}
@@ -189,10 +187,7 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
                   <a
                     key={`${project.label}-${project.url}`}
                     href={project.url}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                    target="_blank"
-                    rel="noreferrer"
+                  target="_blank" rel="noreferrer noopener"
                     className="block rounded-xl bg-white/[0.03] px-4 py-3 text-sm"
                   >
                     {project.label}
