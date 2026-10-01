@@ -76,6 +76,8 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
   }
 
   const vcardUrl = `${SALES_OS_URL}/api/public-cards/${encodeURIComponent(card.slug)}/vcard`
+  const qrCodeUrl =
+    `https://api.qrserver.com/v1/create-qr-code/?size=320x320&format=svg&data=${encodeURIComponent(vcardUrl)}`
   const initials =
     (card.firstName ? card.firstName.charAt(0) : '') +
     (card.lastName ? card.lastName.charAt(0) : '')
@@ -118,6 +120,22 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
           >
             Ajouter à mes contacts
           </a>
+
+          <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-center">
+            <p className="text-sm font-medium text-white">Scanner pour ajouter le contact</p>
+            <p className="mt-1 text-xs text-white/50">
+              Scannez ce QR code avec un autre téléphone pour télécharger la vCard.
+            </p>
+            <div className="mx-auto mt-4 w-fit rounded-2xl bg-white p-3">
+              <img
+                src={qrCodeUrl}
+                alt={`QR code vCard de ${card.displayName}`}
+                width={220}
+                height={220}
+                className="h-[220px] w-[220px]"
+              />
+            </div>
+          </div>
 
           <div className="mt-4 grid grid-cols-2 gap-3">
             {card.phone && (
