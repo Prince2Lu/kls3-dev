@@ -1,11 +1,15 @@
 import { notFound } from 'next/navigation'
-import { Mail, Phone, UserPlus, Linkedin, Globe2, ExternalLink } from 'lucide-react'
 
-const SALES_OS_URL = process.env.KLS3_SALES_OS_URL || 'https://kls3-sales-os.kls3-dev.com'
+const SALES_OS_URL =
+  process.env.KLS3_SALES_OS_URL || 'https://kls3-sales-os.kls3-dev.com'
 
 export const dynamic = 'force-dynamic'
 
-type CardProject = { label: string; url: string }
+type CardProject = {
+  label: string
+  url: string
+}
+
 type PublicCard = {
   slug: string
   firstName: string
@@ -20,97 +24,130 @@ type PublicCard = {
   photoUrl: string
   bio: string
   projects: CardProject[]
-  active: boolean
 }
 
 async function getCard(slug: string): Promise<PublicCard | null> {
-  const response = await fetch(`${SALES_OS_URL}/api/public-cards/${encodeURIComponent(slug)}`, {
-    cache: 'no-store',
-  })
+  const response = await fetch(
+    `${SALES_OS_URL}/api/public-cards/${encodeURIComponent(slug)}`,
+    { cache: 'no-store' }
+  )
 
   if (response.status === 404) return null
-  if (!response.ok) throw new Error('Unable to load digital card')
+  if (!response.ok) {
+    throw new Error(`Unable to load digital card: ${response.status}`)
+  }
+
   return response.json()
 }
 
-export default async function DigitalCardPage(
-  { params }: { params: Promise<{ slug: string }> }
-) {
+export default async function DigitalCardPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
   const { slug } = await params
   const card = await getCard(slug)
+
   if (!card) notFound()
 
-  const vcardUrl = `${SALES_OS_URL}/api/public-cards/${encodeURIComponent(card.slug)}/vcard`
+  const vcardUrl =
+    `${SALES_OS_URL}/api/public-cards/${encodeURIComponent(card.slug)}/vcard`
+
+  const initials =
+    (card.firstName ? card.firstName.charAt(0) : '') +
+    (card.lastName ? card.lastName.charAt(0) : '')
 
   return (
-    <main className="min-h-[80vh] bg-[#0D0D0D] px-4 py-10 text-white">
-      <div className="mx-auto max-w-md overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-2xl">
+    <section className="min-h-screen bg-[#0D0D0D] px-4 py-10 text-[#F0EDE8]">
+      <div className="mx-auto max-w-md overflow-hidden rounded-3xl border border-white/10 bg-[#111111]">
         <div className="p-7">
           <div className="flex items-center gap-4">
             {card.photoUrl ? (
               <img
                 src={card.photoUrl}
                 alt={card.displayName}
-                className="h-20 w-20 rounded-2xl object-cover ring-1 ring-white/15"
+                width={80}
+                height={80}
+                className="h-20 w-20 rounded-2xl object-cover"
               />
             ) : (
-              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#4B7BF5] text-2xl font-bold">
-                {(card.firstName?.[0] || '') + (card.lastName?.[0] || '')}
+              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#4B7BF5] text-2xl font-bold text-white">
+                {initials}
               </div>
             )}
 
-            <div className="min-w-0">
-              <p className="text-sm font-medium uppercase tracking-[0.18em] text-[#4B7BF5]">KLS3</p>
+            <div>
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#4B7BF5]">
+                KLS3
+              </p>
               <h1 className="mt-1 text-2xl font-bold">{card.displayName}</h1>
               {(card.title || card.company) && (
-                <p className="mt-1 text-sm text-white/65">
+                <p className="mt-1 text-sm text-white/60">
                   {[card.title, card.company].filter(Boolean).join(' · ')}
                 </p>
               )}
             </div>
           </div>
 
-          {card.bio && <p className="mt-6 text-sm leading-6 text-white/70">{card.bio}</p>}
+          {card.bio && (
+            <p className="mt-6 text-sm leading-6 text-white/70">{card.bio}</p>
+          )}
 
           <a
             href={vcardUrl}
-            className="mt-7 flex w-full items-center justify-center gap-2 rounded-xl bg-[#4B7BF5] px-4 py-3.5 font-semibold text-white transition hover:brightness-110"
+            className="mt-7 block w-full rounded-xl bg-[#4B7BF5] px-4 py-3 text-center font-semibold text-white"
           >
-            <UserPlus className="h-5 w-5" />
             Ajouter à mes contacts
           </a>
 
           <div className="mt-4 grid grid-cols-2 gap-3">
             {card.phone && (
-              <a href={`tel:${card.phone}`} className="flex items-center justify-center gap-2 rounded-xl border border-white/10 px-3 py-3 text-sm hover:bg-white/5">
-                <Phone className="h-4 w-4" /> Appeler
+              <a
+                href={`tel:${card.phone}`}
+                className="rounded-xl border border-white/10 px-3 py-3 text-center text-sm"
+              >
+                Appeler
               </a>
             )}
             {card.email && (
-              <a href={`mailto:${card.email}`} className="flex items-center justify-center gap-2 rounded-xl border border-white/10 px-3 py-3 text-sm hover:bg-white/5">
-                <Mail className="h-4 w-4" /> Email
+              <a
+                href={`mailto:${card.email}`}
+                className="rounded-xl border border-white/10 px-3 py-3 text-center text-sm"
+              >
+                Email
               </a>
             )}
           </div>
 
-          <div className="mt-7 space-y-2">
+          <div className="mt-6 space-y-2">
             {card.linkedin && (
-              <a href={card.linkedin} target="_blank" rel="noreferrer" className="flex items-center justify-between rounded-xl px-3 py-3 text-sm hover:bg-white/5">
-                <span className="flex items-center gap-3"><Linkedin className="h-5 w-5 text-[#4B7BF5]" /> LinkedIn</span>
-                <ExternalLink className="h-4 w-4 text-white/40" />
+              <a
+                href={card.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="block rounded-xl border border-white/10 px-4 py-3 text-sm"
+              >
+                LinkedIn
               </a>
             )}
+
             {card.website && (
-              <a href={card.website} target="_blank" rel="noreferrer" className="flex items-center justify-between rounded-xl px-3 py-3 text-sm hover:bg-white/5">
-                <span className="flex items-center gap-3"><Globe2 className="h-5 w-5 text-[#4B7BF5]" /> Site KLS3</span>
-                <ExternalLink className="h-4 w-4 text-white/40" />
+              <a
+                href={card.website}
+                target="_blank"
+                rel="noreferrer"
+                className="block rounded-xl border border-white/10 px-4 py-3 text-sm"
+              >
+                Site KLS3
               </a>
             )}
           </div>
 
-          {card.projects.length > 0 && (
+          {card.projects && card.projects.length > 0 && (
             <div className="mt-7 border-t border-white/10 pt-6">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-white/45">Projets</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-white/40">
+                Projets
+              </p>
               <div className="space-y-2">
                 {card.projects.map((project) => (
                   <a
@@ -118,10 +155,9 @@ export default async function DigitalCardPage(
                     href={project.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center justify-between rounded-xl bg-white/[0.035] px-4 py-3 text-sm hover:bg-white/[0.07]"
+                    className="block rounded-xl bg-white/[0.03] px-4 py-3 text-sm"
                   >
-                    <span>{project.label}</span>
-                    <ExternalLink className="h-4 w-4 text-white/35" />
+                    {project.label}
                   </a>
                 ))}
               </div>
@@ -130,9 +166,9 @@ export default async function DigitalCardPage(
         </div>
 
         <div className="border-t border-white/10 px-7 py-4 text-center text-xs text-white/35">
-          Moins de tâches manuelles. Plus de temps pour l’essentiel.
+          Moins de tâches manuelles. Plus de temps pour l&apos;essentiel.
         </div>
       </div>
-    </main>
+    </section>
   )
 }
