@@ -1,8 +1,9 @@
-import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Mail, Phone, UserPlus, Linkedin, Globe2, ExternalLink } from 'lucide-react'
 
 const SALES_OS_URL = process.env.KLS3_SALES_OS_URL || 'https://kls3-sales-os.kls3-dev.com'
+
+export const dynamic = 'force-dynamic'
 
 type CardProject = { label: string; url: string }
 type PublicCard = {
@@ -24,27 +25,12 @@ type PublicCard = {
 
 async function getCard(slug: string): Promise<PublicCard | null> {
   const response = await fetch(`${SALES_OS_URL}/api/public-cards/${encodeURIComponent(slug)}`, {
-    next: { revalidate: 60 },
+    cache: 'no-store',
   })
 
   if (response.status === 404) return null
   if (!response.ok) throw new Error('Unable to load digital card')
   return response.json()
-}
-
-export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> }
-): Promise<Metadata> {
-  const { slug } = await params
-  const card = await getCard(slug)
-
-  if (!card) return { title: 'Carte de visite | KLS3' }
-
-  return {
-    title: `${card.displayName} | KLS3`,
-    description: card.bio || `${card.displayName} — ${card.title || card.company}`,
-    robots: { index: false, follow: false },
-  }
 }
 
 export default async function DigitalCardPage(
