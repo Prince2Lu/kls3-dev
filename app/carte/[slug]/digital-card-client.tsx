@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { ERIC_PHOTO_DATA_URL } from './eric-photo'
 
 const SALES_OS_URL =
   process.env.NEXT_PUBLIC_KLS3_SALES_OS_URL || 'https://kls3-sales-os.kls3-dev.com'
@@ -76,6 +77,8 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
   }
 
   const vcardUrl = `${SALES_OS_URL}/api/public-cards/${encodeURIComponent(card.slug)}/vcard`
+  const profilePhotoUrl =
+    card.photoUrl || (card.slug === 'eric' ? ERIC_PHOTO_DATA_URL : '')
   const qrCodeUrl =
     `https://api.qrserver.com/v1/create-qr-code/?size=320x320&format=svg&data=${encodeURIComponent(vcardUrl)}`
   const initials =
@@ -86,10 +89,20 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
     <section className="min-h-screen bg-[#0D0D0D] px-4 py-10 text-[#F0EDE8]">
       <div className="mx-auto max-w-md overflow-hidden rounded-3xl border border-white/10 bg-[#111111]">
         <div className="p-7">
+          <div className="mb-6 flex justify-center">
+            <img
+              src="/logo-kls3-512-transparent.png"
+              alt="KLS3"
+              width={96}
+              height={96}
+              className="h-16 w-16 object-contain"
+            />
+          </div>
+
           <div className="flex items-center gap-4">
-            {card.photoUrl ? (
+            {profilePhotoUrl ? (
               <img
-                src={card.photoUrl}
+                src={profilePhotoUrl}
                 alt={card.displayName}
                 width={80}
                 height={80}
