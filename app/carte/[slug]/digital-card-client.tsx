@@ -59,6 +59,14 @@ function trackCardEvent(eventName: string, slug: string, extra: Record<string, s
 
   const endpoint = `/api/card-events/${encodeURIComponent(slug)}`
 
+  if (navigator.sendBeacon) {
+    const sent = navigator.sendBeacon(
+      endpoint,
+      new Blob([payload], { type: 'application/json' })
+    )
+    if (sent) return
+  }
+
   void fetch(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
