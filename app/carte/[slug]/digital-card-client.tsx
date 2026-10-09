@@ -57,18 +57,14 @@ function trackCardEvent(eventName: string, slug: string, extra: Record<string, s
     pageReferrer: document.referrer || '',
   })
 
-  const endpoint = `${SALES_OS_URL}/api/public-cards/${encodeURIComponent(slug)}/events`
+  const endpoint = `/api/card-events/${encodeURIComponent(slug)}`
 
-  if (navigator.sendBeacon) {
-    navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }))
-  } else {
-    void fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: payload,
-      keepalive: true,
-    })
-  }
+  void fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: payload,
+    keepalive: true,
+  }).catch(() => undefined)
 }
 
 type PublicCard = {
