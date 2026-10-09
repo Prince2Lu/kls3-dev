@@ -11,6 +11,27 @@ type CardProject = {
   url: string
 }
 
+type GtagWindow = Window & {
+  gtag?: (...args: unknown[]) => void
+}
+
+function trackCardEvent(eventName: string, slug: string, extra: Record<string, string> = {}) {
+  if (typeof window === 'undefined') return
+
+  const params = new URLSearchParams(window.location.search)
+  const source = params.get('src') || params.get('utm_source') || 'direct'
+  const campaign = params.get('utm_campaign') || params.get('campaign') || ''
+
+  ;(window as GtagWindow).gtag?.('event', eventName, {
+    card_slug: slug,
+    card_source: source,
+    card_campaign: campaign,
+    page_location: window.location.href,
+    page_referrer: document.referrer || '',
+    ...extra,
+  })
+}
+
 type PublicCard = {
   slug: string
   firstName: string
@@ -43,7 +64,10 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
         return response.json() as Promise<PublicCard>
       })
       .then((data) => {
-        if (!cancelled) setCard(data)
+        if (!cancelled) {
+          setCard(data)
+          trackCardEvent('card_view', data.slug)
+        }
       })
       .catch(() => {
         if (!cancelled) setError(true)
@@ -130,6 +154,7 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
 
           <a
             href={vcardUrl}
+            onClick={() => trackCardEvent('vcard_download', card.slug)}
             className="mt-7 block w-full rounded-xl bg-[#4B7BF5] px-4 py-3 text-center font-semibold text-white"
           >
             Ajouter à mes contacts
@@ -153,12 +178,20 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
 
           <div className="mt-4 grid grid-cols-2 gap-3">
             {card.phone && (
-              <a href={`tel:${card.phone}`} className="rounded-xl border border-white/10 px-3 py-3 text-center text-sm">
+              <a
+                href={`tel:${card.phone}`}
+                onClick={() => trackCardEvent('phone_click', card.slug)}
+                className="rounded-xl border border-white/10 px-3 py-3 text-center text-sm"
+              >
                 Appeler
               </a>
             )}
             {card.email && (
-              <a href={`mailto:${card.email}`} className="rounded-xl border border-white/10 px-3 py-3 text-center text-sm">
+              <a
+                href={`mailto:${card.email}`}
+                onClick={() => trackCardEvent('email_click', card.slug)}
+                className="rounded-xl border border-white/10 px-3 py-3 text-center text-sm"
+              >
                 Email
               </a>
             )}
@@ -166,14 +199,24 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
 
           <div className="mt-6 space-y-2">
             {card.linkedin && (
-              <a href={card.linkedin}
-                target="_blank" rel="noreferrer noopener" className="block rounded-xl border border-white/10 px-4 py-3 text-sm">
+              <a
+                href={card.linkedin}
+                onClick={() => trackCardEvent('linkedin_click', card.slug)}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="block rounded-xl border border-white/10 px-4 py-3 text-sm"
+              >
                 LinkedIn
               </a>
             )}
             {card.website && (
-              <a href={card.website}
-                target="_blank" rel="noreferrer noopener" className="block rounded-xl border border-white/10 px-4 py-3 text-sm">
+              <a
+                href={card.website}
+                onClick={() => trackCardEvent('website_click', card.slug)}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="block rounded-xl border border-white/10 px-4 py-3 text-sm"
+              >
                 Site KLS3
               </a>
             )}
@@ -187,7 +230,14 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
                   <a
                     key={`${project.label}-${project.url}`}
                     href={project.url}
-                  target="_blank" rel="noreferrer noopener"
+                    onClick={() =>
+                      trackCardEvent('project_click', card.slug, {
+                        project_label: project.label,
+                        project_url: project.url,
+                      })
+                    }
+                    target="_blank"
+                    rel="noreferrer noopener"
                     className="block rounded-xl bg-white/[0.03] px-4 py-3 text-sm"
                   >
                     {project.label}
