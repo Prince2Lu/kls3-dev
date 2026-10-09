@@ -15,12 +15,29 @@ type GtagWindow = Window & {
   gtag?: (...args: unknown[]) => void
 }
 
+function getVisitorId() {
+  if (typeof window === 'undefined') return ''
+
+  const key = 'kls3_card_visitor_id'
+  const existing = window.localStorage.getItem(key)
+  if (existing) return existing
+
+  const created =
+    typeof crypto !== 'undefined' && 'randomUUID' in crypto
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+
+  window.localStorage.setItem(key, created)
+  return created
+}
+
 function trackCardEvent(eventName: string, slug: string, extra: Record<string, string> = {}) {
   if (typeof window === 'undefined') return
 
   const params = new URLSearchParams(window.location.search)
   const source = params.get('src') || params.get('utm_source') || 'direct'
   const campaign = params.get('utm_campaign') || params.get('campaign') || ''
+  const visitorId = getVisitorId()
 
   ;(window as GtagWindow).gtag?.('event', eventName, {
     card_slug: slug,
@@ -30,6 +47,28 @@ function trackCardEvent(eventName: string, slug: string, extra: Record<string, s
     page_referrer: document.referrer || '',
     ...extra,
   })
+
+  const payload = JSON.stringify({
+    eventType: eventName,
+    visitorId,
+    source,
+    campaign,
+    projectLabel: extra.project_label || '',
+    pageReferrer: document.referrer || '',
+  })
+
+  const endpoint = `${SALES_OS_URL}/api/public-cards/${encodeURIComponent(slug)}/events`
+
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }))
+  } else {
+    void fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: payload,
+      keepalive: true,
+    })
+  }
 }
 
 type PublicCard = {
@@ -144,11 +183,14 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
     )
   }
 
-  const vcardUrl = `${SALES_OS_URL}/api/public-cards/${encodeURIComponent(card.slug)}/vcard`
+  const visitorId = getVisitorId()
+  const vcardBaseUrl = `${SALES_OS_URL}/api/public-cards/${encodeURIComponent(card.slug)}/vcard`
+  const vcardUrl = `${vcardBaseUrl}?src=card&visitor=${encodeURIComponent(visitorId)}`
+  const qrVcardUrl = `${vcardBaseUrl}?src=qr`
   const profilePhotoUrl =
     card.photoUrl || (card.slug === 'eric' ? ERIC_PHOTO_DATA_URL : '')
   const qrCodeUrl =
-    `https://api.qrserver.com/v1/create-qr-code/?size=320x320&format=svg&data=${encodeURIComponent(vcardUrl)}`
+    `https://api.qrserver.com/v1/create-qr-code/?size=320x320&format=svg&data=${encodeURIComponent(qrVcardUrl)}`
   const initials =
     (card.firstName ? card.firstName.charAt(0) : '') +
     (card.lastName ? card.lastName.charAt(0) : '')
@@ -197,7 +239,6 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
 
           <a
             href={vcardUrl}
-            onClick={() => trackCardEvent('vcard_download', card.slug)}
             className="mt-7 block w-full rounded-xl bg-[#4B7BF5] px-4 py-3 text-center font-semibold text-white"
           >
             Ajouter à mes contacts
