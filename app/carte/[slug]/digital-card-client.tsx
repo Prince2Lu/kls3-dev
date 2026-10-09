@@ -49,6 +49,41 @@ type PublicCard = {
   projects: CardProject[]
 }
 
+const FALLBACK_CARDS: Record<string, PublicCard> = {
+  eric: {
+    slug: 'eric',
+    firstName: 'Eric',
+    lastName: 'Scarpino',
+    displayName: 'Eric Scarpino',
+    title: 'Directeur de missions',
+    company: 'KLS3',
+    email: 'eric@kls3-dev.com',
+    phone: '',
+    linkedin: 'https://www.linkedin.com/in/eric-scarpino',
+    website: 'https://www.kls3-dev.com',
+    photoUrl: '',
+    logoUrl: '',
+    bio: '',
+    projects: [],
+  },
+  lilian: {
+    slug: 'lilian',
+    firstName: 'Lilian',
+    lastName: 'Scarpino',
+    displayName: 'Lilian Scarpino',
+    title: 'Directeur commercial',
+    company: 'KLS3',
+    email: 'lilian@kls3-dev.com',
+    phone: '',
+    linkedin: 'https://www.linkedin.com/in/lilian-scarpino/',
+    website: 'https://www.kls3-dev.com',
+    photoUrl: '',
+    logoUrl: '',
+    bio: '',
+    projects: [],
+  },
+}
+
 export default function DigitalCardClient({ slug }: { slug: string }) {
   const [card, setCard] = useState<PublicCard | null>(null)
   const [error, setError] = useState(false)
@@ -70,7 +105,15 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
         }
       })
       .catch(() => {
-        if (!cancelled) setError(true)
+        if (cancelled) return
+
+        const fallbackCard = FALLBACK_CARDS[slug.toLowerCase()]
+        if (fallbackCard) {
+          setCard(fallbackCard)
+          trackCardEvent('card_view', fallbackCard.slug, { card_data_source: 'fallback' })
+        } else {
+          setError(true)
+        }
       })
 
     return () => {
