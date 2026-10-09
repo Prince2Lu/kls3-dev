@@ -31,6 +31,7 @@ export async function GET(
   const campaign = url.searchParams.get('campaign') || ''
   const visitorId = url.searchParams.get('visitor') || ''
   const projectLabel = url.searchParams.get('project_label') || ''
+  const cardRef = url.searchParams.get('ref') || ''
 
   if (!ALLOWED_TYPES.has(eventType) || !target) {
     return NextResponse.redirect(new URL(`/carte/${encodeURIComponent(slug)}`, request.url))
@@ -48,6 +49,7 @@ export async function GET(
           source,
           campaign,
           projectLabel,
+          cardRef,
           pageReferrer: request.headers.get('referer') || '',
         }),
         cache: 'no-store',
