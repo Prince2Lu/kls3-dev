@@ -31,6 +31,32 @@ function getVisitorId() {
   return created
 }
 
+function trackedOutboundUrl(
+  slug: string,
+  eventType: string,
+  target: string,
+  extra: Record<string, string> = {}
+) {
+  if (typeof window === 'undefined') return target
+
+  const params = new URLSearchParams(window.location.search)
+  const source = params.get('src') || params.get('utm_source') || 'direct'
+  const campaign = params.get('utm_campaign') || params.get('campaign') || ''
+  const visitorId = getVisitorId()
+
+  const qs = new URLSearchParams({
+    type: eventType,
+    target,
+    source,
+    campaign,
+    visitor: visitorId,
+  })
+
+  if (extra.project_label) qs.set('project_label', extra.project_label)
+
+  return `/api/card-click/${encodeURIComponent(slug)}?${qs.toString()}`
+}
+
 function trackCardEvent(eventName: string, slug: string, extra: Record<string, string> = {}) {
   if (typeof window === 'undefined') return
 
@@ -288,8 +314,7 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
           <div className="mt-6 space-y-2">
             {card.linkedin && (
               <a
-                href={card.linkedin}
-                onClick={() => trackCardEvent('linkedin_click', card.slug)}
+                href={trackedOutboundUrl(card.slug, 'linkedin_click', card.linkedin)}
                 target="_blank"
                 rel="noreferrer noopener"
                 className="block rounded-xl border border-white/10 px-4 py-3 text-sm"
@@ -299,8 +324,7 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
             )}
             {card.website && (
               <a
-                href={card.website}
-                onClick={() => trackCardEvent('website_click', card.slug)}
+                href={trackedOutboundUrl(card.slug, 'website_click', card.website)}
                 target="_blank"
                 rel="noreferrer noopener"
                 className="block rounded-xl border border-white/10 px-4 py-3 text-sm"
@@ -317,13 +341,9 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
                 {card.projects.map((project) => (
                   <a
                     key={`${project.label}-${project.url}`}
-                    href={project.url}
-                    onClick={() =>
-                      trackCardEvent('project_click', card.slug, {
-                        project_label: project.label,
-                        project_url: project.url,
-                      })
-                    }
+                    href={trackedOutboundUrl(card.slug, 'project_click', project.url, {
+                      project_label: project.label,
+                    })}
                     target="_blank"
                     rel="noreferrer noopener"
                     className="block rounded-xl bg-white/[0.03] px-4 py-3 text-sm"
