@@ -43,6 +43,7 @@ function trackedOutboundUrl(
   const source = params.get('src') || params.get('utm_source') || 'direct'
   const campaign = params.get('utm_campaign') || params.get('campaign') || ''
   const visitorId = getVisitorId()
+  const cardRef = params.get('ref') || ''
 
   const qs = new URLSearchParams({
     type: eventType,
@@ -51,6 +52,7 @@ function trackedOutboundUrl(
     campaign,
     visitor: visitorId,
   })
+  if (cardRef) qs.set('ref', cardRef)
 
   if (extra.project_label) qs.set('project_label', extra.project_label)
 
@@ -64,6 +66,7 @@ function trackCardEvent(eventName: string, slug: string, extra: Record<string, s
   const source = params.get('src') || params.get('utm_source') || 'direct'
   const campaign = params.get('utm_campaign') || params.get('campaign') || ''
   const visitorId = getVisitorId()
+  const cardRef = params.get('ref') || ''
 
   ;(window as GtagWindow).gtag?.('event', eventName, {
     card_slug: slug,
@@ -81,6 +84,7 @@ function trackCardEvent(eventName: string, slug: string, extra: Record<string, s
     campaign,
     projectLabel: extra.project_label || '',
     pageReferrer: document.referrer || '',
+    cardRef,
   })
 
   const endpoint = `/api/card-events/${encodeURIComponent(slug)}`
@@ -214,8 +218,15 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
   }
 
   const visitorId = getVisitorId()
+  const pageParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams()
+  const cardRef = pageParams.get('ref') || ''
+  const source = pageParams.get('src') || pageParams.get('utm_source') || 'card'
+  const campaign = pageParams.get('campaign') || pageParams.get('utm_campaign') || ''
   const vcardBaseUrl = `${SALES_OS_URL}/api/public-cards/${encodeURIComponent(card.slug)}/vcard`
-  const vcardUrl = `${vcardBaseUrl}?src=card&visitor=${encodeURIComponent(visitorId)}`
+  const vcardQuery = new URLSearchParams({ src: source, visitor: visitorId })
+  if (campaign) vcardQuery.set('campaign', campaign)
+  if (cardRef) vcardQuery.set('ref', cardRef)
+  const vcardUrl = `${vcardBaseUrl}?${vcardQuery.toString()}`
   const qrVcardUrl = `${vcardBaseUrl}?src=qr`
   const profilePhotoUrl =
     card.photoUrl || (card.slug === 'eric' ? ERIC_PHOTO_DATA_URL : '')
