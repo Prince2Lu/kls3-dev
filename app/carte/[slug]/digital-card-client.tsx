@@ -222,16 +222,20 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
   const cardRef = pageParams.get('ref') || ''
   const source = pageParams.get('src') || pageParams.get('utm_source') || 'card'
   const campaign = pageParams.get('campaign') || pageParams.get('utm_campaign') || ''
+  const isAndroid =
+    typeof navigator !== 'undefined' &&
+    /Android|SamsungBrowser|Huawei|Xiaomi|OPPO|OnePlus/i.test(navigator.userAgent)
   const vcardBaseUrl = `${SALES_OS_URL}/api/public-cards/${encodeURIComponent(card.slug)}/vcard`
   const vcardQuery = new URLSearchParams({ src: source, visitor: visitorId })
+  if (isAndroid) vcardQuery.set('platform', 'android')
   if (campaign) vcardQuery.set('campaign', campaign)
   if (cardRef) vcardQuery.set('ref', cardRef)
   const vcardUrl = `${vcardBaseUrl}?${vcardQuery.toString()}`
-  const qrVcardUrl = `${vcardBaseUrl}?src=qr`
+  const qrCardUrl = `https://www.kls3-dev.com/carte/${encodeURIComponent(card.slug)}?src=qr`
   const profilePhotoUrl =
     card.photoUrl || (card.slug === 'eric' ? ERIC_PHOTO_DATA_URL : '')
   const qrCodeUrl =
-    `https://api.qrserver.com/v1/create-qr-code/?size=320x320&format=svg&data=${encodeURIComponent(qrVcardUrl)}`
+    `https://api.qrserver.com/v1/create-qr-code/?size=320x320&format=svg&data=${encodeURIComponent(qrCardUrl)}`
   const initials =
     (card.firstName ? card.firstName.charAt(0) : '') +
     (card.lastName ? card.lastName.charAt(0) : '')
@@ -288,7 +292,7 @@ export default function DigitalCardClient({ slug }: { slug: string }) {
           <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-center">
             <p className="text-sm font-medium text-white">Scanner pour ajouter le contact</p>
             <p className="mt-1 text-xs text-white/50">
-              Scannez ce QR code avec un autre téléphone pour télécharger la vCard.
+              Scannez ce QR code avec un autre téléphone pour ouvrir la carte puis ajouter le contact.
             </p>
             <div className="mx-auto mt-4 w-fit rounded-2xl bg-white p-3">
               <img
