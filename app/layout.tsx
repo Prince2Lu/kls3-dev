@@ -5,7 +5,6 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import WebSiteSchema from "@/components/seo/WebSiteSchema";
-import { inter, syne } from "./fonts";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.kls3-dev.com"),
@@ -46,7 +45,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${syne.variable} ${inter.variable} antialiased`}>
+    <html lang="fr" className="antialiased">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap"
+        />
+      </head>
       <body className="bg-[#0D0D0D] text-[#F0EDE8] min-h-screen flex flex-col">
         <Navbar />
         <OrganizationSchema />
