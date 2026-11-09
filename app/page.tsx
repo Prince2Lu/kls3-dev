@@ -1,20 +1,9 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import HeroOperational from '@/components/sections/HeroOperational'
-import FrictionsScanner from '@/components/sections/FrictionsScanner'
-import KLS3MethodTimeline from '@/components/sections/KLS3MethodTimeline'
-import ResultsSection from '@/components/sections/ResultsSection'
-import SystemsSection from '@/components/sections/SystemsSection'
-import TeamSection from '@/components/sections/TeamSection'
-import BlogPreview from '@/components/sections/BlogPreview'
-import FinalCTA from '@/components/sections/FinalCTA'
-import FaqSection from '@/components/sections/FaqSection'
-import FAQSchema from '@/components/seo/FAQSchema'
+import HomeV2 from '@/components/sections/HomeV2'
 import { pageMetadata } from '@/lib/seo'
 
-const title = 'KLS3 : orchestration pour professions réglementées'
-const description =
-  'KLS3 connecte les outils métier de vos pôles pour que les événements clients se propagent automatiquement, sans ressaisie. Grand-Est & Luxembourg.'
+const title = 'KLS3 — Automatisation, IA et applications métier pour PME'
+const description = 'KLS3 simplifie vos opérations : gestion documentaire DocFlow, automatisation et agents IA, applications sur mesure. Découvrez nos solutions et testez un parcours de démonstration.'
 
 export const metadata: Metadata = {
   ...pageMetadata(title, description, { path: '/' }),
@@ -22,50 +11,5 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
-  return (
-    <>
-      <div className="flex md:hidden justify-center pt-20 pb-4 px-4">
-        <div className="flex flex-col items-center gap-1">
-          <Link
-            href="/contact"
-            className="btn-beam font-display transition-colors duration-200 hover:!text-[#4B7BF5]"
-            style={{
-              display: 'inline-block',
-              padding: '10px 22px',
-              border: '1px solid rgba(240,237,232,0.35)',
-              borderRadius: '100px',
-              color: '#F0EDE8',
-              fontSize: '13px',
-              fontFamily: 'var(--font-body)',
-              textDecoration: 'none',
-              background: 'transparent',
-              position: 'relative',
-              isolation: 'isolate',
-            }}
-          >
-            Analyser mes opérations →
-          </Link>
-          <span
-            style={{
-              fontSize: '10px',
-              color: 'rgba(240,237,232,0.35)',
-              letterSpacing: '0.04em',
-            }}
-          >
-            Diagnostic gratuit · Réponse sous 48h
-          </span>
-        </div>
-      </div>
-      <HeroOperational />
-      <FrictionsScanner />
-      <KLS3MethodTimeline />
-      <ResultsSection />
-      <SystemsSection />
-      <TeamSection />
-      <BlogPreview />
-      <FinalCTA />
-      <FaqSection />
-      <FAQSchema />
-    </>
-  )
+  return <HomeV2 />
 }
