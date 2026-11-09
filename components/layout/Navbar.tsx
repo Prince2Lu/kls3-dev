@@ -7,10 +7,10 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 
 const navLinks = [
-  { href: '/#frictions', label: 'Frictions', hash: '#frictions' as const },
+  { href: '/#problemes', label: 'Vos enjeux', hash: '#problemes' as const },
   { href: '/#solutions', label: 'Solutions', hash: '#solutions' as const },
-  { href: '/#methode', label: 'Méthode', hash: '#methode' as const },
-  { href: '/cas-clients', label: 'Cas concrets' },
+  { href: '/#docflow', label: 'DocFlow', hash: '#docflow' as const },
+  { href: '/#realisations', label: 'Nos projets', hash: '#realisations' as const },
 ]
 
 const isHashLink = (
@@ -163,9 +163,9 @@ export default function Navbar() {
 
             <div className="hidden md:flex flex-col items-center gap-0.5 shrink-0">
               <Link href="/contact" className={ctaClassName} style={{ ...ctaStyle, padding: '8px 20px' }}>
-                Analyser mes opérations →
+                Parlons de votre projet →
               </Link>
-              <span style={ctaReassuranceStyle}>Diagnostic gratuit · Réponse sous 48h</span>
+              <span style={ctaReassuranceStyle}>Un premier échange, sans engagement</span>
             </div>
 
             <button
@@ -237,7 +237,7 @@ export default function Navbar() {
               className={`${ctaClassName} mt-4 text-center`}
               style={{ ...ctaStyle, padding: '12px 28px' }}
             >
-              Analyser mes opérations →
+              Parlons de votre projet →
             </Link>
           </nav>
         </div>
