@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import { type ContactFormData } from '@/lib/types/kls3'
 import { TurnstileWidget } from '@/components/ui/turnstile-widget'
 
@@ -28,6 +28,15 @@ export default function ContactForm() {
   const [errorMessage, setErrorMessage] = useState('')
   const [turnstileToken, setTurnstileToken] = useState('')
   const [turnstileResetKey, setTurnstileResetKey] = useState(0)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const secteur = params.get('secteur')?.trim().slice(0, 100)
+    const besoin = params.get('besoin')?.trim().slice(0, 200)
+    if (!secteur && !besoin) return
+    const resume = [secteur && `Secteur : ${secteur}`, besoin && `Besoin : ${besoin}`].filter(Boolean).join('\n')
+    setFormData((previous) => previous.friction ? previous : { ...previous, friction: resume })
+  }, [])
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
