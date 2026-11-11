@@ -36,7 +36,7 @@ export default function HomeV2() {
         <div>
           <Eyebrow>KLS3 · Operational Intelligence</Eyebrow>
           <h1 className="!text-[#F4F4F4] !font-semibold tracking-[-.045em] !leading-[1.08] text-[clamp(40px,6vw,76px)] mt-6">Moins de tâches manuelles.<br/><span className="text-[#7ca4ff]">Plus de temps pour l’essentiel.</span></h1>
-          <p className="mt-8 max-w-2xl text-[#B4BBC8] text-lg leading-relaxed">Documents à traiter, données à ressaisir, relances à effectuer, outils qui ne communiquent pas… KLS3 conçoit des solutions pour simplifier, automatiser et piloter vos opérations.</p>
+          <p className="mt-8 max-w-2xl text-[#B4BBC8] text-lg leading-relaxed">Documents à traiter, informations à ressaisir, relances à effectuer, outils qui ne communiquent pas… KLS3 identifie ce qui ralentit votre entreprise et conçoit les solutions pour simplifier, automatiser et piloter vos opérations.</p>
           <div className="mt-9 flex flex-wrap gap-3">
             <a href="#solutions" className="bg-[#4B7BF5] hover:bg-[#6994ff] rounded-full px-6 py-3.5 !text-white font-semibold inline-flex items-center gap-2">Découvrir nos solutions <ArrowRight size={17}/></a>
             <Link href="/contact" className="border border-white/25 hover:border-white/60 rounded-full px-6 py-3.5 font-medium">Parlons de votre projet</Link>
