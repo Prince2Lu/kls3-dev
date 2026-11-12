@@ -3,6 +3,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import HideOnHome from "@/components/layout/HideOnHome";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import WebSiteSchema from "@/components/seo/WebSiteSchema";
 
@@ -29,10 +30,11 @@ export const metadata: Metadata = {
     description:
       "KLS3 identifie les frictions invisibles qui ralentissent vos opérations et les transforme en systèmes fluides, pilotables et automatisés.",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  // Previews Vercel non indexées, production indexée
+  robots:
+    process.env.VERCEL_ENV === "production"
+      ? { index: true, follow: true }
+      : { index: false, follow: false },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
@@ -45,21 +47,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="antialiased">
+    <html lang="fr" className="antialiased" data-scroll-behavior="smooth">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap"
         />
       </head>
       <body className="bg-[#0D0D0D] text-[#F0EDE8] min-h-screen flex flex-col">
-        <Navbar />
+        <HideOnHome>
+          <Navbar />
+        </HideOnHome>
         <OrganizationSchema />
         <WebSiteSchema />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <HideOnHome>
+          <Footer />
+        </HideOnHome>
         <GoogleAnalytics gaId="G-KTQXTLY7YL" />
       </body>
     </html>

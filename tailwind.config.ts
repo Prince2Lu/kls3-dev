@@ -23,6 +23,17 @@ const config: Config = {
           muted: 'rgba(240,237,232,0.45)',
           border: 'rgba(255,255,255,0.07)',
         },
+        // Palette de la homepage (maquette Lilian)
+        home: {
+          ink: '#12112d',
+          purple: '#7139fa',
+          violet: '#9c61ff',
+          blue: '#168eff',
+          muted: '#5c6077',
+          pale: '#f4f0ff',
+          line: '#e8e3f5',
+          dark: '#0b1026',
+        },
       },
       fontFamily: {
         display: ['var(--font-syne)', 'sans-serif'],

@@ -1,71 +1,44 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import HeroOperational from '@/components/sections/HeroOperational'
-import FrictionsScanner from '@/components/sections/FrictionsScanner'
-import KLS3MethodTimeline from '@/components/sections/KLS3MethodTimeline'
-import ResultsSection from '@/components/sections/ResultsSection'
-import SystemsSection from '@/components/sections/SystemsSection'
-import TeamSection from '@/components/sections/TeamSection'
-import BlogPreview from '@/components/sections/BlogPreview'
-import FinalCTA from '@/components/sections/FinalCTA'
-import FaqSection from '@/components/sections/FaqSection'
-import FAQSchema from '@/components/seo/FAQSchema'
+import HomeHeader from '@/components/home/HomeHeader'
+import Hero from '@/components/home/Hero'
+import ProblemSearch from '@/components/home/ProblemSearch'
+import Solutions from '@/components/home/Solutions'
+import DocFlowSection from '@/components/home/DocFlowSection'
+import Realisations from '@/components/home/Realisations'
+import Methode from '@/components/home/Methode'
+import Simulateur from '@/components/home/Simulateur'
+import Financements from '@/components/home/Financements'
+import Pourquoi from '@/components/home/Pourquoi'
+import ContactSection from '@/components/home/ContactSection'
+import HomeFooter from '@/components/home/HomeFooter'
+import ContactModal from '@/components/home/ContactModal'
+import s from '@/components/home/home.module.css'
+import { homeMeta } from '@/lib/data/home'
 import { pageMetadata } from '@/lib/seo'
 
-const title = 'KLS3 : orchestration pour professions réglementées'
-const description =
-  'KLS3 connecte les outils métier de vos pôles pour que les événements clients se propagent automatiquement, sans ressaisie. Grand-Est & Luxembourg.'
-
 export const metadata: Metadata = {
-  ...pageMetadata(title, description, { path: '/' }),
-  title: { absolute: title },
+  ...pageMetadata(homeMeta.title, homeMeta.description, { path: '/' }),
+  title: { absolute: homeMeta.title },
 }
 
 export default function Home() {
   return (
-    <>
-      <div className="flex md:hidden justify-center pt-20 pb-4 px-4">
-        <div className="flex flex-col items-center gap-1">
-          <Link
-            href="/contact"
-            className="btn-beam font-display transition-colors duration-200 hover:!text-[#4B7BF5]"
-            style={{
-              display: 'inline-block',
-              padding: '10px 22px',
-              border: '1px solid rgba(240,237,232,0.35)',
-              borderRadius: '100px',
-              color: '#F0EDE8',
-              fontSize: '13px',
-              fontFamily: 'var(--font-body)',
-              textDecoration: 'none',
-              background: 'transparent',
-              position: 'relative',
-              isolation: 'isolate',
-            }}
-          >
-            Analyser mes opérations →
-          </Link>
-          <span
-            style={{
-              fontSize: '10px',
-              color: 'rgba(240,237,232,0.35)',
-              letterSpacing: '0.04em',
-            }}
-          >
-            Diagnostic gratuit · Réponse sous 48h
-          </span>
-        </div>
+    <div className={s.root}>
+      <HomeHeader />
+      <div>
+        <Hero />
+        <ProblemSearch />
+        <Solutions />
+        <DocFlowSection />
+        <Realisations />
+        <Methode />
+        <Simulateur />
+        <Financements />
+        <Pourquoi />
+        <ContactSection />
       </div>
-      <HeroOperational />
-      <FrictionsScanner />
-      <KLS3MethodTimeline />
-      <ResultsSection />
-      <SystemsSection />
-      <TeamSection />
-      <BlogPreview />
-      <FinalCTA />
-      <FaqSection />
-      <FAQSchema />
-    </>
+      <HomeFooter />
+      <ContactModal />
+    </div>
   )
 }

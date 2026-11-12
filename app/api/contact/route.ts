@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { type ContactFormData } from '@/lib/types/kls3'
 import { verifyTurnstileToken } from '@/lib/security/turnstile'
+import { CONTACT_SOURCES, type ContactSource } from '@/lib/home/contact'
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy_key_for_build')
 
@@ -25,6 +26,10 @@ function cleanField(value: unknown, maxLength: number, allowLineBreaks = false):
   return cleaned
 }
 
+function parseSource(value: unknown): ContactSource | null {
+  return CONTACT_SOURCES.includes(value as ContactSource) ? (value as ContactSource) : null
+}
+
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, '&amp;')
@@ -36,7 +41,7 @@ function escapeHtml(value: string): string {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = (await request.json()) as Partial<ContactFormData>
+    const body = (await request.json()) as Partial<ContactFormData> & { source?: unknown }
     if (typeof body.website === 'string' && body.website.trim()) {
       return NextResponse.json({ success: true }, { status: 200 })
     }
@@ -46,6 +51,8 @@ export async function POST(request: NextRequest) {
     const email = cleanField(body.email, FIELD_LIMITS.email)
     const telephone = cleanField(body.telephone, FIELD_LIMITS.telephone)
     const friction = cleanField(body.friction, FIELD_LIMITS.friction, true)
+    // Source optionnelle (homepage) : absente = comportement historique
+    const source = parseSource(body.source)
 
     if (!nom || !societe || !email || !telephone || !friction) {
       return NextResponse.json(
@@ -81,6 +88,7 @@ export async function POST(request: NextRequest) {
         <tr><td><strong>Société</strong></td><td>${escapeHtml(societe)}</td></tr>
         <tr><td><strong>Email</strong></td><td>${escapeHtml(email)}</td></tr>
         <tr><td><strong>Téléphone</strong></td><td>${escapeHtml(telephone)}</td></tr>
+        ${source ? `<tr><td><strong>Source</strong></td><td>${escapeHtml(source)}</td></tr>` : ''}
         <tr><td valign="top"><strong>Friction</strong></td><td>${escapeHtml(friction).replace(/\n/g, '<br>')}</td></tr>
       </table>
     `
@@ -106,7 +114,9 @@ export async function POST(request: NextRequest) {
         from: 'KLS3 <noreply@kls3-dev.com>',
         to: process.env.CONTACT_EMAIL,
         replyTo: email,
-        subject: `[KLS3] Nouvelle demande d'analyse — ${societe}`,
+        subject: source
+          ? `[KLS3] ${source} — ${societe}`
+          : `[KLS3] Nouvelle demande d'analyse — ${societe}`,
         html: emailHtml,
       },
       {

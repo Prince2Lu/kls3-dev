@@ -9,12 +9,13 @@ const SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || TEST_SITE_KEY
 type TurnstileWidgetProps = {
   action: 'contact' | 'diagnostic'
   onTokenChange: (token: string) => void
+  theme?: 'dark' | 'light'
 }
 
 type TurnstileOptions = {
   sitekey: string
   action: string
-  theme: 'dark'
+  theme: 'dark' | 'light'
   language: 'fr'
   size: 'flexible'
   callback: (token: string) => void
@@ -31,7 +32,7 @@ declare global {
   }
 }
 
-export function TurnstileWidget({ action, onTokenChange }: TurnstileWidgetProps) {
+export function TurnstileWidget({ action, onTokenChange, theme = 'dark' }: TurnstileWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const widgetIdRef = useRef<string | null>(null)
   const callbackRef = useRef(onTokenChange)
@@ -46,14 +47,14 @@ export function TurnstileWidget({ action, onTokenChange }: TurnstileWidgetProps)
     widgetIdRef.current = window.turnstile.render(containerRef.current, {
       sitekey: SITE_KEY,
       action,
-      theme: 'dark',
+      theme,
       language: 'fr',
       size: 'flexible',
       callback: (token) => callbackRef.current(token),
       'expired-callback': () => callbackRef.current(''),
       'error-callback': () => callbackRef.current(''),
     })
-  }, [action])
+  }, [action, theme])
 
   useEffect(() => {
     renderWidget()
