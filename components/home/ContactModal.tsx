@@ -10,6 +10,7 @@ import {
   type ContactSource,
   type OpenContactDetail,
 } from '@/lib/home/contact'
+import SectionLabel from './SectionLabel'
 import s from './home.module.css'
 
 type FormState = {
@@ -159,7 +160,7 @@ export default function ContactModal() {
         <button type="button" className={s.close} aria-label={contactForm.close} onClick={close}>
           <X size={18} />
         </button>
-        <span className={s.tag}>{contactForm.tag}</span>
+        <SectionLabel>{contactForm.tag}</SectionLabel>
         <h2 id="contact-modal-title">{contactModal[source]}</h2>
         <p>{contactForm.intro}</p>
 

@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { CheckCircle2, RefreshCw } from 'lucide-react'
 import { docflowDemo } from '@/lib/data/home'
 import s from './home.module.css'
 
@@ -24,11 +23,9 @@ export default function DocFlowDemo() {
   }, [])
 
   return (
-    <div className={`${s.demo} ${s.anchor}`} id="demo-docflow" ref={demoRef}>
+    <div className={`${s.card} ${s.demo} ${s.anchor}`} id="demo-docflow" ref={demoRef}>
       <div className={s['demo-head']}>
-        <span>
-          <CheckCircle2 size={16} /> {docflowDemo.name}
-        </span>
+        <span>{docflowDemo.name}</span>
         <small>{docflowDemo.subtitle}</small>
       </div>
       <div className={s['demo-steps']}>
@@ -36,7 +33,7 @@ export default function DocFlowDemo() {
           <button
             key={label}
             type="button"
-            className={`${s.stepBtn} ${index === step ? s.active : ''}`}
+            className={`${s.stepBtn} ${index === step ? s.active : index < step ? s.done : ''}`}
             aria-pressed={index === step}
             onClick={() => setStep(index)}
           >
@@ -45,25 +42,19 @@ export default function DocFlowDemo() {
         ))}
       </div>
       <div className={s['demo-content']}>
-        <span className={s.tag}>{docflowDemo.folder}</span>
-        <h3 style={{ marginTop: 17 }}>{title}</h3>
+        <p className={s.folder}>{docflowDemo.folder}</p>
+        <h3>{title}</h3>
         <p>{text}</p>
         <div className={s.progress}>
           <div style={{ width: `${(step + 1) * 25}%` }} />
         </div>
-        <div style={{ marginTop: 22, display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+        <div className={s['demo-actions']}>
           <button
             type="button"
             className={`${s.btn} ${s['btn-primary']}`}
             onClick={() => setStep((current) => (current + 1) % docflowDemo.stages.length)}
           >
-            {step === LAST_STEP ? (
-              <span>
-                {docflowDemo.restartLast} <RefreshCw size={15} />
-              </span>
-            ) : (
-              docflowDemo.next
-            )}
+            {step === LAST_STEP ? `${docflowDemo.restartLast} ↻` : docflowDemo.next}
           </button>
           <button type="button" className={`${s.btn} ${s['btn-outline']}`} onClick={() => setStep(0)}>
             {docflowDemo.reset}

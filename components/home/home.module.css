@@ -1,247 +1,311 @@
-/* Styles de la homepage — repris de docs/maquette-lilian.html, scopés sous .root */
-.root{--ink:#12112d;--purple:#7139fa;--violet:#9c61ff;--blue:#168eff;--muted:#5c6077;--pale:#f4f0ff;--line:#e8e3f5;--dark:#0b1026;font:15px/1.65 Inter,Arial,sans-serif;color:var(--ink);background:#fff}
+/* Design system V5 (docs/maquette-v5.html) — homepage et pages solutions, scopé sous .root */
+.root{--ink:#12112d;--ink-deep:#0b0b1f;--paper:#FAFAF8;--paper-2:#F3F3F7;--line:#E6E5EE;--line-strong:#C9CAD6;--line-field:#D7D6E2;--text-2:#4F5368;--text-3:#6B6E85;--on-dark:#B9BBD3;--blue:#4B7BF5;--blue-text:#3A63D8;--warn:#9A5B00;--cta:linear-gradient(110deg,#7139fa,#4B7BF5);--mono:'JetBrains Mono',ui-monospace,monospace;font:15px/1.65 Inter,Arial,sans-serif;color:var(--ink);background:var(--paper)}
 .root *{box-sizing:border-box}
 .root h1,.root h2,.root h3,.root h4,.root p{margin:0}
-.root h1,.root h2,.root h3,.root h4{font-family:Syne,Inter,sans-serif;line-height:1.13;letter-spacing:-.045em;color:inherit;font-weight:700}
+.root h1,.root h2,.root h3,.root h4{font-family:Syne,Inter,sans-serif;line-height:1.13;letter-spacing:-.04em;color:inherit;font-weight:700}
 .root h1{font-size:clamp(34px,4.08vw,61px)}
 .root h2{font-size:clamp(26px,3.23vw,46px)}
-.root h3{font-size:22px}
-.root p{color:#62667e}
+.root h3{font-size:21px;letter-spacing:-.02em}
+.root p{color:var(--text-2)}
 .root button,.root input,.root select,.root textarea{font:inherit}
 .root button{cursor:pointer}
 .root a{text-decoration:none;color:inherit}
 .root svg{display:inline-block;vertical-align:-.15em;flex-shrink:0}
+.root input[type=range]{accent-color:var(--blue)}
 .root section[id],.root .anchor{scroll-margin-top:90px}
 .root .wrap{width:min(1190px,calc(100% - 48px));margin:auto}
-.root .section{padding:112px 0}
-.root .tag{display:inline-flex;align-items:center;border-radius:999px;background:#eee4ff;color:#5725d7;padding:7px 15px;font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
-.root .lead{font-size:17px;line-height:1.85;margin-top:22px;max-width:720px}
-.root .title-space{max-width:800px;margin:0 auto 45px;text-align:center}
-.root .title-space h2{margin-top:20px}
-.root .btn{border:0;display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:15px 24px;border-radius:12px;font-weight:700;transition:.2s;white-space:nowrap}
-.root .btn:hover{transform:translateY(-2px)}
+.root .section{padding:104px 0}
+.root .mono{font-family:var(--mono)}
+.root .label{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
+.root .label.on-dark{color:var(--on-dark)}
+.root .hl{background:linear-gradient(transparent 62%,rgba(75,123,245,.55) 62%,rgba(75,123,245,.55) 92%,transparent 92%);padding:0 .06em}
+.root .accent{color:var(--blue-text)}
+.root .lead{font-size:17px;line-height:1.8;margin-top:20px;max-width:700px}
+.root .title-space{max-width:900px;margin:0 0 44px}
+.root .title-space h2{margin-top:16px}
+.root .btn{border:0;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 24px;border-radius:10px;font-weight:700;transition:transform .15s,background .15s,border-color .15s;white-space:nowrap}
+.root .btn:hover{transform:translateY(-1px)}
 .root .btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.root .btn-primary{background:linear-gradient(120deg,#9145ff,#4a15ec);color:white;box-shadow:0 8px 25px #6c34f944}
-.root .btn-outline{background:transparent;border:1px solid #cfc7e6;color:inherit}
-.root .btn-white{background:#fff;color:#4515ca}
-.root .muted{color:#777d97}
-.root .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.root .card{background:white;border:1px solid var(--line);border-radius:24px;box-shadow:0 12px 32px #25196808}
-.root .grad-text{color:#ac71ff}
-.root .header{height:78px;position:sticky;top:0;z-index:30;background:#fffc;backdrop-filter:blur(20px);border-bottom:1px solid #eee;display:flex;align-items:center}
-.root .header .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px}
-.root .brand{display:flex;align-items:center;gap:10px}
-.root .brand svg{width:38px;height:38px}
-.root .brand strong{font:800 28px Syne;letter-spacing:-.04em}
-.root .brand small{border-left:1px solid #bec2d0;padding-left:12px;font:700 10px/1.25 Inter;letter-spacing:.06em}
-.root .nav{display:flex;align-items:center;gap:25px;font-size:12px;font-weight:700}
-.root .nav a:hover{color:var(--purple)}
-.root .nav-ctas{display:flex;gap:8px}
-.root .nav-ctas .btn{font-size:12px;padding:10px 15px}
-.root .menu{display:none;border:0;background:#f1eafa;padding:10px;border-radius:12px;line-height:0}
-.root .hero{color:#fff;background:radial-gradient(ellipse at 86% 90%,#7c31e6aa,transparent 40%),radial-gradient(ellipse at 66% 40%,#292265,transparent 45%),linear-gradient(110deg,#090e21,#181342 75%,#2a155f);position:relative;overflow:hidden}
-.root .hero::after{content:'';position:absolute;width:600px;height:260px;border:55px solid #8940ff44;border-radius:50%;right:-250px;bottom:-220px;transform:rotate(-28deg)}
-.root .hero .wrap{min-height:585px;padding:93px 0;display:grid;grid-template-columns:1.15fr 1fr;gap:50px;align-items:center;position:relative;z-index:1}
-.root .hero h1{margin-top:22px}
-.root .hero h1 span{display:block}
-.root .hero p{color:#d8d7e9;max-width:620px;margin-top:24px;font-size:17px;line-height:1.8}
-.root .hero .smalldesc{margin-top:12px;font-weight:600;color:#fff}
-.root .hero .actions{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
-.root .hero .btn-outline{border-color:#7f789a;color:white}
-.root .hero-benefits{display:flex;gap:22px;margin-top:43px;color:#f1ecff;font-size:12px;font-weight:600}
-.root .hero-benefits span{border-right:1px solid #ffffff44;padding-right:21px}
-.root .hero-benefits span:last-child{border:0}
-.root .screen{border:1px solid #9889d7;border-radius:19px;background:#f7f7ff;box-shadow:0 22px 58px #0009;overflow:hidden;color:#14152e;transform:perspective(1100px) rotateY(-8deg) rotateX(3deg)}
-.root .screenbar{background:#211b59;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;font-weight:800;font-size:13px}
-.root .screenbody{padding:23px}
-.root .screen table{width:100%;border-collapse:collapse;font-size:12px}
-.root .screen td,.root .screen th{padding:13px 8px;text-align:left;border-bottom:1px solid #e6e4f1}
-.root .screen th{font-weight:700}
-.root .status{border-radius:999px;padding:5px 9px;font-size:10px;font-weight:700}
-.root .ok{background:#ddf6e7;color:#1a8051}
-.root .warn{background:#fff0db;color:#a56800}
-.root .work{background:#eceaff;color:#5a38cb}
-.root .search-section{padding:34px 0 20px;background:#fff}
-.root .searchbox{padding:30px 32px;border-radius:28px;background:linear-gradient(110deg,#f5f1ff,#efeafe);border:1px solid #ebe2ff;box-shadow:0 16px 25px #582cb30c}
-.root .searchbox h2{font-size:25px}
-.root .searchbox p{font-size:14px;margin-top:4px}
-.root .searchrow{display:flex;margin-top:22px;gap:9px}
-.root .searchrow input{flex:1;min-width:0;border:1px solid #dad0fa;border-radius:12px;background:#fff;padding:16px;color:var(--ink);outline:none}
-.root .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px;align-items:center}
-.root .chips span{font-size:12px;font-weight:700;margin-right:8px}
-.root .chip{border:1px solid #d5c6fc;border-radius:99px;padding:8px 12px;background:transparent;font-size:12px;color:#4a3b81}
-.root .chip:hover{background:#e3d7ff}
-.root .search-result{margin-top:20px;padding:22px;border-radius:16px;background:white;border:1px solid #cab9ff}
-.root .search-result strong{font-size:19px}
-.root .search-result p{margin:8px 0 14px}
-.root .solutions{padding-top:88px}
-.root .solutions .title-space h2{max-width:980px}
-.root .offer{padding:29px;min-height:345px;display:flex;flex-direction:column}
-.root .offer.highlight{border-color:#ac7aff;background:linear-gradient(140deg,#f9f6ff,#f5ecff)}
-.root .offer .emoji{height:64px;width:64px;border-radius:19px;background:#e9e0ff;color:#7139fa;display:grid;place-items:center;font-size:29px;margin-bottom:22px}
-.root .offer h3{margin-bottom:12px}
-.root .offer strong{font-weight:750;font-size:17px;line-height:1.4}
-.root .offer p{font-size:14px;margin:14px 0 23px}
-.root .offer a{margin-top:auto;color:#6224e4;font-size:13px;font-weight:800}
-.root .docflow{background:#faf8ff}
-.root .docgrid{display:grid;grid-template-columns:1fr 1.12fr;gap:65px;align-items:center}
-.root .docgrid h2{margin:18px 0 24px}
-.root .docgrid p{font-size:16px;line-height:1.9}
-.root .docgrid .actions{display:flex;gap:12px;margin-top:27px;flex-wrap:wrap}
-.root .demo{border:1px solid #d5c9f4;border-radius:22px;background:white;box-shadow:0 18px 55px #3b26ac22;overflow:hidden}
-.root .demo-head{padding:18px 24px;background:#14143d;color:white;font-weight:700;display:flex;justify-content:space-between}
-.root .demo-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:18px;background:#f6f3ff}
-.root .stepBtn{font-size:11px;border:1px solid #ded8f5;border-radius:11px;background:white;padding:11px 7px;color:#4e466f}
-.root .stepBtn.active{background:#6e35e9;color:#fff;border-color:#6e35e9}
-.root .demo-content{padding:25px;min-height:200px}
-.root .demo-content h3{font-size:20px;margin-bottom:14px}
-.root .demo-content p{margin-bottom:19px}
-.root .progress{height:9px;border-radius:20px;background:#eae4fa;overflow:hidden}
-.root .progress>div{height:100%;background:linear-gradient(90deg,#9a65ff,#4426dc);transition:width .3s}
-.root .realizations{background:#fff}
-.root .projectgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.root .project{overflow:hidden}
-.root .fakeapp{background:linear-gradient(130deg,#e7eaff,#f4f1ff);height:220px;display:flex;align-items:center;justify-content:center;padding:24px}
-.root .fakeapp.well{background:linear-gradient(130deg,#e8f8ee,#f4f7ff)}
-.root .shot{position:relative;height:220px;overflow:hidden}
-.root .fake-window{width:100%;max-width:420px;background:white;border:7px solid #1c2350;border-radius:15px;box-shadow:0 15px 22px #1d1e4340;padding:15px;transform:rotate(-2deg)}
-.root .fake-window small{color:#8a8ba0;font-size:10px}
-.root .fake-lines{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-.root .fake-lines span{height:48px;border-radius:8px;background:linear-gradient(#eae8ff,#f2f0ff)}
-.root .fake-lines span:nth-child(2){background:#d5e4ff}
-.root .fake-lines span:nth-child(3){background:#eadcff}
-.root .project-desc{padding:29px}
-.root .project-desc p{margin:13px 0 21px}
-.root .project-desc a{font-size:13px;font-weight:800;color:#5b24db}
-.root .method{background:radial-gradient(circle at 82% 20%,#4e208c66,transparent 45%),linear-gradient(120deg,#0b1129,#14133a);color:white}
-.root .method h2{margin:20px 0}
-.root .method .lead{color:#c8c8df}
-.root .methodsteps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:50px}
-.root .methodcard{border:1px solid #68609877;background:#ffffff0b;border-radius:22px;padding:26px;min-height:220px}
-.root .methodcard .number{font-size:12px;color:#bca3ff;font-weight:800}
-.root .methodcard .glyph{font-size:30px;display:block;margin-bottom:25px;line-height:1}
-.root .methodcard h3{font-size:20px;margin-bottom:12px}
-.root .methodcard p{color:#d6d2ea;font-size:13px}
-.root .method-note{margin:43px auto 0;padding:20px 29px;max-width:640px;text-align:center;border:1px solid #6e51b9;border-radius:19px;background:#ffffff0d;color:#e4ddf8}
-.root .sim{background:#faf9ff}
-.root .simulator{display:grid;grid-template-columns:1fr 1fr;gap:35px;margin-top:40px;padding:36px}
-.root .sim-controls label{font-weight:750;font-size:13px;display:block;margin:0 0 10px}
-.root .sim-controls select{width:100%;padding:14px 16px;border:1px solid #d4cbea;border-radius:12px;background:white;color:var(--ink);margin-bottom:28px}
-.root .sliderlabel{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
-.root .sliderlabel strong{border:1px solid #d6c9f0;padding:7px 12px;border-radius:10px}
-.root .sim-controls input[type=range]{width:100%;accent-color:#7139fa;margin:12px 0 22px}
-.root .estimate{background:linear-gradient(145deg,#6e20d5,#20114d);border-radius:24px;padding:35px;color:white}
-.root .estimate p{color:#dbcefa;font-size:13px}
-.root .estimate h3{font-size:clamp(35px,4vw,55px);margin:18px 0 8px}
-.root .estimate .hours{padding-bottom:24px;border-bottom:1px solid #ffffff55}
-.root .breakdown{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #ffffff24;font-size:13px}
-.root .breakdown strong{font-size:14px}
-.root .sim-disclaimer{grid-column:1/-1;background:#f1ecff;border-radius:13px;color:#585371;font-size:12px;padding:18px}
-.root .funding{background:white}
-.root .fundgrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:85px;align-items:center}
-.root .fundgrid h2{margin:22px 0}
-.root .fundgrid .lead{font-size:16px}
-.root .fundgrid .btn{margin-top:26px}
-.root .fundcards{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
-.root .fundcard{padding:24px 14px;text-align:center}
-.root .fundcard div{font-size:32px;color:#6a31e6;line-height:1}
-.root .fundcard strong{font-size:13px;display:block;margin:9px 0}
-.root .fundcard p{font-size:11px}
-.root .fundnote{font-size:11px;margin-top:22px}
-.root .why{background:#faf9ff}
-.root .whygrid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-.root .why h2{margin:20px 0}
-.root .whyphoto{position:relative;overflow:hidden;border-radius:25px;min-height:340px;background:linear-gradient(130deg,#151833,#30206d);display:flex;align-items:center;justify-content:center;color:white;padding:30px;text-align:center}
-.root .whyphoto.withphoto{align-items:flex-end}
-.root .whyphoto.withphoto>div{position:relative;z-index:1}
-.root .whyphoto strong{font:700 30px Syne}
-.root .whyphoto p{color:#d7d1f6;margin-top:12px}
-.root .benefit{display:flex;gap:17px;margin-bottom:29px}
-.root .benefit .ic{height:45px;min-width:45px;border-radius:13px;background:#ebe1ff;display:grid;place-items:center;color:#6827da;font-size:21px}
-.root .benefit h3{font-size:16px;margin-bottom:6px}
-.root .benefit p{font-size:13px}
-.root .ending{background:radial-gradient(ellipse at right bottom,#862bff85,transparent 50%),#0c112b;color:white;text-align:center}
-.root .ending h2{margin:19px auto 18px;max-width:780px}
-.root .ending p{max-width:590px;margin:0 auto 40px;color:#d9d4eb;font-size:16px}
-.root .endcards{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:850px;margin:auto}
-.root .endcard{border:1px solid #7756bc;background:#ffffff0a;padding:34px;border-radius:24px}
-.root .endcard.primary{background:linear-gradient(150deg,#7222db,#2d1a7c)}
-.root .endcard .symbol{font-size:33px;line-height:1;display:block}
-.root .endcard h3{margin:12px 0}
-.root .endcard p{font-size:13px;margin:0 0 25px}
-.root .endcard .btn{width:100%}
-.root .footer{background:#090e1c;color:#a7abc4;padding:36px 0;font-size:12px}
-.root .footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.root .footer a{margin-right:12px}
-.root .footer a:hover{color:#fff}
-.root .notice{font-size:12px;color:#8285a0;margin-top:12px}
-.root .focus-visible:focus-visible,.root button:focus-visible,.root a:focus-visible,.root input:focus-visible,.root select:focus-visible,.root textarea:focus-visible{outline:3px solid #a98bff;outline-offset:3px}
+.root .btn-primary{background:var(--cta);color:#fff}
+.root .btn-outline{background:transparent;border:1px solid var(--line-strong);color:var(--ink)}
+.root .btn-outline:hover{border-color:var(--ink)}
+.root .btn-dark{background:transparent;border:1px solid #5A5C7A;color:#fff}
+.root .btn-dark:hover{border-color:#fff}
+.root .btn-white{background:#fff;color:var(--ink)}
+.root .muted{color:var(--text-3)}
+.root .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.root .card{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px}
+.root .num{font-family:var(--mono);font-size:12px;color:var(--text-3)}
+.root .num.blue{color:var(--blue-text)}
+.root .band{background:var(--ink);color:#fff}
+.root .band p{color:var(--on-dark)}
+.root .bandrow{display:flex;flex-wrap:wrap;gap:24px 64px;align-items:center;padding:64px 0}
+.root .manifesto{flex:1 1 520px;min-width:0;font-family:Syne,sans-serif;font-weight:700;font-size:clamp(24px,2.6vw,36px);line-height:1.2;letter-spacing:-.03em;color:#fff}
+.root .band .manifesto{color:#fff}
+.root .bandtext{flex:1 1 320px;min-width:0;font-size:15px}
+.root .notice{font-size:12px;color:var(--text-3);margin-top:14px}
 
-/* Modale de contact (même langage visuel que la maquette) */
-.root .overlay{position:fixed;inset:0;z-index:50;background:#0b1026b3;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:18px}
-.root .dialog{position:relative;width:min(560px,100%);max-height:calc(100vh - 36px);overflow-y:auto;background:#fff;border-radius:24px;border:1px solid var(--line);box-shadow:0 30px 70px #0b102666;padding:34px}
+/* Header */
+.root .header{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--line);height:72px;display:flex;align-items:center}
+.root .header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.root .brand{display:flex;align-items:center;gap:12px;color:var(--ink)}
+.root .brand svg{width:34px;height:34px}
+.root .wordmark{font-family:Syne,sans-serif;font-weight:700;letter-spacing:-.02em}
+.root .wordmark span{color:var(--blue)}
+.root .brand .wordmark{font-size:25px}
+.root .brand small{border-left:1px solid var(--line-strong);padding-left:12px;font:500 9.5px/1.35 var(--mono);letter-spacing:.08em;color:var(--text-2)}
+.root .nav{display:flex;align-items:center;gap:24px;font-size:13px;font-weight:600}
+.root .nav a:hover,.root .dropdownToggle:hover{color:var(--blue-text)}
+.root .nav-ctas{display:flex;gap:8px}
+.root .nav-ctas .btn{font-size:13px;padding:11px 16px}
+.root .menu{display:none;border:1px solid var(--line);background:#fff;color:var(--ink);padding:10px;border-radius:10px;line-height:0}
+
+/* Menu déroulant « Solutions » */
+.root .dropdown{position:relative}
+.root .dropdownToggle{display:inline-flex;align-items:center;gap:4px;border:0;background:none;padding:0;color:inherit;font:inherit}
+.root .dropdownToggle svg{transition:transform .2s}
+.root .dropdown.open .dropdownToggle svg{transform:rotate(180deg)}
+.root .submenu{display:none;position:absolute;top:100%;left:-16px;min-width:220px;padding:8px;background:#fff;border:1px solid var(--line);border-radius:12px;z-index:40}
+.root .submenu::before{content:'';position:absolute;left:0;right:0;top:-14px;height:14px}
+.root .submenu a{display:block;padding:10px 12px;border-radius:8px}
+.root .submenu a:hover,.root .submenu a:focus-visible{background:var(--paper-2);color:var(--blue-text)}
+.root .submenu a:last-child{margin-top:6px;border-top:1px solid var(--line);border-radius:0 0 8px 8px}
+.root .dropdown:hover .submenu,.root .dropdown.open .submenu{display:block;margin-top:12px}
+
+/* Hero */
+.root .hero{background:var(--ink);color:#fff}
+.root .hero .wrap{padding:96px 0;display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:center}
+.root .hero .wrap>*,.root .docgrid>*,.root .fundgrid>*{min-width:0}
+.root .hero h1{margin-top:24px;color:#fff}
+.root .hero p{color:#C9CAE0;max-width:600px;margin-top:26px;font-size:17px;line-height:1.8}
+.root .hero .smalldesc{margin-top:12px;font-weight:600;color:#fff}
+.root .hero .actions{margin-top:34px;display:flex;gap:12px;flex-wrap:wrap}
+.root .hero-benefits{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:40px;font:12px var(--mono);color:var(--on-dark)}
+.root .hero-benefits span span{color:var(--blue)}
+.root .screen{background:#fff;color:var(--ink);border-radius:14px;overflow:hidden}
+.root .screenbar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);font-weight:700;font-size:14px}
+.root .screenbar small{font:11px var(--mono);color:var(--text-2);font-weight:400}
+.root .screenbody{padding:6px 20px 4px}
+.root .screenbody .screentitle{margin:14px 0 10px;font:700 18px Syne,sans-serif;color:var(--ink);letter-spacing:-.02em}
+.root .screen table{width:100%;border-collapse:collapse;font-size:13px}
+.root .screen th{padding:8px 0;font:500 11px var(--mono);color:var(--text-3);text-align:left;text-transform:uppercase}
+.root .screen td{padding:12px 0;border-top:1px solid #EEEDF3;text-align:left}
+.root .screen td:first-child{font-family:var(--mono);color:var(--text-3)}
+.root .screen .notice{margin:0;padding:12px 20px;border-top:1px solid var(--line);font:11px var(--mono);color:var(--text-3)}
+.root .status{font:600 11px var(--mono)}
+.root .ok{color:var(--blue-text)}
+.root .warn{color:var(--warn)}
+.root .work{color:var(--text-3)}
+
+/* Recherche */
+.root .search-section{padding:56px 0 0}
+.root .searchbox{position:relative;padding:34px}
+.root .searchbox .node{position:absolute;top:18px;right:18px}
+.root .searchbox h2{font-size:25px;padding-right:24px}
+.root .searchbox>p{font-size:14px;margin-top:6px}
+.root .searchrow{display:flex;flex-wrap:wrap;margin-top:22px;gap:10px}
+.root .searchrow input{flex:1 1 360px;min-width:0;border:1px solid var(--line-field);border-radius:10px;background:#fff;padding:15px 16px;color:var(--ink);outline:none}
+.root .searchrow input:focus{border-color:var(--blue)}
+.root .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;align-items:center}
+.root .chips>span{font:11.5px var(--mono);color:var(--text-2);margin-right:6px}
+.root .chip{border:1px solid var(--line-field);border-radius:8px;padding:8px 12px;background:#fff;font-size:13px;color:#2A2B44;transition:border-color .15s,color .15s}
+.root .chip:hover{border-color:var(--blue);color:var(--blue-text)}
+.root .search-result{margin-top:22px;border-top:1px solid var(--line);padding-top:22px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.root .search-result>div:first-child{flex:1 1 420px;min-width:0}
+.root .search-result .kicker{font:11px var(--mono);letter-spacing:.1em;color:var(--blue-text)}
+.root .search-result strong{display:block;margin-top:4px;font-size:19px}
+.root .search-result p{margin-top:6px}
+.root .search-result .notice{margin-top:8px}
+.root .search-actions{display:flex;flex-wrap:wrap;gap:10px}
+
+/* Bandeau virage */
+.root .virage{margin-top:72px}
+.root .virage .wrap{display:flex;flex-wrap:wrap;gap:28px 64px;align-items:center;padding:80px 0}
+.root .virage .wrap>div:first-child{flex:1 1 560px;min-width:0}
+.root .virage .wrap>div:last-child{flex:1 1 340px;min-width:0}
+.root .virage .statement{margin-top:18px;font:700 clamp(26px,3vw,42px)/1.15 Syne,sans-serif;letter-spacing:-.03em;color:#fff}
+.root .virage .wrap>div:last-child p{font-size:15.5px;line-height:1.8}
+.root .virage .btn{margin-top:26px;white-space:normal;text-align:center}
+
+/* Solutions */
+.root .offer{padding:30px;display:flex;flex-direction:column}
+.root .offer.highlight{border-color:var(--blue);box-shadow:inset 0 3px 0 var(--blue)}
+.root .offer h3{margin-top:18px}
+.root .offer strong{margin-top:8px;font-weight:700;font-size:16px;line-height:1.4}
+.root .offer p{font-size:14px;margin:12px 0 24px}
+.root .offer a{margin-top:auto;color:var(--blue-text);font-size:13px;font-weight:700}
+.root .offer a:hover{color:#2A4FB8}
+
+/* DocFlow */
+.root .docgrid{display:grid;grid-template-columns:1fr 1.12fr;gap:56px;align-items:center}
+.root .docgrid h2{margin:16px 0 22px}
+.root .docgrid>div>p{font-size:16px;line-height:1.85}
+.root .docgrid .actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.root .demo{overflow:hidden}
+.root .demo-head{padding:16px 22px;background:var(--ink);color:#fff;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.root .demo-head small{font:400 11px var(--mono);color:var(--on-dark)}
+.root .demo-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:16px 20px;background:var(--paper-2);border-bottom:1px solid var(--line)}
+.root .stepBtn{font:500 11px var(--mono);border:1px solid var(--line-field);border-radius:8px;background:#fff;padding:10px 4px;color:var(--text-2)}
+.root .stepBtn.done{border-color:var(--blue);color:var(--blue-text)}
+.root .stepBtn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.root .demo-content{padding:24px 22px}
+.root .demo-content .folder{font:11px var(--mono);color:var(--text-3);letter-spacing:.08em}
+.root .demo-content h3{margin-top:12px;font-size:20px}
+.root .demo-content>p{margin:8px 0 18px}
+.root .progress{height:6px;border-radius:3px;background:#ECEBF3;overflow:hidden}
+.root .progress>div{height:100%;background:var(--blue);transition:width .3s}
+.root .demo-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.root .demo-actions .btn{padding:12px 18px}
+
+/* Réalisations */
+.root .realizations{padding-top:0}
+.root .projectgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.root .project{overflow:hidden}
+.root .fakeapp{height:220px;background:var(--paper-2);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center;padding:24px;font:12px var(--mono);color:var(--text-3);text-align:center}
+.root .shot{position:relative;height:220px;overflow:hidden;border-bottom:1px solid var(--line)}
+.root .project-desc{padding:28px}
+.root .project-desc .num{font-size:11px;letter-spacing:.08em}
+.root .project-desc h3{margin-top:12px}
+.root .project-desc strong{display:block;margin-top:8px}
+.root .project-desc p{margin:10px 0 18px;font-size:14px}
+.root .project-desc a{font-size:13px;font-weight:700;color:var(--blue-text)}
+
+/* Méthode : frise reliant 4 points */
+.root .method{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.root .timeline{position:relative;margin-top:52px}
+.root .timeline::before{content:'';position:absolute;left:6px;right:6px;top:6px;height:2px;background:var(--line-strong)}
+.root .methodsteps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.root .methodstep .dot{display:block;width:14px;height:14px;border-radius:50%;background:var(--ink)}
+.root .methodstep:last-child .dot{background:var(--blue)}
+.root .methodstep .num{display:block;margin-top:22px;color:var(--blue-text)}
+.root .methodstep h3{margin-top:6px}
+.root .methodstep p{margin-top:8px;font-size:14px}
+.root .mention{display:inline-block;margin-left:10px;border:1px solid var(--blue);border-radius:6px;padding:1px 8px;font:500 10.5px var(--mono);color:var(--blue-text);text-transform:uppercase;letter-spacing:.06em}
+
+/* Simulateur */
+.root .simulator{display:flex;flex-wrap:wrap;gap:18px;margin-top:40px}
+.root .sim-controls{flex:1 1 460px;min-width:0;padding:32px}
+.root .sim-controls label{font-weight:700;font-size:13px;color:var(--ink);display:block}
+.root .sim-controls select{width:100%;margin-top:10px;padding:13px 14px;border:1px solid var(--line-field);border-radius:10px;background:#fff;color:var(--ink)}
+.root .sim-example{margin:10px 0 26px;font-size:12.5px;border-left:2px solid var(--blue);padding:2px 0 2px 12px}
+.root .sliderlabel{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.root .sliderlabel strong{font:600 13px var(--mono);color:var(--blue-text)}
+.root .sim-controls input[type=range]{width:100%;margin:12px 0 24px}
+.root .sim-controls .btn{padding:10px 14px;font-size:13px;white-space:normal;max-width:100%;text-align:center}
+.root .sim-advanced{margin-top:18px}
+.root .sim-advanced input{width:100%;margin-top:8px;padding:12px;border:1px solid var(--line-field);border-radius:10px;color:var(--ink)}
+.root .sim-advanced p{margin-top:6px;font-size:11.5px}
+.root .estimate{flex:1 1 400px;min-width:0;border-radius:14px;padding:34px;display:flex;flex-direction:column}
+.root .estimate .kicker{font:11px var(--mono);letter-spacing:.12em}
+.root .estimate .total{margin-top:14px;font:600 clamp(38px,4vw,52px) var(--mono);letter-spacing:-.03em;color:#fff}
+.root .estimate .hours{margin-top:4px;font:13px var(--mono)}
+.root .breakdowns{margin-top:24px;border-top:1px solid #34345A;font:12.5px var(--mono)}
+.root .breakdown{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #262648}
+.root .breakdown span{color:var(--on-dark)}
+.root .breakdown strong{color:#fff}
+.root .estimate .totalnote{margin:20px 0 24px;font-size:13px}
+.root .estimate .btn{margin-top:auto;align-self:flex-start;white-space:normal;text-align:center;max-width:100%}
+.root .sim-disclaimer{margin-top:14px;font-size:12px;color:var(--text-3)}
+
+/* Financements */
+.root .fundgrid{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center}
+.root .fundgrid h2{margin-top:16px}
+.root .fundgrid .lead{font-size:16px}
+.root .fundgrid .btn{margin-top:26px;white-space:normal;text-align:center}
+.root .fundcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.root .fundcard{padding:24px}
+.root .fundcard .num{font-size:11px}
+.root .fundcard h3,.root .benefit h3{margin-top:10px;font:700 15px/1.3 Inter,sans-serif;letter-spacing:0}
+.root .fundcard p{margin-top:6px;font-size:12.5px}
+.root .fundnote{margin-top:14px;font-size:11.5px;color:var(--text-3)}
+
+/* Pourquoi */
+.root .why{background:var(--paper-2);border-top:1px solid var(--line)}
+.root .whygrid{display:flex;flex-wrap:wrap;gap:18px;margin-top:40px;align-items:stretch}
+.root .whyphoto{position:relative;overflow:hidden;flex:1 1 360px;min-width:0;min-height:320px;border-radius:14px;padding:30px;display:flex;flex-direction:column;justify-content:flex-end}
+.root .whyphoto>div{position:relative;z-index:1}
+.root .whyphoto .placeholder{font:11px var(--mono);margin-bottom:auto;position:relative;z-index:1}
+.root .whyphoto strong{display:block;font:700 28px/1.1 Syne,sans-serif;letter-spacing:-.03em;color:#fff}
+.root .whyphoto strong+p{margin-top:8px}
+.root .benefits{flex:1 1 480px;min-width:0;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.root .benefit{padding:24px}
+.root .benefit .num{font-size:11px}
+.root .benefit h3{font-size:16px}
+.root .benefit p{margin-top:6px;font-size:13.5px}
+
+/* Contact / bandeau CTA final */
+.root .ending .wrap{padding:104px 0;text-align:center}
+.root .ending h2{margin:18px auto 0;max-width:760px;color:#fff}
+.root .ending .wrap>p{margin:18px auto 0;max-width:580px;font-size:16px}
+.root .endcards{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:840px;margin:40px auto 0;text-align:left}
+.root .endcard{border:1px solid #34345A;border-radius:14px;padding:30px}
+.root .endcard h3{color:#fff}
+.root .endcard.primary{background:#fff;border-color:#fff}
+.root .endcard.primary h3{color:var(--ink)}
+.root .endcard.primary p{color:var(--text-2)}
+.root .endcard p{margin:10px 0 24px;font-size:14px}
+.root .endcard .btn{width:100%}
+.root .endactions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:36px}
+
+/* Footer */
+.root .footer{background:var(--ink-deep);color:#9496AE;font-size:12px}
+.root .footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;padding:34px 0}
+.root .footer .wordmark{font-size:18px;color:#fff}
+.root .footer .links{display:flex;flex-wrap:wrap;gap:16px}
+.root .footer a:hover{color:#fff}
+.root .footer .legal a+a::before{content:' · ';color:#9496AE}
+
+.root .focus-visible:focus-visible,.root button:focus-visible,.root a:focus-visible,.root input:focus-visible,.root select:focus-visible,.root textarea:focus-visible,.root summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+
+/* Pages solutions (/solutions/*) */
+.root .solhero .wrap{grid-template-columns:minmax(0,860px)}
+.root .solhero p{max-width:720px}
+.root .solproblem h2{margin-top:16px;max-width:900px}
+.root .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.root .solcard{padding:28px}
+.root .solcard .cardhead{display:flex;justify-content:space-between;align-items:center;color:var(--blue-text)}
+.root .solcard h3{margin-top:18px;font-size:19px}
+.root .solcard p{margin-top:10px;font-size:14px}
+.root .solneeds{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.root .checklist{list-style:none;margin:34px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 34px}
+.root .checklist li{display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.6;color:var(--ink)}
+.root .checklist svg{color:var(--blue-text);margin-top:3px}
+.root .solspecific .wrap{padding:80px 0}
+.root .solspecific h2{margin-top:16px;color:#fff}
+.root .solpoints{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+.root .solpoint{border:1px solid #34345A;border-radius:14px;padding:24px}
+.root .solpoint .num{color:var(--blue)}
+.root .solpoint p{margin-top:10px;font-size:14px;color:#fff}
+.root .band .solnote{margin-top:24px;font-size:12px;color:var(--on-dark)}
+.root .solfaq{background:var(--paper-2);border-top:1px solid var(--line)}
+.root .faq{max-width:820px;display:grid;gap:12px}
+.root .faq details{padding:0 24px}
+.root .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-weight:700;font-size:16px}
+.root .faq summary::-webkit-details-marker{display:none}
+.root .faq summary svg{color:var(--blue-text);transition:transform .2s}
+.root .faq details[open] summary svg{transform:rotate(180deg)}
+.root .faq details p{padding:0 0 20px;font-size:15px}
+
+/* Modale de contact */
+.root .overlay{position:fixed;inset:0;z-index:50;background:#12112dcc;display:flex;align-items:center;justify-content:center;padding:18px}
+.root .dialog{position:relative;width:min(560px,100%);max-height:calc(100vh - 36px);overflow-y:auto;background:#fff;border-radius:14px;border:1px solid var(--line);padding:34px}
 .root .dialog h2{font-size:29px;margin:16px 0 8px;padding-right:36px}
 .root .dialog>p{font-size:14px;margin-bottom:22px}
-.root .close{position:absolute;top:18px;right:18px;border:0;background:#f1eafa;color:var(--ink);border-radius:12px;padding:9px;line-height:0}
+.root .close{position:absolute;top:18px;right:18px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:9px;line-height:0}
 .root .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .root .field{display:flex;flex-direction:column;gap:7px}
 .root .field.full{grid-column:1/-1}
-.root .field label{font-weight:750;font-size:13px}
-.root .field input,.root .field textarea{width:100%;border:1px solid #d4cbea;border-radius:12px;background:#fff;padding:13px 14px;color:var(--ink)}
+.root .field label{font-weight:700;font-size:13px}
+.root .field input,.root .field textarea{width:100%;border:1px solid var(--line-field);border-radius:10px;background:#fff;padding:13px 14px;color:var(--ink)}
 .root .field textarea{resize:vertical;min-height:120px}
-.root .req{color:var(--purple)}
+.root .req{color:var(--blue-text)}
 .root .honeypot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.root .formstatus{margin-top:16px;border-radius:12px;padding:14px 16px;font-size:14px}
+.root .formstatus{margin-top:16px;border-radius:10px;padding:14px 16px;font-size:14px}
 .root .formstatus.error{background:#fdecec;color:#a12828;border:1px solid #f4c7c7}
-.root .formstatus.success{background:#ddf6e7;color:#1a8051;border:1px solid #b9e8cc}
+.root .formstatus.success{background:#EEF3FE;color:var(--blue-text);border:1px solid #C8D6FB}
 .root .formactions{margin-top:18px}
 .root .formactions .btn{width:100%}
 .root .turnstile{margin-top:16px}
 
-/* Simulateur : le bouton « + Ajouter des coûts spécifiques » peut passer à la ligne (375 px) */
-.root .simulator>*{min-width:0}
-.root .sim-controls .btn{white-space:normal;max-width:100%;text-align:center}
-
-/* Menu déroulant « Solutions » du header */
-.root .dropdown{position:relative}
-.root .dropdownToggle{display:inline-flex;align-items:center;gap:4px;border:0;background:none;padding:0;color:inherit;font:inherit}
-.root .dropdownToggle:hover{color:var(--purple)}
-.root .dropdownToggle svg{transition:transform .2s}
-.root .dropdown.open .dropdownToggle svg{transform:rotate(180deg)}
-.root .submenu{display:none;position:absolute;top:100%;left:-16px;min-width:220px;padding:10px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px #25196822;z-index:40}
-.root .submenu::before{content:'';position:absolute;left:0;right:0;top:-14px;height:14px}
-.root .submenu a{display:block;padding:10px 12px;border-radius:10px}
-.root .submenu a:hover,.root .submenu a:focus-visible{background:var(--pale);color:var(--purple)}
-.root .submenu a:last-child{margin-top:6px;border-top:1px solid var(--line);border-radius:0 0 10px 10px}
-.root .dropdown:hover .submenu,.root .dropdown.open .submenu{display:block;margin-top:12px}
-
-/* Pages solutions (/solutions/*) */
-.root .solhero .wrap{grid-template-columns:minmax(0,860px);min-height:480px}
-.root .solhero p{max-width:720px}
-.root .solproblem h2,.root .solneeds h2{margin-top:20px;max-width:900px}
-.root .solneeds h2{margin-top:0}
-.root .solfeatures,.root .solfaq{background:#faf8ff}
-.root .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.root .solcard{min-height:0}
-.root .solcard p{margin-bottom:0}
-.root .checklist{list-style:none;margin:34px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 34px}
-.root .checklist li{display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.6;color:#3c3f58}
-.root .checklist svg{color:var(--purple);margin-top:2px}
-.root .method>.wrap>h2{margin-top:0}
-.root .mention{display:inline-block;margin-left:10px;border-radius:999px;background:#bca3ff33;color:#e4d8ff;padding:3px 10px;font-size:11px;font-weight:700}
-.root .solpoint{padding:26px;display:flex;gap:16px;align-items:flex-start}
-.root .solpoint .ic{height:45px;min-width:45px;border-radius:13px;background:#ebe1ff;display:grid;place-items:center;color:#6827da}
-.root .solpoint p{font-size:14px}
-.root .solnote{text-align:center;margin-top:28px}
-.root .faq{max-width:820px;margin:auto;display:grid;gap:12px}
-.root .faq details{border-radius:18px;padding:0 24px}
-.root .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-weight:750;font-size:16px}
-.root .faq summary::-webkit-details-marker{display:none}
-.root .faq summary svg{color:var(--purple);transition:transform .2s}
-.root .faq details[open] summary svg{transform:rotate(180deg)}
-.root .faq details p{padding:0 0 20px;font-size:15px}
-.root .endactions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.root .btn-light{color:#fff;border-color:#8d7fae}
-
-@media(max-width:1050px){.root .header .nav{display:none}.root .header .nav.show{display:flex;position:absolute;top:78px;left:0;right:0;background:#fff;flex-direction:column;padding:22px;align-items:flex-start;gap:14px;box-shadow:0 15px 25px #0002}.root .menu{display:block}.root .nav-ctas .btn-outline{display:none}.root .header .submenu{display:block;position:static;margin:10px 0 0;padding:0 0 0 14px;border:0;border-left:2px solid var(--line);border-radius:0;box-shadow:none;min-width:0}.root .header .submenu::before{display:none}.root .header .submenu a:last-child{border-top:0;margin-top:0}.root .dropdownToggle{pointer-events:none}.root .dropdownToggle svg{display:none}.root .grid4{grid-template-columns:1fr 1fr}.root .hero .wrap{gap:25px}.root .methodsteps{gap:12px}.root .methodcard{padding:18px}.root .fundgrid{gap:30px}}
-@media(max-width:760px){.root .header{height:68px}.root .header .nav.show{top:68px}.root .nav-ctas{display:none}.root .wrap{width:min(100% - 36px,1190px)}.root .hero .wrap,.root .docgrid,.root .fundgrid,.root .whygrid,.root .simulator{grid-template-columns:1fr}.root .hero .wrap{padding:68px 0;min-height:0}.root .hero .screen{transform:none}.root .hero-benefits{gap:12px;flex-wrap:wrap}.root .hero-benefits span{padding-right:12px}.root .section{padding:74px 0}.root .grid3,.root .grid4,.root .checklist,.root .projectgrid,.root .methodsteps,.root .fundcards,.root .endcards{grid-template-columns:1fr}.root .methodsteps{gap:12px}.root .methodcard{min-height:auto}.root .searchrow{flex-direction:column}.root .searchbox{padding:23px}.root .searchbox h2{font-size:20px}.root .docgrid{gap:28px}.root .simulator{padding:22px;gap:18px}.root .sim-disclaimer{grid-column:auto}.root .whyphoto{min-height:260px}.root .fundcards{gap:10px}.root .title-space{text-align:left}.root .hero h1{font-size:36px}.root .hero .btn,.root .docgrid .btn{width:100%}.root .hero .actions,.root .docgrid .actions{flex-direction:column}.root .dialog{padding:24px}.root .fields{grid-template-columns:1fr}.root .dialog h2{font-size:20px}.root .solhero .wrap{min-height:0}.root .endactions{flex-direction:column}.root .endactions .btn{width:100%}}
+@media(max-width:1050px){.root .header .nav{display:none}.root .header .nav.show{display:flex;position:absolute;top:72px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;padding:22px;align-items:flex-start;gap:14px}.root .menu{display:block}.root .nav-ctas .btn-outline{display:none}.root .header .submenu{display:block;position:static;margin:10px 0 0;padding:0 0 0 14px;border:0;border-left:2px solid var(--line);border-radius:0;min-width:0;background:none}.root .header .submenu::before{display:none}.root .header .submenu a:last-child{border-top:0;margin-top:0}.root .dropdownToggle{pointer-events:none}.root .dropdownToggle svg{display:none}.root .hero .wrap{gap:32px}.root .methodsteps,.root .grid4{grid-template-columns:1fr 1fr}.root .methodsteps{row-gap:36px}.root .timeline::before{display:none}.root .fundgrid{grid-template-columns:1fr;gap:30px}}
+@media(max-width:760px){.root .header{height:64px}.root .header .nav.show{top:64px}.root .nav-ctas{display:none}.root .brand small{display:none}.root .wrap{width:min(100% - 36px,1190px)}.root .hero .wrap,.root .docgrid,.root .fundgrid{grid-template-columns:1fr}.root .hero .wrap{padding:64px 0}.root .section{padding:72px 0}.root .realizations{padding-top:0}.root .grid3,.root .grid4,.root .checklist,.root .solpoints,.root .projectgrid,.root .methodsteps,.root .fundcards,.root .endcards,.root .benefits{grid-template-columns:1fr}.root .methodsteps{row-gap:28px}.root .searchbox{padding:24px}.root .searchbox h2{font-size:20px}.root .sim-controls{padding:22px}.root .estimate{padding:26px}.root .whyphoto{min-height:260px}.root .hero h1{font-size:36px}.root .hero .btn,.root .docgrid .btn,.root .search-actions .btn{width:100%}.root .hero .actions,.root .docgrid .actions{flex-direction:column}.root .virage{margin-top:56px}.root .virage .wrap,.root .solspecific .wrap{padding:64px 0}.root .bandrow{padding:56px 0}.root .ending .wrap{padding:80px 0}.root .endactions{flex-direction:column}.root .endactions .btn{width:100%}.root .dialog{padding:24px}.root .fields{grid-template-columns:1fr}.root .dialog h2{font-size:20px}}

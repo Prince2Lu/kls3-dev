@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import HomeHeader from '@/components/home/HomeHeader'
 import Hero from '@/components/home/Hero'
 import ProblemSearch from '@/components/home/ProblemSearch'
+import Virage from '@/components/home/Virage'
 import Solutions from '@/components/home/Solutions'
+import Band from '@/components/home/Band'
 import DocFlowSection from '@/components/home/DocFlowSection'
 import Realisations from '@/components/home/Realisations'
 import Methode from '@/components/home/Methode'
@@ -13,7 +15,7 @@ import ContactSection from '@/components/home/ContactSection'
 import HomeFooter from '@/components/home/HomeFooter'
 import ContactModal from '@/components/home/ContactModal'
 import s from '@/components/home/home.module.css'
-import { homeMeta } from '@/lib/data/home'
+import { homeMeta, manifestes } from '@/lib/data/home'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = {
@@ -28,11 +30,14 @@ export default function Home() {
       <div>
         <Hero />
         <ProblemSearch />
+        <Virage />
         <Solutions />
+        <Band {...manifestes.enjeux} />
         <DocFlowSection />
         <Realisations />
         <Methode />
         <Simulateur />
+        <Band {...manifestes.rythme} />
         <Financements />
         <Pourquoi />
         <ContactSection />

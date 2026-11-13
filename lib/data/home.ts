@@ -1,22 +1,3 @@
-import type { LucideIcon } from 'lucide-react'
-import {
-  AppWindow,
-  BarChart3,
-  CheckCircle2,
-  FileText,
-  LayoutGrid,
-  ListChecks,
-  Play,
-  Plug,
-  RefreshCw,
-  Search,
-  ShieldCheck,
-  Sparkles,
-  Target,
-  Users,
-  Workflow,
-  Zap,
-} from 'lucide-react'
 import type { ContactSource } from '@/lib/home/contact'
 
 // Contenu texte de la homepage — repris mot pour mot de docs/maquette-lilian.html
@@ -58,11 +39,7 @@ export const hero = {
     'KLS3 identifie ce qui ralentit votre entreprise et conçoit les solutions pour simplifier, automatiser et piloter vos opérations.',
   primaryCta: 'Découvrir nos solutions →',
   secondaryCta: 'Voir DocFlow en action',
-  benefits: [
-    { icon: CheckCircle2, label: 'Des opérations plus fluides' },
-    { icon: CheckCircle2, label: "Moins d'erreurs" },
-    { icon: Target, label: 'Des équipes plus efficaces' },
-  ] satisfies { icon: LucideIcon; label: string }[],
+  benefits: ['Des opérations plus fluides', "Moins d'erreurs", 'Des équipes plus efficaces'],
   screen: {
     ariaLabel: "Illustration de l'interface DocFlow",
     name: 'DocFlow',
@@ -70,10 +47,10 @@ export const hero = {
     title: 'Suivi des documents',
     columns: ['Dossier', 'Document', 'État'],
     rows: [
-      { id: 'DS-0142', doc: "Pièce d'identité", status: 'Validé', tone: 'ok' },
-      { id: 'DS-0143', doc: 'Justificatif', status: 'Validé', tone: 'ok' },
-      { id: 'DS-0144', doc: 'Facture', status: 'À vérifier', tone: 'warn' },
-      { id: 'DS-0145', doc: 'Contrat', status: 'En cours', tone: 'work' },
+      { id: 'DS-0142', doc: "Pièce d'identité", status: '✓ Validé', tone: 'ok' },
+      { id: 'DS-0143', doc: 'Justificatif', status: '✓ Validé', tone: 'ok' },
+      { id: 'DS-0144', doc: 'Facture', status: '! À vérifier', tone: 'warn' },
+      { id: 'DS-0145', doc: 'Contrat', status: '… En cours', tone: 'work' },
     ] as const,
     notice: 'Données fictives · Illustration du parcours cible',
   },
@@ -85,17 +62,41 @@ export const problemSearch = {
   inputLabel: 'Décrire votre problème',
   placeholder: 'Ex. : trop de documents à traiter, des relances manuelles, des outils non connectés…',
   submit: 'Trouver une solution',
-  submitIcon: Search,
   chipsLabel: 'Ou explorez une situation courante :',
   chips: [
-    { icon: FileText, label: 'Gérer mes documents', query: 'Je dois collecter, contrôler et suivre de nombreux documents' },
-    { icon: RefreshCw, label: 'Automatiser des tâches', query: 'Mes équipes passent beaucoup de temps sur des tâches répétitives et des relances' },
-    { icon: Plug, label: 'Connecter mes outils', query: 'Nos logiciels et outils ne communiquent pas entre eux' },
-    { icon: AppWindow, label: 'Créer un outil métier', query: "Nous avons besoin d'une application métier adaptée à notre activité" },
-  ] satisfies { icon: LucideIcon; label: string; query: string }[],
+    { label: 'Gérer mes documents', query: 'Je dois collecter, contrôler et suivre de nombreux documents' },
+    { label: 'Automatiser des tâches', query: 'Mes équipes passent beaucoup de temps sur des tâches répétitives et des relances' },
+    { label: 'Connecter mes outils', query: 'Nos logiciels et outils ne communiquent pas entre eux' },
+    { label: 'Créer un outil métier', query: "Nous avons besoin d'une application métier adaptée à notre activité" },
+  ],
+  resultKicker: 'PISTE IDENTIFIÉE',
   estimateCta: "Estimer l'impact →",
   talkCta: 'En parler avec KLS3',
   notice: 'Première orientation indicative, sans analyse approfondie de votre entreprise.',
+}
+
+// Bandeau « virage » (V5), entre la recherche et Solutions
+export const virage = {
+  label: 'Le virage est engagé',
+  titleLine1: "L'IA ne remplacera pas votre entreprise.",
+  titleLine2: "Une entreprise qui s'en sert, si.",
+  text: "Le virage est déjà engagé. La question n'est plus de savoir si vous allez le prendre, mais quand, et avec quelle avance. Il faut du courage pour changer une organisation qui fonctionne. Il en faut moins pour commencer par une seule tâche.",
+  cta: 'Commencer par un diagnostic offert →',
+  source: 'rendez-vous' as ContactSource,
+}
+
+// Bandeaux manifestes (V5) : textes repris des sections Méthode et Pourquoi
+export const manifestes = {
+  enjeux: {
+    start: 'Nous partons de vos enjeux, ',
+    highlight: "pas d'une technologie à vendre.",
+    text: "Pas besoin d'arriver avec un cahier des charges. Nous partons de votre fonctionnement actuel pour construire une solution adaptée.",
+  },
+  rythme: {
+    start: 'Un besoin précis, ',
+    highlight: 'une première amélioration concrète.',
+    text: 'Nous avançons à votre rythme, sans bouleverser vos outils existants.',
+  },
 }
 
 export const solutions = {
@@ -104,7 +105,7 @@ export const solutions = {
   titleLine2: 'Nous créons les outils qui vont avec.',
   offers: [
     {
-      icon: FileText,
+      number: '01 · PRODUIT',
       title: 'DocFlow',
       highlight: true,
       punchline: 'Vos documents traités, sans les tâches qui vont avec.',
@@ -113,7 +114,7 @@ export const solutions = {
       href: '/solutions/docflow',
     },
     {
-      icon: Workflow,
+      number: '02 · ACCOMPAGNEMENT',
       title: 'Automatisation & agents IA',
       highlight: false,
       punchline: 'Vos processus qui tournent en arrière-plan.',
@@ -122,7 +123,7 @@ export const solutions = {
       href: '/solutions/agents-ia',
     },
     {
-      icon: LayoutGrid,
+      number: '03 · SUR MESURE',
       title: 'Applications sur mesure',
       highlight: false,
       punchline: "Des outils qui s'adaptent à votre métier.",
@@ -131,7 +132,7 @@ export const solutions = {
       href: '/solutions/sur-mesure',
     },
   ] satisfies {
-    icon: LucideIcon
+    number: string
     title: string
     highlight: boolean
     punchline: string
@@ -178,7 +179,6 @@ export const realisations = {
     {
       image: '/realisations/sales-os.png',
       windowTitle: 'Sales OS · Tableau de bord',
-      variant: 'default',
       tag: 'PROJET KLS3',
       title: 'KLS3 Sales OS',
       punchline: 'Un outil commercial conçu autour de nos propres besoins.',
@@ -188,7 +188,6 @@ export const realisations = {
     {
       image: '/realisations/calymia.png',
       windowTitle: 'Calymia · Agenda & clients',
-      variant: 'well',
       tag: 'APPLICATION MÉTIER',
       title: 'Calymia',
       punchline: 'Une application pensée pour simplifier la gestion des cabinets.',
@@ -205,13 +204,11 @@ export const methode = {
   titleLine2Accent: 'solution qui fonctionne.',
   lead: "Pas besoin d'arriver avec un cahier des charges. Nous partons de votre fonctionnement actuel pour construire une solution adaptée.",
   steps: [
-    { icon: Search, number: '01', title: 'Identifier', text: 'Nous comprenons vos opérations et repérons ce qui vous ralentit.' },
-    { icon: ListChecks, number: '02', title: 'Simplifier', text: 'Nous éliminons les étapes inutiles avant de penser à la technologie.' },
-    { icon: Zap, number: '03', title: 'Automatiser', text: 'Nous développons et connectons les solutions adaptées à votre métier.' },
-    { icon: BarChart3, number: '04', title: 'Piloter', text: 'Nous suivons les résultats et faisons évoluer la solution avec vos besoins.' },
-  ] satisfies { icon: LucideIcon; number: string; title: string; text: string }[],
-  noteStrong: 'Un besoin précis, une première amélioration concrète.',
-  noteText: 'Nous avançons à votre rythme, sans bouleverser vos outils existants.',
+    { number: '01', title: 'Identifier', text: 'Nous comprenons vos opérations et repérons ce qui vous ralentit.' },
+    { number: '02', title: 'Simplifier', text: 'Nous éliminons les étapes inutiles avant de penser à la technologie.' },
+    { number: '03', title: 'Automatiser', text: 'Nous développons et connectons les solutions adaptées à votre métier.' },
+    { number: '04', title: 'Piloter', text: 'Nous suivons les résultats et faisons évoluer la solution avec vos besoins.' },
+  ] satisfies { number: string; title: string; text: string }[],
 }
 
 export const simulateur = {
@@ -251,10 +248,10 @@ export const financements = {
   cta: 'Étudier les possibilités de financement →',
   note: "Sous réserve des critères d'éligibilité et des dispositifs en vigueur. Aucune aide n'est garantie.",
   cards: [
-    { icon: Plug, title: 'Aides régionales', text: 'Selon votre implantation et votre projet.' },
-    { icon: LayoutGrid, title: 'Dispositifs nationaux', text: "Selon l'activité et la nature des investissements." },
-    { icon: Sparkles, title: 'Programmes européens', text: 'Pour certains projets éligibles.' },
-  ] satisfies { icon: LucideIcon; title: string; text: string }[],
+    { code: 'RÉG', title: 'Aides régionales', text: 'Selon votre implantation et votre projet.' },
+    { code: 'NAT', title: 'Dispositifs nationaux', text: "Selon l'activité et la nature des investissements." },
+    { code: 'EU', title: 'Programmes européens', text: 'Pour certains projets éligibles.' },
+  ],
 }
 
 export const pourquoi = {
@@ -268,11 +265,11 @@ export const pourquoi = {
   teamTagline: 'Une équipe. Pas une agence.',
   photoPlaceholder: "Emplacement réservé aux vraies photos de l'équipe KLS3.",
   benefits: [
-    { icon: Target, title: 'Une approche orientée résultats', text: "Nous partons de vos enjeux, pas d'une technologie à vendre." },
-    { icon: LayoutGrid, title: 'Une expertise transversale', text: "Processus, automatisation, intelligence artificielle et développement d'applications." },
-    { icon: Users, title: 'Une équipe directement impliquée', text: 'Vous échangez avec les personnes qui portent votre projet.' },
-    { icon: ShieldCheck, title: 'Des solutions adaptées à votre environnement', text: 'Vos outils, vos contraintes et vos exigences de sécurité sont pris en compte dès la conception.' },
-  ] satisfies { icon: LucideIcon; title: string; text: string }[],
+    { number: '01', title: 'Une approche orientée résultats', text: "Nous partons de vos enjeux, pas d'une technologie à vendre." },
+    { number: '02', title: 'Une expertise transversale', text: "Processus, automatisation, intelligence artificielle et développement d'applications." },
+    { number: '03', title: 'Une équipe directement impliquée', text: 'Vous échangez avec les personnes qui portent votre projet.' },
+    { number: '04', title: 'Des solutions adaptées à votre environnement', text: 'Vos outils, vos contraintes et vos exigences de sécurité sont pris en compte dès la conception.' },
+  ],
 }
 
 export const contactSection = {
@@ -282,7 +279,6 @@ export const contactSection = {
   text: "Un échange sans engagement pour comprendre vos enjeux, explorer les solutions possibles et identifier les premières pistes d'action.",
   cards: [
     {
-      icon: AppWindow,
       title: 'Prendre un rendez-vous',
       text: 'Échangeons sur vos besoins et vos objectifs.',
       cta: 'Demander un rendez-vous →',
@@ -290,7 +286,6 @@ export const contactSection = {
       primary: true,
     },
     {
-      icon: Play,
       title: 'Demander une démonstration',
       text: 'Découvrez DocFlow en action et ses possibilités.',
       cta: 'Demander une démo →',
@@ -298,7 +293,6 @@ export const contactSection = {
       primary: false,
     },
   ] satisfies {
-    icon: LucideIcon
     title: string
     text: string
     cta: string
@@ -332,7 +326,6 @@ export const contactForm = {
 }
 
 export const homeFooter = {
-  brand: 'KLS3',
   baseline: ' · Operational Intelligence',
   copyright: '© 2026 KLS3 · Tous droits réservés',
   links: [

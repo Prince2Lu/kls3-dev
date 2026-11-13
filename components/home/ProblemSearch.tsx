@@ -4,6 +4,7 @@ import { useRef, useState, type FormEvent } from 'react'
 import { problemSearch } from '@/lib/data/home'
 import { classify } from '@/lib/home/classify'
 import { openContactModal } from '@/lib/home/contact'
+import LogoMotif from '@/components/ui/LogoMotif'
 import s from './home.module.css'
 
 type Result = { query: string; title: string; description: string }
@@ -12,7 +13,6 @@ export default function ProblemSearch() {
   const [query, setQuery] = useState('')
   const [result, setResult] = useState<Result | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const SubmitIcon = problemSearch.submitIcon
 
   const search = (value: string) => {
     const trimmed = value.trim()
@@ -43,7 +43,8 @@ export default function ProblemSearch() {
   return (
     <section className={s['search-section']}>
       <div className={s.wrap}>
-        <div className={s.searchbox}>
+        <div className={`${s.card} ${s.searchbox}`}>
+          <LogoMotif className={s.node} />
           <h2>{problemSearch.title}</h2>
           <p>{problemSearch.text}</p>
           <form className={s.searchrow} onSubmit={handleSubmit}>
@@ -56,31 +57,34 @@ export default function ProblemSearch() {
               onChange={(event) => setQuery(event.target.value)}
             />
             <button type="submit" className={`${s.btn} ${s['btn-primary']}`}>
-              <span>
-                <SubmitIcon size={16} /> {problemSearch.submit}
-              </span>
+              {problemSearch.submit}
             </button>
           </form>
           <div className={s.chips}>
             <span>{problemSearch.chipsLabel}</span>
-            {problemSearch.chips.map(({ icon: Icon, label, query: chipQuery }) => (
+            {problemSearch.chips.map(({ label, query: chipQuery }) => (
               <button key={label} type="button" className={s.chip} onClick={() => handleChip(chipQuery)}>
-                <Icon size={13} /> {label}
+                {label}
               </button>
             ))}
           </div>
           <div aria-live="polite">
             {result && (
               <div className={s['search-result']}>
-                <strong>{result.title}</strong>
-                <p>{result.description}</p>
-                <a href="#simulateur" className={`${s.btn} ${s['btn-primary']}`}>
-                  {problemSearch.estimateCta}
-                </a>{' '}
-                <button type="button" className={`${s.btn} ${s['btn-outline']}`} onClick={handleTalk}>
-                  {problemSearch.talkCta}
-                </button>
-                <div className={s.notice}>{problemSearch.notice}</div>
+                <div>
+                  <p className={s.kicker}>{problemSearch.resultKicker}</p>
+                  <strong>{result.title}</strong>
+                  <p>{result.description}</p>
+                  <p className={s.notice}>{problemSearch.notice}</p>
+                </div>
+                <div className={s['search-actions']}>
+                  <a href="#simulateur" className={`${s.btn} ${s['btn-primary']}`}>
+                    {problemSearch.estimateCta}
+                  </a>
+                  <button type="button" className={`${s.btn} ${s['btn-outline']}`} onClick={handleTalk}>
+                    {problemSearch.talkCta}
+                  </button>
+                </div>
               </div>
             )}
           </div>

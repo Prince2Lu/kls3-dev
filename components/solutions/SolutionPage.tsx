@@ -1,8 +1,9 @@
-import { CheckCircle2, ChevronDown, ShieldCheck } from 'lucide-react'
+import { CheckCircle2, ChevronDown } from 'lucide-react'
 import HomeHeader from '@/components/home/HomeHeader'
 import HomeFooter from '@/components/home/HomeFooter'
 import ContactModal from '@/components/home/ContactModal'
 import { ProjectCards } from '@/components/home/Realisations'
+import SectionLabel from '@/components/home/SectionLabel'
 import JsonLd from '@/components/seo/JsonLd'
 import s from '@/components/home/home.module.css'
 import { kls3CompanyInfo } from '@/lib/data/company-info'
@@ -25,7 +26,7 @@ function ActionButton({ action, className }: { action: SolutionAction; className
   )
 }
 
-// Gabarit commun des pages /solutions/* — même langage visuel que la homepage
+// Gabarit commun des pages /solutions/* — même langage visuel que la homepage (design system V5)
 export default function SolutionPage({ content }: { content: SolutionPageContent }) {
   const { hero, problem, features, needs, steps, specific, faq, cta } = content
   const path = `/solutions/${content.slug}`
@@ -56,14 +57,15 @@ export default function SolutionPage({ content }: { content: SolutionPageContent
         <section className={`${s.hero} ${s.solhero}`}>
           <div className={s.wrap}>
             <div>
-              <span className={s.tag} style={{ background: '#2d255d', color: '#d6b5ff' }}>
-                {hero.tag}
-              </span>
-              <h1>{hero.title}</h1>
+              <SectionLabel dark>{hero.tag}</SectionLabel>
+              <h1>
+                {hero.title}
+                <span className={s.hl}>{hero.titleHighlight}</span>
+              </h1>
               <p>{hero.intro}</p>
               <div className={s.actions}>
                 <ActionButton action={hero.actions[0]} className={`${s.btn} ${s['btn-primary']}`} />
-                <ActionButton action={hero.actions[1]} className={`${s.btn} ${s['btn-outline']}`} />
+                <ActionButton action={hero.actions[1]} className={`${s.btn} ${s['btn-dark']}`} />
               </div>
             </div>
           </div>
@@ -71,22 +73,23 @@ export default function SolutionPage({ content }: { content: SolutionPageContent
 
         <section className={`${s.section} ${s.solproblem}`}>
           <div className={s.wrap}>
-            <span className={s.tag}>{solutionSections.problemTag}</span>
+            <SectionLabel>{solutionSections.problemTag}</SectionLabel>
             <h2>{problem.title}</h2>
             <p className={s.lead}>{problem.text}</p>
           </div>
         </section>
 
-        <section className={`${s.section} ${s.solfeatures}`}>
+        <section className={s.section} style={{ paddingTop: 0 }}>
           <div className={s.wrap}>
             <div className={s['title-space']}>
               <h2>{features.title}</h2>
             </div>
             <div className={features.cards.length === 4 ? s.grid4 : s.grid3}>
-              {features.cards.map(({ icon: Icon, ...card }) => (
-                <article key={card.title} className={`${s.card} ${s.offer} ${s.solcard}`}>
-                  <div className={s.emoji}>
-                    <Icon size={29} />
+              {features.cards.map(({ icon: Icon, ...card }, index) => (
+                <article key={card.title} className={`${s.card} ${s.solcard}`}>
+                  <div className={s.cardhead}>
+                    <span className={`${s.num} ${s.blue}`}>{String(index + 1).padStart(2, '0')}</span>
+                    <Icon size={18} aria-hidden="true" />
                   </div>
                   <h3>{card.title}</h3>
                   <p>{card.text}</p>
@@ -102,7 +105,7 @@ export default function SolutionPage({ content }: { content: SolutionPageContent
             <ul className={s.checklist}>
               {needs.items.map((item) => (
                 <li key={item}>
-                  <CheckCircle2 size={20} />
+                  <CheckCircle2 size={18} aria-hidden="true" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -113,45 +116,43 @@ export default function SolutionPage({ content }: { content: SolutionPageContent
         <section className={`${s.section} ${s.method}`}>
           <div className={s.wrap}>
             <h2>{solutionSections.stepsTitle}</h2>
-            <div className={s.methodsteps}>
-              {steps.map(({ icon: Icon, ...step }) => (
-                <div key={step.number} className={s.methodcard}>
-                  <span className={s.glyph}>
-                    <Icon size={30} />
-                  </span>
-                  <span className={s.number}>{step.number}</span>
-                  {step.mention && <span className={s.mention}>{step.mention}</span>}
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </div>
-              ))}
+            <div className={s.timeline}>
+              <div className={s.methodsteps}>
+                {steps.map((step) => (
+                  <div key={step.number} className={s.methodstep}>
+                    <span className={s.dot} aria-hidden="true" />
+                    <span className={s.num}>
+                      {step.number}
+                      {step.mention && <span className={s.mention}>{step.mention}</span>}
+                    </span>
+                    <h3>{step.title}</h3>
+                    <p>{step.text}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
         {specific?.kind === 'points' && (
-          <section className={`${s.section} ${s.solspecific}`}>
+          <section className={`${s.band} ${s.solspecific}`}>
             <div className={s.wrap}>
-              <div className={s['title-space']}>
-                <h2>{specific.title}</h2>
-              </div>
-              <div className={s.grid3}>
-                {specific.points.map((point) => (
-                  <div key={point} className={`${s.card} ${s.solpoint}`}>
-                    <span className={s.ic}>
-                      <ShieldCheck size={21} />
-                    </span>
+              <h2>{specific.title}</h2>
+              <div className={s.solpoints}>
+                {specific.points.map((point, index) => (
+                  <div key={point} className={s.solpoint}>
+                    <span className={s.num}>{String(index + 1).padStart(2, '0')}</span>
                     <p>{point}</p>
                   </div>
                 ))}
               </div>
-              {specific.note && <p className={`${s.notice} ${s.solnote}`}>{specific.note}</p>}
+              {specific.note && <p className={s.solnote}>{specific.note}</p>}
             </div>
           </section>
         )}
 
         {specific?.kind === 'realisations' && (
-          <section className={`${s.section} ${s.realizations}`}>
+          <section className={s.section}>
             <div className={s.wrap}>
               <div className={s['title-space']}>
                 <h2>{specific.title}</h2>
@@ -171,7 +172,7 @@ export default function SolutionPage({ content }: { content: SolutionPageContent
                 <details key={item.question} className={s.card}>
                   <summary>
                     {item.question}
-                    <ChevronDown size={18} />
+                    <ChevronDown size={18} aria-hidden="true" />
                   </summary>
                   <p>{item.answer}</p>
                 </details>
@@ -180,16 +181,13 @@ export default function SolutionPage({ content }: { content: SolutionPageContent
           </div>
         </section>
 
-        <section className={`${s.section} ${s.ending}`}>
+        <section className={`${s.band} ${s.ending}`}>
           <div className={s.wrap}>
             <h2>{cta.title}</h2>
             <p>{cta.text}</p>
             <div className={s.endactions}>
-              <ActionButton action={cta.actions[0]} className={`${s.btn} ${s['btn-white']}`} />
-              <ActionButton
-                action={cta.actions[1]}
-                className={`${s.btn} ${s['btn-outline']} ${s['btn-light']}`}
-              />
+              <ActionButton action={cta.actions[0]} className={`${s.btn} ${s['btn-primary']}`} />
+              <ActionButton action={cta.actions[1]} className={`${s.btn} ${s['btn-dark']}`} />
             </div>
           </div>
         </section>

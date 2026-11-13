@@ -1,5 +1,5 @@
-import { CheckCircle2, Play } from 'lucide-react'
 import { hero } from '@/lib/data/home'
+import SectionLabel from './SectionLabel'
 import s from './home.module.css'
 
 export default function Hero() {
@@ -9,12 +9,11 @@ export default function Hero() {
     <section id="accueil" className={s.hero}>
       <div className={s.wrap}>
         <div>
-          <span className={s.tag} style={{ background: '#2d255d', color: '#d6b5ff' }}>
-            {hero.tag}
-          </span>
+          <SectionLabel dark>{hero.tag}</SectionLabel>
           <h1>
             {hero.titleLine1}
-            <span className={s['grad-text']}>{hero.titleLine2}</span>
+            <br />
+            <span className={s.hl}>{hero.titleLine2}</span>
           </h1>
           <p>{hero.text}</p>
           <p className={s.smalldesc}>{hero.smalldesc}</p>
@@ -22,29 +21,25 @@ export default function Hero() {
             <a className={`${s.btn} ${s['btn-primary']}`} href="#solutions">
               {hero.primaryCta}
             </a>
-            <a className={`${s.btn} ${s['btn-outline']}`} href="#docflow">
-              <span>
-                {hero.secondaryCta} <Play size={15} />
-              </span>
+            <a className={`${s.btn} ${s['btn-dark']}`} href="#docflow">
+              {hero.secondaryCta} ▷
             </a>
           </div>
           <div className={s['hero-benefits']}>
-            {hero.benefits.map(({ icon: Icon, label }) => (
+            {hero.benefits.map((label) => (
               <span key={label}>
-                <Icon size={13} /> {label}
+                <span aria-hidden="true">●</span> {label}
               </span>
             ))}
           </div>
         </div>
         <div className={s.screen} aria-label={screen.ariaLabel}>
           <div className={s.screenbar}>
-            <span>
-              <CheckCircle2 size={13} /> {screen.name}
-            </span>
-            <span style={{ color: '#c5b9fb' }}>{screen.subtitle}</span>
+            <span>{screen.name}</span>
+            <small>{screen.subtitle}</small>
           </div>
           <div className={s.screenbody}>
-            <h3 style={{ fontSize: 21, marginBottom: 18 }}>{screen.title}</h3>
+            <p className={s.screentitle}>{screen.title}</p>
             <table>
               <thead>
                 <tr>
@@ -65,8 +60,8 @@ export default function Hero() {
                 ))}
               </tbody>
             </table>
-            <p className={s.notice}>{screen.notice}</p>
           </div>
+          <p className={s.notice}>{screen.notice}</p>
         </div>
       </div>
     </section>

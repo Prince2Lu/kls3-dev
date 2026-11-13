@@ -35,7 +35,8 @@ export type SolutionPageContent = {
   slug: 'docflow' | 'agents-ia' | 'sur-mesure'
   meta: { title: string; description: string }
   service: { name: string; serviceType: string }
-  hero: { tag: string; title: string; intro: string; actions: [SolutionAction, SolutionAction] }
+  // titleHighlight : fin du H1, surlignée
+  hero: { tag: string; title: string; titleHighlight: string; intro: string; actions: [SolutionAction, SolutionAction] }
   problem: { title: string; text: string }
   features: {
     title: string
@@ -67,7 +68,8 @@ export const docflowPage: SolutionPageContent = {
   service: { name: 'DocFlow', serviceType: 'Collecte, contrôle et relance de documents' },
   hero: {
     tag: 'SOLUTION · DOCFLOW',
-    title: 'Vos documents traités, sans les tâches qui vont avec.',
+    title: 'Vos documents traités, ',
+    titleHighlight: 'sans les tâches qui vont avec.',
     intro:
       'DocFlow collecte, lit et contrôle les documents que vous recevez, repère ce qui manque et relance à votre place. Vos équipes ne gardent que les validations qui comptent.',
     actions: [
@@ -188,7 +190,8 @@ export const agentsIaPage: SolutionPageContent = {
   service: { name: 'Agents IA et automatisation', serviceType: 'Automatisation des tâches récurrentes' },
   hero: {
     tag: 'SOLUTION · AGENTS IA',
-    title: 'Vos processus qui tournent en arrière-plan.',
+    title: 'Vos processus ',
+    titleHighlight: 'qui tournent en arrière-plan.',
     intro:
       'Nous connectons vos outils et mettons en place des agents IA et des automatisations pour exécuter vos tâches récurrentes, sans intervention manuelle systématique.',
     actions: [
@@ -320,7 +323,8 @@ export const surMesurePage: SolutionPageContent = {
   service: { name: 'Applications métier sur mesure', serviceType: "Développement d'applications métier" },
   hero: {
     tag: 'SOLUTION · SUR MESURE',
-    title: "Des outils qui s'adaptent à votre métier.",
+    title: 'Des outils ',
+    titleHighlight: "qui s'adaptent à votre métier.",
     intro:
       'CRM, applications internes, portails clients ou plateformes métier : quand aucun logiciel du marché ne colle à votre façon de travailler, nous concevons celui qui vous manque.',
     actions: [

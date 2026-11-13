@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>KLS3 — Homepage V5 (Lilian + signature)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Syne:wght@400..800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFAF8}
+a{color:#3A63D8}a:hover{color:#2A4FB8}
+input,select,button{font:inherit}
+input[type=range]{accent-color:#4B7BF5}
+.k{font-family:Inter,Arial,sans-serif;color:#12112d;background:#FAFAF8;font-size:15px;line-height:1.65}
+.k h1,.k h2,.k h3{font-family:Syne,Inter,sans-serif;letter-spacing:-.04em;line-height:1.13;margin:0}
+.k h1{font-size:clamp(34px,4.08vw,61px)}
+.k h2{font-size:clamp(26px,3.23vw,46px)}
+.k h3{font-size:21px;letter-spacing:-.02em}
+.k p{margin:0;color:#4F5368}
+.wrap{width:min(1190px,calc(100% - 48px));margin:0 auto}
+.sec{padding:104px 0}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.lbl{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#4F5368}
+.lbl.on-dark{color:#B9BBD3}
+.lead{font-size:17px;line-height:1.8;margin-top:20px;max-width:700px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 24px;border-radius:10px;font-weight:700;text-decoration:none;border:0;cursor:pointer;white-space:nowrap;transition:transform .15s,background .15s,border-color .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-p{background:linear-gradient(110deg,#7139fa,#4B7BF5);color:#fff}
+.btn-p:hover{color:#fff}
+.btn-o{background:transparent;border:1px solid #C9CAD6;color:#12112d}
+.btn-o:hover{border-color:#12112d;color:#12112d}
+.btn-od{background:transparent;border:1px solid #5A5C7A;color:#fff}
+.btn-od:hover{border-color:#fff;color:#fff}
+.btn-w{background:#fff;color:#12112d}
+.card{position:relative;background:#fff;border:1px solid #E6E5EE;border-radius:14px}
+.card .node{position:absolute;top:18px;right:18px}
+.band{background:#12112d;color:#fff}
+.band p{color:#B9BBD3}
+.hl{background:linear-gradient(transparent 62%,rgba(75,123,245,.55) 62%,rgba(75,123,245,.55) 92%,transparent 92%);padding:0 .06em}
+.chip{border:1px solid #D7D6E2;border-radius:8px;padding:8px 12px;background:#fff;font-size:13px;color:#2A2B44;cursor:pointer;transition:border-color .15s,color .15s}
+.chip:hover{border-color:#4B7BF5;color:#3A63D8}
+.navl{color:#12112d;text-decoration:none}
+.navl:hover{color:#3A63D8}
+.gain{color:#3A63D8}
+</style>
+</helmet>
+<div class="k">
+
+<!-- HEADER -->
+<header style="position: sticky; top: 0; z-index: 30; background: #FAFAF8; border-bottom: 1px solid #E6E5EE">
+<div class="wrap" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0">
+<a href="#accueil" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #12112d" aria-label="KLS3 — Accueil">
+<svg aria-hidden="true" width="34" height="34" viewBox="0 0 40 40"><defs><linearGradient id="kls3g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7c3aed"></stop><stop offset="100%" stop-color="#0ea5e9"></stop></linearGradient></defs><line x1="8" y1="20" x2="28" y2="7" stroke="url(#kls3g)" stroke-width="2" opacity="0.9"></line><line x1="8" y1="20" x2="28" y2="33" stroke="url(#kls3g)" stroke-width="2" opacity="0.9"></line><line x1="28" y1="7" x2="28" y2="33" stroke="#0ea5e9" stroke-width="2" opacity="0.6"></line><circle cx="8" cy="20" r="4" fill="url(#kls3g)"></circle><circle cx="28" cy="7" r="4" fill="url(#kls3g)"></circle><circle cx="28" cy="33" r="4" fill="url(#kls3g)"></circle></svg>
+<span style="font-family: Syne, sans-serif; font-weight: 700; font-size: 25px; letter-spacing: -0.02em">KLS<span style="color: #4B7BF5">3</span></span>
+<span class="mono" style="border-left: 1px solid #C9CAD6; padding-left: 12px; font-size: 9.5px; font-weight: 500; line-height: 1.35; letter-spacing: 0.08em; color: #4F5368">OPERATIONAL<br>INTELLIGENCE</span>
+</a>
+<nav aria-label="Navigation principale" style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px; font-size: 13px; font-weight: 600">
+<a class="navl" href="#solutions">Solutions</a>
+<a class="navl" href="#realisations">Réalisations</a>
+<a class="navl" href="#methode">Méthode</a>
+<a class="navl" href="#financements">Aides &amp; financements</a>
+<a class="navl" href="#equipe">À propos</a>
+<a class="navl" href="#contact">Contact</a>
+<a class="btn btn-p" href="#contact" style="padding: 11px 16px; font-size: 13px">Prendre un rendez-vous ↗</a>
+</nav>
+</div>
+</header>
+
+<!-- HERO -->
+<section id="accueil" class="band">
+<div class="wrap" style="display: flex; flex-wrap: wrap; gap: 56px; align-items: center; padding: 96px 0">
+<div style="flex: 1 1 540px; min-width: 0">
+<span class="lbl on-dark"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M8 20L28 7M8 20L28 33M28 7L28 33" stroke="#6E70A0" stroke-width="3"></path><circle cx="8" cy="20" r="5.5" fill="#B9BBD3"></circle><circle cx="28" cy="7" r="5.5" fill="#4B7BF5"></circle><circle cx="28" cy="33" r="5.5" fill="#4B7BF5"></circle></svg>Processus · Automatisation · Outils métier</span>
+<h1 style="margin-top: 24px; color: #fff">Moins de tâches manuelles.<br><span class="hl">Plus de temps pour l'essentiel.</span></h1>
+<p style="margin-top: 26px; font-size: 17px; line-height: 1.8; color: #C9CAE0; max-width: 600px">Documents à traiter, informations à ressaisir, relances à effectuer, outils qui ne communiquent pas…</p>
+<p style="margin-top: 12px; font-size: 17px; line-height: 1.8; font-weight: 600; color: #fff; max-width: 600px">KLS3 identifie ce qui ralentit votre entreprise et conçoit les solutions pour simplifier, automatiser et piloter vos opérations.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px">
+<a class="btn btn-p" href="#solutions">Découvrir nos solutions →</a>
+<a class="btn btn-od" href="#docflow">Voir DocFlow en action ▷</a>
+</div>
+<div class="mono" style="display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 40px; font-size: 12px; color: #B9BBD3">
+<span><span style="color: #4B7BF5">●</span> Des opérations plus fluides</span>
+<span><span style="color: #4B7BF5">●</span> Moins d'erreurs</span>
+<span><span style="color: #4B7BF5">●</span> Des équipes plus efficaces</span>
+</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0">
+<div style="background: #fff; color: #12112d; border-radius: 14px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid #E6E5EE">
+<span style="font-weight: 700; font-size: 14px">DocFlow</span>
+<span class="mono" style="font-size: 11px; color: #4F5368">dossiers entrants</span>
+</div>
+<div style="padding: 6px 20px 4px">
+<p style="margin: 14px 0 10px; font-family: Syne, sans-serif; font-weight: 700; font-size: 18px; color: #12112d">Suivi des documents</p>
+<table style="width: 100%; border-collapse: collapse; font-size: 13px">
+<thead><tr class="mono" style="text-align: left; color: #6B6E85; font-size: 11px"><th style="padding: 8px 0; font-weight: 500">DOSSIER</th><th style="padding: 8px 0; font-weight: 500">DOCUMENT</th><th style="padding: 8px 0; font-weight: 500">ÉTAT</th></tr></thead>
+<tbody>
+<tr style="border-top: 1px solid #EEEDF3"><td class="mono" style="padding: 12px 0; color: #6B6E85">DS-0142</td><td>Pièce d'identité</td><td><span class="mono" style="font-size: 11px; font-weight: 600; color: #3A63D8">✓ Validé</span></td></tr>
+<tr style="border-top: 1px solid #EEEDF3"><td class="mono" style="padding: 12px 0; color: #6B6E85">DS-0143</td><td>Justificatif</td><td><span class="mono" style="font-size: 11px; font-weight: 600; color: #3A63D8">✓ Validé</span></td></tr>
+<tr style="border-top: 1px solid #EEEDF3"><td class="mono" style="padding: 12px 0; color: #6B6E85">DS-0144</td><td>Facture</td><td><span class="mono" style="font-size: 11px; font-weight: 600; color: #9A5B00">! À vérifier</span></td></tr>
+<tr style="border-top: 1px solid #EEEDF3"><td class="mono" style="padding: 12px 0; color: #6B6E85">DS-0145</td><td>Contrat</td><td><span class="mono" style="font-size: 11px; font-weight: 600; color: #6B6E85">… En cours</span></td></tr>
+</tbody>
+</table>
+</div>
+<p class="mono" style="padding: 12px 20px; border-top: 1px solid #E6E5EE; font-size: 11px; color: #6B6E85">Données fictives · Illustration du parcours cible</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- RECHERCHE -->
+<section style="padding: 56px 0 0">
+<div class="wrap">
+<div class="card" style="padding: 34px">
+<svg class="node" aria-hidden="true" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M8 20L28 7M8 20L28 33M28 7L28 33" stroke="#C9CAD6" stroke-width="3"></path><circle cx="8" cy="20" r="5.5" fill="#9496AE"></circle><circle cx="28" cy="7" r="5.5" fill="#4B7BF5"></circle><circle cx="28" cy="33" r="5.5" fill="#4B7BF5"></circle></svg>
+<h2 style="font-size: 25px">Qu'est-ce qui ralentit votre entreprise ?</h2>
+<p style="margin-top: 6px; font-size: 14px">Décrivez votre difficulté en quelques mots. Nous vous aidons à identifier les pistes pour la résoudre.</p>
+<form onSubmit="{{onSearch}}" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px">
+<label for="v5-q" style="position: absolute; left: -9999px">Décrire votre problème</label>
+<input id="v5-q" value="{{query}}" onChange="{{onQuery}}" placeholder="Ex. : trop de documents à traiter, des relances manuelles, des outils non connectés…" style="flex: 1 1 360px; min-width: 0; border: 1px solid #D7D6E2; border-radius: 10px; background: #fff; padding: 15px 16px; color: #12112d">
+<button type="submit" class="btn btn-p">Trouver une solution</button>
+</form>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; align-items: center">
+<span class="mono" style="font-size: 11.5px; color: #4F5368; margin-right: 6px">Ou explorez une situation courante :</span>
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="4">
+<button type="button" class="chip" onClick="{{c.pick}}">{{c.label}}</button>
+</sc-for>
+</div>
+<sc-if value="{{hasResult}}" hint-placeholder-val="{{ false }}">
+<div aria-live="polite" style="margin-top: 22px; border-top: 1px solid #E6E5EE; padding-top: 22px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between">
+<div style="flex: 1 1 420px; min-width: 0">
+<p class="mono" style="font-size: 11px; letter-spacing: .1em; color: #3A63D8">PISTE IDENTIFIÉE</p>
+<p style="margin-top: 4px; font-weight: 700; font-size: 19px; color: #12112d">{{resultTitle}}</p>
+<p style="margin-top: 6px">{{resultDesc}}</p>
+<p style="margin-top: 8px; font-size: 12px; color: #6B6E85">Première orientation indicative, sans analyse approfondie de votre entreprise.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<a class="btn btn-p" href="#simulateur">Estimer l'impact →</a>
+<a class="btn btn-o" href="#contact">En parler avec KLS3</a>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</section>
+
+<!-- BANDEAU VIRAGE -->
+<section class="band" style="margin-top: 72px">
+<div class="wrap" style="display: flex; flex-wrap: wrap; gap: 28px 64px; align-items: center; padding: 80px 0">
+<div style="flex: 1 1 560px; min-width: 0">
+<span class="lbl on-dark">Le virage est engagé</span>
+<p style="margin: 18px 0 0; font-family: Syne, sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 42px); line-height: 1.15; letter-spacing: -0.03em; color: #fff">L'IA ne remplacera pas votre entreprise.<br><span class="hl">Une entreprise qui s'en sert, si.</span></p>
+</div>
+<div style="flex: 1 1 340px; min-width: 0">
+<p style="font-size: 15.5px; line-height: 1.8">Le virage est déjà engagé. La question n'est plus de savoir si vous allez le prendre, mais quand, et avec quelle avance. Il faut du courage pour changer une organisation qui fonctionne. Il en faut moins pour commencer par une seule tâche.</p>
+<a class="btn btn-p" href="#contact" style="margin-top: 26px; white-space: normal">Commencer par un diagnostic offert →</a>
+</div>
+</div>
+</section>
+
+<!-- SOLUTIONS -->
+<section id="solutions" class="sec">
+<div class="wrap">
+<span class="lbl"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M8 20L28 7M8 20L28 33M28 7L28 33" stroke="#C9CAD6" stroke-width="3"></path><circle cx="8" cy="20" r="5.5" fill="#9496AE"></circle><circle cx="28" cy="7" r="5.5" fill="#4B7BF5"></circle><circle cx="28" cy="33" r="5.5" fill="#4B7BF5"></circle></svg>Nos solutions</span>
+<h2 style="margin-top: 16px; max-width: 900px">Nous simplifions vos processus.<br>Nous créons les outils qui vont avec.</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 44px">
+<article class="card" style="padding: 30px; display: flex; flex-direction: column; border-color: #4B7BF5; box-shadow: inset 0 3px 0 #4B7BF5">
+<p class="mono" style="font-size: 12px; color: #3A63D8">01 · PRODUIT</p>
+<h3 style="margin-top: 18px">DocFlow</h3>
+<p style="margin-top: 8px; font-weight: 700; font-size: 16px; color: #12112d; line-height: 1.4">Vos documents traités, sans les tâches qui vont avec.</p>
+<p style="margin: 12px 0 24px; font-size: 14px">Collecte, lecture, contrôle des documents et relances automatisées pour des dossiers qui avancent plus facilement.</p>
+<a href="#docflow" style="margin-top: auto; font-weight: 700; font-size: 13px">Découvrir DocFlow →</a>
+</article>
+<article class="card" style="padding: 30px; display: flex; flex-direction: column">
+<p class="mono" style="font-size: 12px; color: #6B6E85">02 · ACCOMPAGNEMENT</p>
+<h3 style="margin-top: 18px">Automatisation &amp; agents IA</h3>
+<p style="margin-top: 8px; font-weight: 700; font-size: 16px; color: #12112d; line-height: 1.4">Vos processus qui tournent en arrière-plan.</p>
+<p style="margin: 12px 0 24px; font-size: 14px">Nous connectons vos outils et mettons en place des automatisations intelligentes pour exécuter vos tâches récurrentes sans intervention manuelle systématique.</p>
+<a href="#contact" style="margin-top: auto; font-weight: 700; font-size: 13px">En savoir plus →</a>
+</article>
+<article class="card" style="padding: 30px; display: flex; flex-direction: column">
+<p class="mono" style="font-size: 12px; color: #6B6E85">03 · SUR MESURE</p>
+<h3 style="margin-top: 18px">Applications sur mesure</h3>
+<p style="margin-top: 8px; font-weight: 700; font-size: 16px; color: #12112d; line-height: 1.4">Des outils qui s'adaptent à votre métier.</p>
+<p style="margin: 12px 0 24px; font-size: 14px">CRM, applications internes, portails clients ou plateformes métier : nous concevons des solutions simples, utiles et évolutives, alignées avec vos besoins.</p>
+<a href="#contact" style="margin-top: auto; font-weight: 700; font-size: 13px">Parlons de votre projet →</a>
+</article>
+</div>
+</div>
+</section>
+
+<!-- BANDEAU MANIFESTE 1 -->
+<section class="band">
+<div class="wrap" style="display: flex; flex-wrap: wrap; gap: 24px 64px; align-items: center; padding: 64px 0">
+<p style="flex: 1 1 520px; min-width: 0; margin: 0; font-family: Syne, sans-serif; font-weight: 700; font-size: clamp(24px, 2.6vw, 36px); line-height: 1.2; letter-spacing: -0.03em; color: #fff">Nous partons de vos enjeux, <span class="hl">pas d'une technologie à vendre.</span></p>
+<p style="flex: 1 1 320px; min-width: 0; font-size: 15px">Pas besoin d'arriver avec un cahier des charges. Nous partons de votre fonctionnement actuel pour construire une solution adaptée.</p>
+</div>
+</section>
+
+<!-- DOCFLOW -->
+<section id="docflow" class="sec">
+<div class="wrap" style="display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div style="flex: 1 1 440px; min-width: 0">
+<span class="lbl"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M8 20L28 7M8 20L28 33M28 7L28 33" stroke="#C9CAD6" stroke-width="3"></path><circle cx="8" cy="20" r="5.5" fill="#9496AE"></circle><circle cx="28" cy="7" r="5.5" fill="#4B7BF5"></circle><circle cx="28" cy="33" r="5.5" fill="#4B7BF5"></circle></svg>Zoom sur DocFlow</span>
+<h2 style="margin-top: 16px">Vos documents arrivent.<br>Vos dossiers <span style="color: #3A63D8">avancent.</span></h2>
+<p style="margin-top: 22px; font-size: 16px; line-height: 1.85">DocFlow vous aide à collecter, lire et contrôler vos documents entrants, à identifier les informations manquantes et à automatiser les relances. Vos équipes gardent la main sur les validations importantes.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px">
+<a class="btn btn-p" href="#contact">Demander une démo →</a>
+<button type="button" class="btn btn-o" onClick="{{reset}}">Découvrir son fonctionnement ▷</button>
+</div>
+<p style="margin-top: 14px; font-size: 12px; color: #6B6E85">Démo illustrative avec des documents fictifs. La solution réelle est en cours de développement.</p>
+</div>
+<div class="card" style="flex: 1 1 520px; min-width: 0; overflow: hidden">
+<div style="display: flex; justify-content: space-between; padding: 16px 22px; background: #12112d; color: #fff">
+<span style="font-weight: 700">DocFlow</span><span class="mono" style="font-size: 11px; color: #B9BBD3">simulation interactive</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; padding: 16px 20px; background: #F3F3F7; border-bottom: 1px solid #E6E5EE">
+<sc-for list="{{steps}}" as="st" hint-placeholder-count="4">
+<button type="button" onClick="{{st.pick}}" style="{{st.style}}">{{st.label}}</button>
+</sc-for>
+</div>
+<div style="padding: 24px 22px">
+<p class="mono" style="font-size: 11px; color: #6B6E85; letter-spacing: .08em">DOSSIER DEMO-024</p>
+<p style="margin-top: 12px; font-family: Syne, sans-serif; font-weight: 700; font-size: 20px; color: #12112d">{{stepTitle}}</p>
+<p style="margin: 8px 0 18px">{{stepText}}</p>
+<div style="height: 6px; background: #ECEBF3; border-radius: 3px; overflow: hidden"><div style="height: 100%; background: #4B7BF5; transition: width .3s; width: {{progress}}"></div></div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px">
+<button type="button" class="btn btn-p" onClick="{{next}}" style="padding: 12px 18px">{{nextLabel}}</button>
+<button type="button" class="btn btn-o" onClick="{{reset}}" style="padding: 11px 18px">Recommencer</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- REALISATIONS -->
+<section id="realisations" class="sec" style="padding-top: 0">
+<div class="wrap">
+<span class="lbl"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M8 20L28 7M8 20L28 33M28 7L28 33" stroke="#C9CAD6" stroke-width="3"></path><circle cx="8" cy="20" r="5.5" fill="#9496AE"></circle><circle cx="28" cy="7" r="5.5" fill="#4B7BF5"></circle><circle cx="28" cy="33" r="5.5" fill="#4B7BF5"></circle></svg>Nos réalisations</span>
+<h2 style="margin-top: 16px">Des solutions concrètes,<br>déjà en action.</h2>
+<p class="lead">Nous concevons des applications autour de besoins métier réels. Voici deux projets qui illustrent notre capacité à transformer une problématique en outil fonctionnel.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; margin-top: 40px">
+<article class="card" style="overflow: hidden">
+<div class="mono" style="height: 220px; background: #F3F3F7; border-bottom: 1px solid #E6E5EE; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #6B6E85">[capture réelle — Sales OS]</div>
+<div style="padding: 28px"><p class="mono" style="font-size: 11px; color: #3A63D8; letter-spacing: .08em">PROJET KLS3</p><h3 style="margin-top: 12px">KLS3 Sales OS</h3><p style="margin-top: 8px; font-weight: 700; color: #12112d">Un outil commercial conçu autour de nos propres besoins.</p><p style="margin: 10px 0 18px; font-size: 14px">Un CRM développé pour organiser notre prospection, centraliser les contacts, suivre les opportunités et piloter notre activité commerciale.</p><a href="#contact" style="font-weight: 700; font-size: 13px">Découvrir le projet →</a></div>
+</article>
+<article class="card" style="overflow: hidden">
+<div class="mono" style="height: 220px; background: #F3F3F7; border-bottom: 1px solid #E6E5EE; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #6B6E85">[capture réelle — Calymia]</div>
+<div style="padding: 28px"><p class="mono" style="font-size: 11px; color: #3A63D8; letter-spacing: .08em">APPLICATION MÉTIER</p><h3 style="margin-top: 12px">Calymia</h3><p style="margin-top: 8px; font-weight: 700; color: #12112d">Une application pensée pour simplifier la gestion des cabinets.</p><p style="margin: 10px 0 18px; font-size: 14px">Un outil métier destiné aux praticiens pour gérer leurs clients, leurs rendez-vous, leurs suivis et certaines communications automatisées.</p><a href="#contact" style="font-weight: 700; font-size: 13px">Découvrir le projet →</a></div>
+</article>
+</div>
+</div>
+</section>
+
+<!-- METHODE -->
+<section id="methode" class="sec" style="background: #F3F3F7; border-top: 1px solid #E6E5EE; border-bottom: 1px solid #E6E5EE">
+<div class="wrap">
+<span class="lbl"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M8 20L28 7M8 20L28 33M28 7L28 33" stroke="#C9CAD6" stroke-width="3"></path><circle cx="8" cy="20" r="5.5" fill="#9496AE"></circle><circle cx="28" cy="7" r="5.5" fill="#4B7BF5"></circle><circle cx="28" cy="33" r="5.5" fill="#4B7BF5"></circle></svg>Notre méthode</span>
+<h2 style="margin-top: 16px">De votre problème<br>à une <span style="color: #3A63D8">solution qui fonctionne.</span></h2>
+<p class="lead">Pas besoin d'arriver avec un cahier des charges. Nous partons de votre fonctionnement actuel pour construire une solution adaptée.</p>
+<div style="position: relative; margin-top: 52px">
+<div aria-hidden="true" style="position: absolute; left: 6px; right: 6px; top: 6px; height: 2px; background: #C9CAD6"></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; position: relative">
+<div><span style="display: block; width: 14px; height: 14px; border-radius: 50%; background: #12112d"></span><p class="mono" style="margin-top: 22px; font-size: 12px; color: #3A63D8">01</p><h3 style="margin-top: 6px">Identifier</h3><p style="margin-top: 8px; font-size: 14px">Nous comprenons vos opérations et repérons ce qui vous ralentit.</p></div>
+<div><span style="display: block; width: 14px; height: 14px; border-radius: 50%; background: #12112d"></span><p class="mono" style="margin-top: 22px; font-size: 12px; color: #3A63D8">02</p><h3 style="margin-top: 6px">Simplifier</h3><p style="margin-top: 8px; font-size: 14px">Nous éliminons les étapes inutiles avant de penser à la technologie.</p></div>
+<div><span style="display: block; width: 14px; height: 14px; border-radius: 50%; background: #12112d"></span><p class="mono" style="margin-top: 22px; font-size: 12px; color: #3A63D8">03</p><h3 style="margin-top: 6px">Automatiser</h3><p style="margin-top: 8px; font-size: 14px">Nous développons et connectons les solutions adaptées à votre métier.</p></div>
+<div><span style="display: block; width: 14px; height: 14px; border-radius: 50%; background: #4B7BF5"></span><p class="mono" style="margin-top: 22px; font-size: 12px; color: #3A63D8">04</p><h3 style="margin-top: 6px">Piloter</h3><p style="margin-top: 8px; font-size: 14px">Nous suivons les résultats et faisons évoluer la solution avec vos besoins.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SIMULATEUR -->
+<section id="simulateur" class="sec">
+<div class="wrap">
+<span class="lbl"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M8 20L28 7M8 20L28 33M28 7L28 33" stroke="#C9CAD6" stroke-width="3"></path><circle cx="8" cy="20" r="5.5" fill="#9496AE"></circle><circle cx="28" cy="7" r="5.5" fill="#4B7BF5"></circle><circle cx="28" cy="33" r="5.5" fill="#4B7BF5"></circle></svg>Simulateur KLS3</span>
+<h2 style="margin-top: 16px">Estimez l'impact de vos<br>frictions opérationnelles.</h2>
+<p class="lead">Identifiez les ressources mobilisées par vos tâches répétitives et découvrez les pistes d'amélioration possibles.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 18px; margin-top: 40px">
+<div class="card" style="flex: 1 1 460px; min-width: 0; padding: 32px">
+<label for="v5-dom" style="display: block; font-weight: 700; font-size: 13px; color: #12112d">1. Votre domaine principal</label>
+<select id="v5-dom" value="{{domain}}" onChange="{{onDomain}}" style="width: 100%; margin-top: 10px; padding: 13px 14px; border: 1px solid #D7D6E2; border-radius: 10px; background: #fff; color: #12112d">
+<option value="administratif">Administratif &amp; documents</option>
+<option value="commercial">Commercial &amp; prospection</option>
+<option value="finance">Finance &amp; comptabilité</option>
+<option value="rh">Ressources humaines</option>
+<option value="production">Production &amp; opérations</option>
+<option value="support">Service client</option>
+</select>
+<p style="margin: 10px 0 26px; font-size: 12.5px; border-left: 2px solid #4B7BF5; padding: 2px 0 2px 12px">{{domainExample}}</p>
+<label for="v5-h" style="display: flex; justify-content: space-between; font-weight: 700; font-size: 13px; color: #12112d"><span>2. Temps consacré chaque semaine</span><span class="mono gain">{{hours}} h</span></label>
+<input id="v5-h" type="range" min="1" max="80" value="{{hours}}" onChange="{{onHours}}" style="width: 100%; margin: 12px 0 24px">
+<label for="v5-r" style="display: flex; justify-content: space-between; font-weight: 700; font-size: 13px; color: #12112d"><span>3. Coût horaire chargé estimé</span><span class="mono gain">{{rate}} €</span></label>
+<input id="v5-r" type="range" min="15" max="120" step="5" value="{{rate}}" onChange="{{onRate}}" style="width: 100%; margin: 12px 0 18px">
+<button type="button" class="btn btn-o" onClick="{{toggleAdv}}" style="padding: 10px 14px; font-size: 13px; white-space: normal">{{advLabel}}</button>
+<sc-if value="{{showAdv}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 18px">
+<label for="v5-x" style="display: block; font-weight: 700; font-size: 13px; color: #12112d">Coûts supplémentaires vérifiés par an (€)</label>
+<input id="v5-x" type="number" min="0" value="{{extra}}" onChange="{{onExtra}}" style="width: 100%; box-sizing: border-box; margin-top: 8px; padding: 12px; border: 1px solid #D7D6E2; border-radius: 10px">
+<p style="margin-top: 6px; font-size: 11.5px">N'ajoutez pas ici des heures déjà prises en compte ci-dessus.</p>
+</div>
+</sc-if>
+</div>
+<div class="band" style="flex: 1 1 400px; min-width: 0; border-radius: 14px; padding: 34px; display: flex; flex-direction: column">
+<p class="mono" style="font-size: 11px; letter-spacing: .12em">CHARGE ANNUELLE ESTIMÉE</p>
+<p class="mono" style="margin-top: 14px; font-weight: 600; font-size: clamp(38px, 4vw, 52px); letter-spacing: -0.03em; color: #fff">{{total}}</p>
+<p class="mono" style="margin-top: 4px; font-size: 13px">{{annualHours}} heures mobilisées par an</p>
+<div class="mono" style="margin-top: 24px; border-top: 1px solid #34345A; font-size: 12.5px">
+<div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #262648"><span style="color: #B9BBD3">Temps consacré aux tâches</span><strong style="color: #fff">{{baseCost}}</strong></div>
+<div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #262648"><span style="color: #B9BBD3">Coûts supplémentaires déclarés</span><strong style="color: #fff">{{extraCost}}</strong></div>
+</div>
+<p style="margin: 20px 0 24px; font-size: 13px">Ce montant représente le coût du fonctionnement actuel, pas un gain financier garanti.</p>
+<a class="btn btn-p" href="#contact" style="margin-top: auto; align-self: flex-start; white-space: normal">Identifier mes pistes d'amélioration →</a>
+</div>
+</div>
+<p style="margin-top: 14px; font-size: 12px; color: #6B6E85">ⓘ Hypothèse de 52 semaines par an. L'estimation dépend des chiffres renseignés, sans taux de gain arbitraire. Un diagnostic peut déterminer les améliorations réellement envisageables.</p>
+</div>
+</section>
+
+<!-- BANDEAU MANIFESTE 2 -->
+<section class="band">
+<div class="wrap" style="display: flex; flex-wrap: wrap; gap: 24px 64px; align-items: center; padding: 64px 0">
+<p style="flex: 1 1 520px; min-width: 0; margin: 0; font-family: Syne, sans-serif; font-weight: 700; font-size: clamp(24px, 2.6vw, 36px); line-height: 1.2; letter-spacing: -0.03em; color: #fff">Un besoin précis, <span class="hl">une première amélioration concrète.</span></p>
+<p style="flex: 1 1 320px; min-width: 0; font-size: 15px">Nous avançons à votre rythme, sans bouleverser vos outils existants.</p>
+</div>
+</section>
+
+<!-- FINANCEMENTS -->
+<section id="financements" class="sec">
+<div class="wrap" style="display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 420px; min-width: 0">
+<span class="lbl"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M8 20L28 7M8 20L28 33M28 7L28 33" stroke="#C9CAD6" stroke-width="3"></path><circle cx="8" cy="20" r="5.5" fill="#9496AE"></circle><circle cx="28" cy="7" r="5.5" fill="#4B7BF5"></circle><circle cx="28" cy="33" r="5.5" fill="#4B7BF5"></circle></svg>Aides &amp; financements</span>
+<h2 style="margin-top: 16px">Votre projet mérite d'explorer <span style="color: #3A63D8">toutes les possibilités.</span></h2>
+<p class="lead" style="font-size: 16px">Selon votre activité, votre localisation et la nature de votre projet, des dispositifs de financement peuvent accompagner votre transformation numérique.</p>
+<a class="btn btn-o" href="#contact" style="margin-top: 26px; white-space: normal">Étudier les possibilités de financement →</a>
+<p style="margin-top: 14px; font-size: 11.5px; color: #6B6E85">Sous réserve des critères d'éligibilité et des dispositifs en vigueur. Aucune aide n'est garantie.</p>
+</div>
+<div style="flex: 1 1 460px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px">
+<div class="card" style="padding: 24px"><p class="mono" style="font-size: 11px; color: #3A63D8">RÉG</p><h3 style="margin-top: 10px; font-size: 15px; font-family: Inter, sans-serif; letter-spacing: 0">Aides régionales</h3><p style="margin-top: 6px; font-size: 12.5px">Selon votre implantation et votre projet.</p></div>
+<div class="card" style="padding: 24px"><p class="mono" style="font-size: 11px; color: #3A63D8">NAT</p><h3 style="margin-top: 10px; font-size: 15px; font-family: Inter, sans-serif; letter-spacing: 0">Dispositifs nationaux</h3><p style="margin-top: 6px; font-size: 12.5px">Selon l'activité et la nature des investissements.</p></div>
+<div class="card" style="padding: 24px"><p class="mono" style="font-size: 11px; color: #3A63D8">EU</p><h3 style="margin-top: 10px; font-size: 15px; font-family: Inter, sans-serif; letter-spacing: 0">Programmes européens</h3><p style="margin-top: 6px; font-size: 12.5px">Pour certains projets éligibles.</p></div>
+</div>
+</div>
+</section>
+
+<!-- POURQUOI -->
+<section id="equipe" class="sec" style="background: #F3F3F7; border-top: 1px solid #E6E5EE">
+<div class="wrap">
+<span class="lbl"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M8 20L28 7M8 20L28 33M28 7L28 33" stroke="#C9CAD6" stroke-width="3"></path><circle cx="8" cy="20" r="5.5" fill="#9496AE"></circle><circle cx="28" cy="7" r="5.5" fill="#4B7BF5"></circle><circle cx="28" cy="33" r="5.5" fill="#4B7BF5"></circle></svg>Pourquoi choisir KLS3 ?</span>
+<h2 style="margin-top: 16px">Un partenaire opérationnel,<br>engagé <span style="color: #3A63D8">à vos côtés.</span></h2>
+<p class="lead">Nous combinons compréhension métier, expertise technologique et accompagnement direct pour transformer vos besoins en solutions concrètes.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 18px; margin-top: 40px; align-items: stretch">
+<div class="band" style="flex: 1 1 360px; min-width: 0; min-height: 320px; border-radius: 14px; padding: 30px; display: flex; flex-direction: column; justify-content: flex-end">
+<p class="mono" style="margin-bottom: auto; font-size: 11px">[photo réelle Éric &amp; Lilian]</p>
+<p style="font-family: Syne, sans-serif; font-weight: 700; font-size: 28px; line-height: 1.1; letter-spacing: -0.03em; color: #fff">Éric &amp; Lilian</p>
+<p style="margin-top: 8px">Une équipe. Pas une agence.</p>
+</div>
+<div style="flex: 1 1 480px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px">
+<div class="card" style="padding: 24px"><p class="mono" style="font-size: 11px; color: #3A63D8">01</p><h3 style="margin-top: 10px; font-size: 16px; font-family: Inter, sans-serif; letter-spacing: 0">Une approche orientée résultats</h3><p style="margin-top: 6px; font-size: 13.5px">Nous partons de vos enjeux, pas d'une technologie à vendre.</p></div>
+<div class="card" style="padding: 24px"><p class="mono" style="font-size: 11px; color: #3A63D8">02</p><h3 style="margin-top: 10px; font-size: 16px; font-family: Inter, sans-serif; letter-spacing: 0">Une expertise transversale</h3><p style="margin-top: 6px; font-size: 13.5px">Processus, automatisation, intelligence artificielle et développement d'applications.</p></div>
+<div class="card" style="padding: 24px"><p class="mono" style="font-size: 11px; color: #3A63D8">03</p><h3 style="margin-top: 10px; font-size: 16px; font-family: Inter, sans-serif; letter-spacing: 0">Une équipe directement impliquée</h3><p style="margin-top: 6px; font-size: 13.5px">Vous échangez avec les personnes qui portent votre projet.</p></div>
+<div class="card" style="padding: 24px"><p class="mono" style="font-size: 11px; color: #3A63D8">04</p><h3 style="margin-top: 10px; font-size: 16px; font-family: Inter, sans-serif; letter-spacing: 0">Des solutions adaptées à votre environnement</h3><p style="margin-top: 6px; font-size: 13.5px">Vos outils, vos contraintes et vos exigences de sécurité sont pris en compte dès la conception.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="band">
+<div class="wrap" style="padding: 104px 0; text-align: center">
+<span class="lbl on-dark"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M8 20L28 7M8 20L28 33M28 7L28 33" stroke="#6E70A0" stroke-width="3"></path><circle cx="8" cy="20" r="5.5" fill="#B9BBD3"></circle><circle cx="28" cy="7" r="5.5" fill="#4B7BF5"></circle><circle cx="28" cy="33" r="5.5" fill="#4B7BF5"></circle></svg>Passer à l'action</span>
+<h2 style="margin: 18px auto 0; max-width: 760px; color: #fff">Et si on parlait de <span class="hl">votre projet ?</span></h2>
+<p style="margin: 18px auto 0; max-width: 580px; font-size: 16px">Un échange sans engagement pour comprendre vos enjeux, explorer les solutions possibles et identifier les premières pistes d'action.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; max-width: 840px; margin: 40px auto 0; text-align: left">
+<div style="background: #fff; border-radius: 14px; padding: 30px"><h3 style="color: #12112d">Prendre un rendez-vous</h3><p style="margin: 10px 0 24px; font-size: 14px">Échangeons sur vos besoins et vos objectifs.</p><a class="btn btn-p" href="#contact" style="width: 100%; box-sizing: border-box">Demander un rendez-vous →</a></div>
+<div style="border: 1px solid #34345A; border-radius: 14px; padding: 30px"><h3 style="color: #fff">Demander une démonstration</h3><p style="margin: 10px 0 24px; font-size: 14px">Découvrez DocFlow en action et ses possibilités.</p><a class="btn btn-od" href="#docflow" style="width: 100%; box-sizing: border-box">Demander une démo →</a></div>
+</div>
+</div>
+</section>
+
+<footer style="background: #0b0b1f; color: #9496AE; font-size: 12px">
+<div class="wrap" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; padding: 34px 0">
+<span><span style="font-family: Syne, sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.02em; color: #fff">KLS<span style="color: #4B7BF5">3</span></span> <span class="mono">· Operational Intelligence</span><br>© 2026 KLS3 · Tous droits réservés</span>
+<span style="display: flex; flex-wrap: wrap; gap: 16px"><a href="#solutions" style="color: #9496AE">Solutions</a><a href="#realisations" style="color: #9496AE">Réalisations</a><a href="#methode" style="color: #9496AE">Méthode</a><a href="#financements" style="color: #9496AE">Aides</a><a href="#contact" style="color: #9496AE">Contact</a></span>
+<span><a href="#accueil" style="color: #9496AE">Mentions légales</a> · <a href="#accueil" style="color: #9496AE">Politique de confidentialité</a></span>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":7200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { step: 0, query: "", result: null, domain: "administratif", hours: 15, rate: 50, extra: 0, adv: false };
+  }
+  classify(q) {
+    const s = q.toLowerCase();
+    if (/document|facture|justificatif|contrat|pi[eè]ce|classement|dossier|ocr/.test(s)) return ["DocFlow — Gestion documentaire", "Une première piste consiste à structurer la collecte, la lecture, les contrôles et le suivi des pièces. Selon votre activité, DocFlow ou une automatisation dédiée pourrait être pertinent."];
+    if (/crm|logiciel|application|outil m[eé]tier|plateforme|portail|tableau de bord/.test(s)) return ["Applications métier sur mesure", "Votre problématique pourrait justifier un outil dédié ou l'évolution de vos logiciels actuels. L'objectif est de partir de vos usages avant de choisir l'architecture."];
+    if (/email|e-mail|relance|répétiti|repetiti|automatis|connect|saisie|reporting|support|service client/.test(s)) return ["Automatisation & agents IA", "Il pourrait être utile de simplifier les étapes, connecter les outils et automatiser certaines tâches avec des contrôles adaptés."];
+    return ["Analysons votre situation", "Votre besoin peut relever d'une simplification de processus, d'une automatisation ou d'un outil sur mesure. Un échange permettrait de choisir une piste réellement adaptée."];
+  }
+  renderVals() {
+    const st = this.state;
+    const euro = (v) => Math.round(v).toLocaleString("fr-FR") + " €";
+    const chipsData = [
+      ["Gérer mes documents", "Je dois collecter, contrôler et suivre de nombreux documents"],
+      ["Automatiser des tâches", "Mes équipes passent beaucoup de temps sur des tâches répétitives et des relances"],
+      ["Connecter mes outils", "Nos logiciels et outils ne communiquent pas entre eux"],
+      ["Créer un outil métier", "Nous avons besoin d'une application métier adaptée à notre activité"]
+    ];
+    const stages = [
+      ["Le document est reçu", "Une pièce est ajoutée au dossier fictif du client. La collecte des documents est centralisée."],
+      ["Les informations sont extraites", "Les champs utiles du document sont identifiés et structurés pour préparer les contrôles."],
+      ["Une vérification est nécessaire", "Une incohérence ou une pièce manquante est signalée pour validation humaine."],
+      ["Le dossier est suivi", "Une relance peut être préparée puis envoyée selon les règles définies et les validations nécessaires."]
+    ];
+    const labels = ["01 Réception", "02 Lecture", "03 Contrôle", "04 Suivi"];
+    const s = st.step;
+    const steps = labels.map((label, i) => ({
+      label,
+      pick: () => this.setState({ step: i }),
+      style: "font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; border-radius: 8px; padding: 10px 4px; cursor: pointer; " +
+        (i === s ? "background: #12112d; color: #fff; border: 1px solid #12112d" : i < s ? "background: #fff; color: #3A63D8; border: 1px solid #4B7BF5" : "background: #fff; color: #4F5368; border: 1px solid #D7D6E2")
+    }));
+    const examples = {
+      administratif: "Ex. : collecte et contrôle de documents, classement, suivi de dossiers, relances…",
+      commercial: "Ex. : préparation des propositions, saisies CRM, relances commerciales, suivi des opportunités…",
+      finance: "Ex. : rapprochements, validation des factures, reporting, ressaisies…",
+      rh: "Ex. : arrivée des collaborateurs, collecte des pièces, suivi des demandes et congés…",
+      production: "Ex. : planification, suivi des interventions, contrôles qualité, tableaux de bord…",
+      support: "Ex. : tri des demandes, réponses récurrentes, transmission et suivi des tickets…"
+    };
+    const base = st.hours * st.rate * 52;
+    const x = Math.max(0, Number(st.extra) || 0);
+    return {
+      query: st.query,
+      onQuery: (e) => this.setState({ query: e.target.value }),
+      onSearch: (e) => { e.preventDefault(); const q = st.query.trim(); if (q) this.setState({ result: this.classify(q) }); },
+      chips: chipsData.map(([label, q]) => ({ label, pick: () => this.setState({ query: q, result: this.classify(q) }) })),
+      hasResult: !!st.result,
+      resultTitle: st.result ? st.result[0] : "",
+      resultDesc: st.result ? st.result[1] : "",
+      steps,
+      stepTitle: stages[s][0],
+      stepText: stages[s][1],
+      progress: ((s + 1) * 25) + "%",
+      next: () => this.setState({ step: (s + 1) % 4 }),
+      nextLabel: s === 3 ? "Recommencer ↻" : "Étape suivante →",
+      reset: () => this.setState({ step: 0 }),
+      domain: st.domain,
+      domainExample: examples[st.domain],
+      onDomain: (e) => this.setState({ domain: e.target.value }),
+      hours: st.hours,
+      rate: st.rate,
+      onHours: (e) => this.setState({ hours: Number(e.target.value) }),
+      onRate: (e) => this.setState({ rate: Number(e.target.value) }),
+      extra: st.extra,
+      onExtra: (e) => this.setState({ extra: e.target.value }),
+      showAdv: st.adv,
+      toggleAdv: () => this.setState({ adv: !st.adv }),
+      advLabel: st.adv ? "− Masquer les coûts spécifiques" : "+ Ajouter des coûts spécifiques (facultatif)",
+      total: euro(base + x),
+      annualHours: (st.hours * 52).toLocaleString("fr-FR"),
+      baseCost: euro(base),
+      extraCost: euro(x)
+    };
+  }
+}
+</script>
+</body>
+</html>

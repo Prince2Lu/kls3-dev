@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { realisations } from '@/lib/data/home'
 import { hasPublicFile } from '@/lib/home/assets'
+import SectionLabel from './SectionLabel'
 import s from './home.module.css'
 
 export default function Realisations() {
@@ -8,15 +9,13 @@ export default function Realisations() {
     <section id="realisations" className={`${s.section} ${s.realizations}`}>
       <div className={s.wrap}>
         <div className={s['title-space']}>
-          <span className={s.tag}>{realisations.tag}</span>
+          <SectionLabel>{realisations.tag}</SectionLabel>
           <h2>
             {realisations.titleLine1}
             <br />
             {realisations.titleLine2}
           </h2>
-          <p className={s.lead} style={{ marginInline: 'auto' }}>
-            {realisations.lead}
-          </p>
+          <p className={s.lead}>{realisations.lead}</p>
         </div>
         <ProjectCards />
       </div>
@@ -41,21 +40,13 @@ export function ProjectCards({ withCta = true }: { withCta?: boolean }) {
               />
             </div>
           ) : (
-            <div className={`${s.fakeapp} ${project.variant === 'well' ? s.well : ''}`}>
-              <div className={s['fake-window']}>
-                <strong>{project.windowTitle}</strong>
-                <div className={s['fake-lines']}>
-                  <span />
-                  <span style={project.variant === 'well' ? { background: '#d8f5e3' } : undefined} />
-                  <span />
-                </div>
-                <small>{realisations.placeholderNote}</small>
-              </div>
+            <div className={s.fakeapp}>
+              [{realisations.placeholderNote} · {project.windowTitle}]
             </div>
           )}
           <div className={s['project-desc']}>
-            <span className={s.tag}>{project.tag}</span>
-            <h3 style={{ marginTop: 15 }}>{project.title}</h3>
+            <p className={`${s.num} ${s.blue}`}>{project.tag}</p>
+            <h3>{project.title}</h3>
             <strong>{project.punchline}</strong>
             <p>{project.text}</p>
             {withCta && <a href="#contact">{project.cta}</a>}

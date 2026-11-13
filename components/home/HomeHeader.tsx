@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { ChevronDown, Menu } from 'lucide-react'
 import Logo from '@/components/ui/Logo'
 import { headerCtas, headerNav, solutionsMenu } from '@/lib/data/home'
+import Wordmark from './Wordmark'
 import s from './home.module.css'
 
 // base : '' sur la homepage, '/' sur les autres pages (les ancres renvoient alors vers la home)
@@ -57,7 +58,7 @@ export default function HomeHeader({ base = '' }: { base?: string }) {
       <div className={s.wrap}>
         <a href={base ? '/' : '#accueil'} className={s.brand} aria-label="KLS3 — Accueil">
           <Logo />
-          <strong>KLS3</strong>
+          <Wordmark />
           <small>
             OPERATIONAL
             <br />

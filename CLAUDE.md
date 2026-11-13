@@ -28,11 +28,31 @@ audit, no-code, workflow, GPT, ChatGPT, stack technique, cabinet d'avocats, expe
 
 ### Design system
 
-- Fond : #0D0D0D
-- Accent : #4B7BF5
-- Texte : #F0EDE8
-- Typographie : Syne (titres) / Inter (corps)
-- Le "3" de KLS3 est TOUJOURS en #4B7BF5
+**V5 (validé Eric & Lilian, référence `docs/maquette-v5.html`)** — homepage et pages `/solutions/*` (`components/home/home.module.css`, tokens aussi dans `tailwind.config.ts` sous `kls`) :
+
+| Token | Valeur | Usage |
+|---|---|---|
+| `--ink` | #12112d | texte principal, bandeaux sombres, hero |
+| `--ink-deep` | #0b0b1f | footer |
+| `--paper` | #FAFAF8 | fond de page |
+| `--paper-2` | #F3F3F7 | sections alternées, placeholders |
+| `--line` | #E6E5EE | bordures de cartes, séparateurs |
+| `--line-strong` | #C9CAD6 / #D7D6E2 | bordures de champs, boutons outline |
+| `--text-2` | #4F5368 | texte secondaire |
+| `--text-3` | #6B6E85 | mentions, notes |
+| `--on-dark` | #B9BBD3 | texte secondaire sur fond sombre |
+| `--blue` | #4B7BF5 | couleur de sens |
+| `--blue-text` | #3A63D8 | bleu pour texte et liens sur fond clair (contraste ≥ 4.5:1) |
+| `--warn` | #9A5B00 | statut « à vérifier » |
+| `--cta` | linear-gradient(110deg,#7139fa,#4B7BF5) | uniquement les boutons principaux |
+
+- **Bleu = couleur de sens** : ce qui avance, est gagné ou validé. Le violet n'existe plus que dans le dégradé des boutons principaux et dans le logo.
+- Typographie : Syne (titres, `wght@400..800`) / Inter (texte) / JetBrains Mono (labels de section, numéros, identifiants, statuts, valeurs du simulateur).
+- Labels de section : mono 11.5px uppercase précédés du motif logo (`components/ui/LogoMotif.tsx`).
+- Surligneur bleu (`.hl`) sur les fins de titres fortes.
+- **Wordmark KLS3** : Syne 700, letter-spacing -0.02em, le "3" TOUJOURS en #4B7BF5 (`components/home/Wordmark.tsx`).
+
+Ancien site (pages hors home/solutions) : fond #0D0D0D, accent #4B7BF5, texte #F0EDE8.
 
 ---
 
