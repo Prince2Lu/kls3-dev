@@ -29,11 +29,19 @@ export const homeMeta = {
 
 export const headerNav = [
   { href: '#solutions', label: 'Solutions' },
-  { href: '#realisations', label: 'Projets' },
+  { href: '#realisations', label: 'Réalisations' },
   { href: '#methode', label: 'Méthode' },
   { href: '#financements', label: 'Aides & financements' },
   { href: '#equipe', label: 'À propos' },
   { href: '#contact', label: 'Contact' },
+]
+
+// Sous-menu de l'entrée « Solutions » du header
+export const solutionsMenu = [
+  { href: '/solutions/docflow', label: 'DocFlow' },
+  { href: '/solutions/agents-ia', label: 'Agents IA' },
+  { href: '/solutions/sur-mesure', label: 'Sur mesure' },
+  { href: '/#solutions', label: 'Toutes nos solutions' },
 ]
 
 export const headerCtas = {
@@ -102,7 +110,7 @@ export const solutions = {
       punchline: 'Vos documents traités, sans les tâches qui vont avec.',
       text: 'Collecte, lecture, contrôle des documents et relances automatisées pour des dossiers qui avancent plus facilement.',
       cta: 'Découvrir DocFlow →',
-      href: '#docflow',
+      href: '/solutions/docflow',
     },
     {
       icon: Workflow,
@@ -111,7 +119,7 @@ export const solutions = {
       punchline: 'Vos processus qui tournent en arrière-plan.',
       text: 'Nous connectons vos outils et mettons en place des automatisations intelligentes pour exécuter vos tâches récurrentes sans intervention manuelle systématique.',
       cta: 'En savoir plus →',
-      href: '#contact',
+      href: '/solutions/agents-ia',
     },
     {
       icon: LayoutGrid,
@@ -120,7 +128,7 @@ export const solutions = {
       punchline: "Des outils qui s'adaptent à votre métier.",
       text: 'CRM, applications internes, portails clients ou plateformes métier : nous concevons des solutions simples, utiles et évolutives, alignées avec vos besoins.',
       cta: 'Parlons de votre projet →',
-      href: '#contact',
+      href: '/solutions/sur-mesure',
     },
   ] satisfies {
     icon: LucideIcon
@@ -329,7 +337,7 @@ export const homeFooter = {
   copyright: '© 2026 KLS3 · Tous droits réservés',
   links: [
     { href: '#solutions', label: 'Solutions' },
-    { href: '#realisations', label: 'Projets' },
+    { href: '#realisations', label: 'Réalisations' },
     { href: '#methode', label: 'Méthode' },
     { href: '#financements', label: 'Aides' },
     { href: '#contact', label: 'Contact' },

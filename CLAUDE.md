@@ -13,7 +13,7 @@ Cabinet d'intelligence opérationnelle pour les entreprises de 10 à 1000 person
 KLS3 identifie et élimine les frictions opérationnelles invisibles : tâches répétitives, données dispersées, relances manuelles, manque de visibilité, processus fragiles.
 
 **MOTS INTERDITS dans tout contenu visible :**
-audit, no-code, workflow, agent IA, GPT, ChatGPT, stack technique, cabinet d'avocats, expert-comptable, LegalTech
+audit, no-code, workflow, GPT, ChatGPT, stack technique, cabinet d'avocats, expert-comptable, LegalTech
 
 ---
 
@@ -42,6 +42,9 @@ audit, no-code, workflow, agent IA, GPT, ChatGPT, stack technique, cabinet d'avo
 - /cas-clients — Cas concrets
 - /contact — Formulaire
 - /blog + /blog/[slug] — Blog MDX
+- /solutions/docflow — Solution DocFlow
+- /solutions/agents-ia — Solution Agents IA
+- /solutions/sur-mesure — Solution Applications sur mesure
 
 **Pages supprimées :** /frictions, /solutions, /methode, /missions, /agents-ia, /saas
 

@@ -38,6 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1.0,
     },
+    ...['docflow', 'agents-ia', 'sur-mesure'].map((slug) => ({
+      url: `${BASE_URL}/solutions/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    })),
     {
       url: `${BASE_URL}/blog`,
       lastModified: new Date(),

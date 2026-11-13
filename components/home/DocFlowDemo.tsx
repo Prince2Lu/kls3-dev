@@ -51,7 +51,7 @@ export default function DocFlowDemo() {
         <div className={s.progress}>
           <div style={{ width: `${(step + 1) * 25}%` }} />
         </div>
-        <div style={{ marginTop: 22, display: 'flex', gap: 10 }}>
+        <div style={{ marginTop: 22, display: 'flex', flexWrap: 'wrap', gap: 10 }}>
           <button
             type="button"
             className={`${s.btn} ${s['btn-primary']}`}

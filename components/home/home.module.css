@@ -3,8 +3,8 @@
 .root *{box-sizing:border-box}
 .root h1,.root h2,.root h3,.root h4,.root p{margin:0}
 .root h1,.root h2,.root h3,.root h4{font-family:Syne,Inter,sans-serif;line-height:1.13;letter-spacing:-.045em;color:inherit;font-weight:700}
-.root h1{font-size:clamp(40px,4.8vw,72px)}
-.root h2{font-size:clamp(31px,3.8vw,54px)}
+.root h1{font-size:clamp(34px,4.08vw,61px)}
+.root h2{font-size:clamp(26px,3.23vw,46px)}
 .root h3{font-size:22px}
 .root p{color:#62667e}
 .root button,.root input,.root select,.root textarea{font:inherit}
@@ -45,7 +45,7 @@
 .root .hero h1{margin-top:22px}
 .root .hero h1 span{display:block}
 .root .hero p{color:#d8d7e9;max-width:620px;margin-top:24px;font-size:17px;line-height:1.8}
-.root .hero .smalldesc{margin-top:12px;font-size:14px;font-weight:600;color:#fff}
+.root .hero .smalldesc{margin-top:12px;font-weight:600;color:#fff}
 .root .hero .actions{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
 .root .hero .btn-outline{border-color:#7f789a;color:white}
 .root .hero-benefits{display:flex;gap:22px;margin-top:43px;color:#f1ecff;font-size:12px;font-weight:600}
@@ -63,7 +63,7 @@
 .root .work{background:#eceaff;color:#5a38cb}
 .root .search-section{padding:34px 0 20px;background:#fff}
 .root .searchbox{padding:30px 32px;border-radius:28px;background:linear-gradient(110deg,#f5f1ff,#efeafe);border:1px solid #ebe2ff;box-shadow:0 16px 25px #582cb30c}
-.root .searchbox h2{font-size:29px}
+.root .searchbox h2{font-size:25px}
 .root .searchbox p{font-size:14px;margin-top:4px}
 .root .searchrow{display:flex;margin-top:22px;gap:9px}
 .root .searchrow input{flex:1;min-width:0;border:1px solid #dad0fa;border-radius:12px;background:#fff;padding:16px;color:var(--ink);outline:none}
@@ -198,5 +198,50 @@
 .root .formactions .btn{width:100%}
 .root .turnstile{margin-top:16px}
 
-@media(max-width:1050px){.root .nav{gap:11px}.root .nav-ctas .btn-outline{display:none}.root .hero .wrap{gap:25px}.root .methodsteps{gap:12px}.root .methodcard{padding:18px}.root .fundgrid{gap:30px}}
-@media(max-width:760px){.root .header{height:68px}.root .header .nav{display:none}.root .header .nav.show{display:flex;position:absolute;top:68px;left:0;right:0;background:#fff;flex-direction:column;padding:22px;align-items:flex-start;box-shadow:0 15px 25px #0002}.root .menu{display:block}.root .nav-ctas{display:none}.root .wrap{width:min(100% - 36px,1190px)}.root .hero .wrap,.root .docgrid,.root .fundgrid,.root .whygrid,.root .simulator{grid-template-columns:1fr}.root .hero .wrap{padding:68px 0;min-height:0}.root .hero .screen{transform:none}.root .hero-benefits{gap:12px;flex-wrap:wrap}.root .hero-benefits span{padding-right:12px}.root .section{padding:74px 0}.root .grid3,.root .projectgrid,.root .methodsteps,.root .fundcards,.root .endcards{grid-template-columns:1fr}.root .methodsteps{gap:12px}.root .methodcard{min-height:auto}.root .searchrow{flex-direction:column}.root .searchbox{padding:23px}.root .searchbox h2{font-size:24px}.root .docgrid{gap:28px}.root .simulator{padding:22px;gap:18px}.root .sim-disclaimer{grid-column:auto}.root .whyphoto{min-height:260px}.root .fundcards{gap:10px}.root .title-space{text-align:left}.root .hero h1{font-size:42px}.root .hero .btn,.root .docgrid .btn{width:100%}.root .hero .actions,.root .docgrid .actions{flex-direction:column}.root .dialog{padding:24px}.root .fields{grid-template-columns:1fr}.root .dialog h2{font-size:24px}}
+/* Simulateur : le bouton « + Ajouter des coûts spécifiques » peut passer à la ligne (375 px) */
+.root .simulator>*{min-width:0}
+.root .sim-controls .btn{white-space:normal;max-width:100%;text-align:center}
+
+/* Menu déroulant « Solutions » du header */
+.root .dropdown{position:relative}
+.root .dropdownToggle{display:inline-flex;align-items:center;gap:4px;border:0;background:none;padding:0;color:inherit;font:inherit}
+.root .dropdownToggle:hover{color:var(--purple)}
+.root .dropdownToggle svg{transition:transform .2s}
+.root .dropdown.open .dropdownToggle svg{transform:rotate(180deg)}
+.root .submenu{display:none;position:absolute;top:100%;left:-16px;min-width:220px;padding:10px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px #25196822;z-index:40}
+.root .submenu::before{content:'';position:absolute;left:0;right:0;top:-14px;height:14px}
+.root .submenu a{display:block;padding:10px 12px;border-radius:10px}
+.root .submenu a:hover,.root .submenu a:focus-visible{background:var(--pale);color:var(--purple)}
+.root .submenu a:last-child{margin-top:6px;border-top:1px solid var(--line);border-radius:0 0 10px 10px}
+.root .dropdown:hover .submenu,.root .dropdown.open .submenu{display:block;margin-top:12px}
+
+/* Pages solutions (/solutions/*) */
+.root .solhero .wrap{grid-template-columns:minmax(0,860px);min-height:480px}
+.root .solhero p{max-width:720px}
+.root .solproblem h2,.root .solneeds h2{margin-top:20px;max-width:900px}
+.root .solneeds h2{margin-top:0}
+.root .solfeatures,.root .solfaq{background:#faf8ff}
+.root .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.root .solcard{min-height:0}
+.root .solcard p{margin-bottom:0}
+.root .checklist{list-style:none;margin:34px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 34px}
+.root .checklist li{display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.6;color:#3c3f58}
+.root .checklist svg{color:var(--purple);margin-top:2px}
+.root .method>.wrap>h2{margin-top:0}
+.root .mention{display:inline-block;margin-left:10px;border-radius:999px;background:#bca3ff33;color:#e4d8ff;padding:3px 10px;font-size:11px;font-weight:700}
+.root .solpoint{padding:26px;display:flex;gap:16px;align-items:flex-start}
+.root .solpoint .ic{height:45px;min-width:45px;border-radius:13px;background:#ebe1ff;display:grid;place-items:center;color:#6827da}
+.root .solpoint p{font-size:14px}
+.root .solnote{text-align:center;margin-top:28px}
+.root .faq{max-width:820px;margin:auto;display:grid;gap:12px}
+.root .faq details{border-radius:18px;padding:0 24px}
+.root .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-weight:750;font-size:16px}
+.root .faq summary::-webkit-details-marker{display:none}
+.root .faq summary svg{color:var(--purple);transition:transform .2s}
+.root .faq details[open] summary svg{transform:rotate(180deg)}
+.root .faq details p{padding:0 0 20px;font-size:15px}
+.root .endactions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.root .btn-light{color:#fff;border-color:#8d7fae}
+
+@media(max-width:1050px){.root .header .nav{display:none}.root .header .nav.show{display:flex;position:absolute;top:78px;left:0;right:0;background:#fff;flex-direction:column;padding:22px;align-items:flex-start;gap:14px;box-shadow:0 15px 25px #0002}.root .menu{display:block}.root .nav-ctas .btn-outline{display:none}.root .header .submenu{display:block;position:static;margin:10px 0 0;padding:0 0 0 14px;border:0;border-left:2px solid var(--line);border-radius:0;box-shadow:none;min-width:0}.root .header .submenu::before{display:none}.root .header .submenu a:last-child{border-top:0;margin-top:0}.root .dropdownToggle{pointer-events:none}.root .dropdownToggle svg{display:none}.root .grid4{grid-template-columns:1fr 1fr}.root .hero .wrap{gap:25px}.root .methodsteps{gap:12px}.root .methodcard{padding:18px}.root .fundgrid{gap:30px}}
+@media(max-width:760px){.root .header{height:68px}.root .header .nav.show{top:68px}.root .nav-ctas{display:none}.root .wrap{width:min(100% - 36px,1190px)}.root .hero .wrap,.root .docgrid,.root .fundgrid,.root .whygrid,.root .simulator{grid-template-columns:1fr}.root .hero .wrap{padding:68px 0;min-height:0}.root .hero .screen{transform:none}.root .hero-benefits{gap:12px;flex-wrap:wrap}.root .hero-benefits span{padding-right:12px}.root .section{padding:74px 0}.root .grid3,.root .grid4,.root .checklist,.root .projectgrid,.root .methodsteps,.root .fundcards,.root .endcards{grid-template-columns:1fr}.root .methodsteps{gap:12px}.root .methodcard{min-height:auto}.root .searchrow{flex-direction:column}.root .searchbox{padding:23px}.root .searchbox h2{font-size:20px}.root .docgrid{gap:28px}.root .simulator{padding:22px;gap:18px}.root .sim-disclaimer{grid-column:auto}.root .whyphoto{min-height:260px}.root .fundcards{gap:10px}.root .title-space{text-align:left}.root .hero h1{font-size:36px}.root .hero .btn,.root .docgrid .btn{width:100%}.root .hero .actions,.root .docgrid .actions{flex-direction:column}.root .dialog{padding:24px}.root .fields{grid-template-columns:1fr}.root .dialog h2{font-size:20px}.root .solhero .wrap{min-height:0}.root .endactions{flex-direction:column}.root .endactions .btn{width:100%}}

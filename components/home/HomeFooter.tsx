@@ -2,7 +2,8 @@ import Link from 'next/link'
 import { homeFooter } from '@/lib/data/home'
 import s from './home.module.css'
 
-export default function HomeFooter() {
+// base : '' sur la homepage, '/' sur les autres pages
+export default function HomeFooter({ base = '' }: { base?: string }) {
   return (
     <footer className={s.footer}>
       <div className={s.wrap}>
@@ -14,7 +15,7 @@ export default function HomeFooter() {
         </div>
         <div>
           {homeFooter.links.map((link) => (
-            <a key={link.href} href={link.href}>
+            <a key={link.href} href={`${base}${link.href}`}>
               {link.label}
             </a>
           ))}
