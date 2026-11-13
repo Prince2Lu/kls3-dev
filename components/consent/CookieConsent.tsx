@@ -26,9 +26,13 @@ export default function CookieConsent() {
   return (
     <div className={`${s.root} ${s.chrome}`}>
       <section className={s.consent} role="region" aria-label="Consentement aux cookies">
+        {/* Version courte sur petit écran (< 760 px de large ou < 800 px de haut), voir home.module.css */}
         <p>
-          Nous utilisons des cookies de mesure d&apos;audience (Google Analytics) pour améliorer le site. Vous
-          pouvez les accepter ou les refuser.{' '}
+          <span className={s.consentlong}>
+            Nous utilisons des cookies de mesure d&apos;audience (Google Analytics) pour améliorer le site.
+            Vous pouvez les accepter ou les refuser.
+          </span>
+          <span className={s.consentshort}>Nous utilisons des cookies de mesure d&apos;audience.</span>{' '}
           <Link href="/politique-de-confidentialite#cookies">En savoir plus</Link>
         </p>
         <div className={s.consentactions}>

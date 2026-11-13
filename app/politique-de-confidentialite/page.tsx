@@ -50,10 +50,8 @@ export default function PolitiqueConfidentialite() {
         </p>
 
         <h2>5. Durée de conservation</h2>
-        {/* TODO: à compléter par Eric (durée de conservation des demandes de contact).
-            Texte précédent : « Durée nécessaire au traitement, puis archivage 3 ans maximum. » */}
         <p>
-          Demandes de contact : [À COMPLÉTER].
+          Demandes de contact : 3 ans à compter du dernier contact.
         </p>
 
         <h2>6. Destinataires et sous-traitants</h2>
@@ -68,7 +66,16 @@ export default function PolitiqueConfidentialite() {
           <li>Google Analytics : mesure d&apos;audience, uniquement avec votre consentement.</li>
         </ul>
 
-        <h2 id="cookies">7. Cookies</h2>
+        <h2>7. Transferts hors de l&apos;Union européenne</h2>
+        {/* TODO: vérifier le mécanisme de transfert de chaque prestataire
+            (Vercel, Resend, Google : certification Data Privacy Framework ou clauses contractuelles types) */}
+        <p>
+          Certains de nos prestataires (Vercel, Resend, Google) sont établis aux États-Unis. Ces
+          transferts sont encadrés par les garanties prévues par le RGPD : Data Privacy Framework
+          UE–États-Unis ou clauses contractuelles types de la Commission européenne.
+        </p>
+
+        <h2 id="cookies">8. Cookies</h2>
         <p>Le site dépose les cookies suivants :</p>
         <ul>
           <li>
@@ -86,25 +93,25 @@ export default function PolitiqueConfidentialite() {
           disponible en bas de chaque page.
         </p>
 
-        <h2>8. Vos droits</h2>
+        <h2>9. Vos droits</h2>
         <p>
           Droit d&apos;accès, rectification, effacement, limitation, opposition, portabilité.
           <br />
           Contact : contact@kls3-dev.com
         </p>
 
-        <h2>9. Réclamation</h2>
+        <h2>10. Réclamation</h2>
         <p>
           Vous pouvez introduire une réclamation auprès de la CNIL : 3 Place de Fontenoy - TSA 80715 -
           75334 PARIS CEDEX 07 — www.cnil.fr
         </p>
 
-        <h2>10. Sécurité</h2>
+        <h2>11. Sécurité</h2>
         <p>
           Mesures techniques et organisationnelles appropriées pour garantir la sécurité des données.
         </p>
 
-        <h2>11. Modifications</h2>
+        <h2>12. Modifications</h2>
         <p>
           Nous nous réservons le droit de modifier cette politique à tout moment.
         </p>
