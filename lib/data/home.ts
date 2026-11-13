@@ -174,7 +174,6 @@ export const realisations = {
   titleLine1: 'Des solutions concrètes,',
   titleLine2: 'déjà en action.',
   lead: 'Nous concevons des applications autour de besoins métier réels. Voici deux projets qui illustrent notre capacité à transformer une problématique en outil fonctionnel.',
-  placeholderNote: 'Illustration — à remplacer par une capture réelle',
   projects: [
     {
       image: '/realisations/sales-os.png',

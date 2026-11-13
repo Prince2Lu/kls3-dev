@@ -162,7 +162,6 @@
 .root .realizations{padding-top:0}
 .root .projectgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .root .project{overflow:hidden}
-.root .fakeapp{height:220px;background:var(--paper-2);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center;padding:24px;font:12px var(--mono);color:var(--text-3);text-align:center}
 .root .shot{position:relative;height:220px;overflow:hidden;border-bottom:1px solid var(--line)}
 .root .project-desc{padding:28px}
 .root .project-desc .num{font-size:11px;letter-spacing:.08em}

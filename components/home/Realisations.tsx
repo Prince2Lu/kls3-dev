@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { realisations } from '@/lib/data/home'
-import { hasPublicFile } from '@/lib/home/assets'
 import SectionLabel from './SectionLabel'
 import s from './home.module.css'
 
@@ -29,21 +28,16 @@ export function ProjectCards({ withCta = true }: { withCta?: boolean }) {
     <div className={s.projectgrid}>
       {realisations.projects.map((project) => (
         <article key={project.title} className={`${s.card} ${s.project}`}>
-          {hasPublicFile(project.image) ? (
-            <div className={s.shot}>
-              <Image
-                src={project.image}
-                alt={project.windowTitle}
-                fill
-                sizes="(max-width: 760px) 100vw, 595px"
-                style={{ objectFit: 'cover', objectPosition: 'top' }}
-              />
-            </div>
-          ) : (
-            <div className={s.fakeapp}>
-              [{realisations.placeholderNote} · {project.windowTitle}]
-            </div>
-          )}
+          {/* Captures plus hautes que le cadre : on garde le haut de l'écran visible */}
+          <div className={s.shot}>
+            <Image
+              src={project.image}
+              alt={project.windowTitle}
+              fill
+              sizes="(max-width: 760px) 100vw, 595px"
+              style={{ objectFit: 'cover', objectPosition: 'top' }}
+            />
+          </div>
           <div className={s['project-desc']}>
             <p className={`${s.num} ${s.blue}`}>{project.tag}</p>
             <h3>{project.title}</h3>
