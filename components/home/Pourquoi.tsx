@@ -1,12 +1,9 @@
 import Image from 'next/image'
 import { pourquoi } from '@/lib/data/home'
-import { hasPublicFile } from '@/lib/home/assets'
 import SectionLabel from './SectionLabel'
 import s from './home.module.css'
 
 export default function Pourquoi() {
-  const hasPhoto = hasPublicFile(pourquoi.photo)
-
   return (
     <section id="equipe" className={`${s.section} ${s.why}`}>
       <div className={s.wrap}>
@@ -20,17 +17,14 @@ export default function Pourquoi() {
         <p className={s.lead}>{pourquoi.lead}</p>
         <div className={s.whygrid}>
           <div className={`${s.band} ${s.whyphoto}`}>
-            {hasPhoto ? (
-              <Image
-                src={pourquoi.photo}
-                alt={pourquoi.team}
-                fill
-                sizes="(max-width: 760px) 100vw, 563px"
-                style={{ objectFit: 'cover' }}
-              />
-            ) : (
-              <p className={s.placeholder}>[{pourquoi.photoPlaceholder}]</p>
-            )}
+            {/* Cadrage centré sur les visages (haut de la photo carrée) */}
+            <Image
+              src={pourquoi.photo}
+              alt={pourquoi.photoAlt}
+              fill
+              sizes="(max-width: 760px) 100vw, 563px"
+              style={{ objectFit: 'cover', objectPosition: '50% 8%' }}
+            />
             <div>
               <strong>{pourquoi.team}</strong>
               <p>{pourquoi.teamTagline}</p>

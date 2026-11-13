@@ -177,7 +177,7 @@ export const realisations = {
   projects: [
     {
       image: '/realisations/sales-os.png',
-      windowTitle: 'Sales OS · Tableau de bord',
+      windowTitle: 'Sales OS · Pipeline commercial',
       tag: 'PROJET KLS3',
       title: 'KLS3 Sales OS',
       punchline: 'Un outil commercial conçu autour de nos propres besoins.',
@@ -262,7 +262,7 @@ export const pourquoi = {
   photo: '/equipe/eric-lilian.jpg',
   team: 'Éric & Lilian',
   teamTagline: 'Une équipe. Pas une agence.',
-  photoPlaceholder: "Emplacement réservé aux vraies photos de l'équipe KLS3.",
+  photoAlt: 'Éric et Lilian, fondateurs de KLS3',
   benefits: [
     { number: '01', title: 'Une approche orientée résultats', text: "Nous partons de vos enjeux, pas d'une technologie à vendre." },
     { number: '02', title: 'Une expertise transversale', text: "Processus, automatisation, intelligence artificielle et développement d'applications." },

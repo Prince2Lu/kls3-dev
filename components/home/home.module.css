@@ -223,8 +223,8 @@
 .root .why{background:var(--paper-2);border-top:1px solid var(--line)}
 .root .whygrid{display:flex;flex-wrap:wrap;gap:18px;margin-top:40px;align-items:stretch}
 .root .whyphoto{position:relative;overflow:hidden;flex:1 1 360px;min-width:0;min-height:320px;border-radius:14px;padding:30px;display:flex;flex-direction:column;justify-content:flex-end}
+.root .whyphoto::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(18,17,45,.85))}
 .root .whyphoto>div{position:relative;z-index:1}
-.root .whyphoto .placeholder{font:11px var(--mono);margin-bottom:auto;position:relative;z-index:1}
 .root .whyphoto strong{display:block;font:700 28px/1.1 Syne,sans-serif;letter-spacing:-.03em;color:#fff}
 .root .whyphoto strong+p{margin-top:8px}
 .root .benefits{flex:1 1 480px;min-width:0;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
