@@ -68,6 +68,8 @@ Ancien site (pages hors home/solutions) : fond #0D0D0D, accent #4B7BF5, texte #F
 - /demo/* et /carte/* — sans header/footer du site (ancien thème sombre conservé)
 - /mentions-legales, /politique-de-confidentialite
 
+Cookies : Google Analytics chargé uniquement après consentement (`components/consent/`, cookie `kls3_consent` 6 mois, lien « Gérer les cookies » dans le footer).
+
 Header/footer uniques : `components/layout/SiteHeader.tsx` / `SiteFooter.tsx`, montés par `SiteChrome.tsx` avec la `ContactModal` (partout sauf /demo et /carte).
 
 **Redirections 301 (next.config.ts) :** /frictions → /#solutions, /methode → /#methode, /cas-clients → /#realisations, /a-propos → /#equipe, /contact → /#contact, /solutions → /#solutions
@@ -80,7 +82,9 @@ Header/footer uniques : `components/layout/SiteHeader.tsx` / `SiteFooter.tsx`, m
 
 ### Articles publiés
 
-- kls3-qui-sommes-nous-comment-nous-travaillons (article à la une — featuredSlug dans BlogPageClient.tsx)
+- kls3-qui-sommes-nous-comment-nous-travaillons
+
+Article à la une sur /blog : automatiquement le plus récent (publishedAt), voir BlogPageClient.tsx
 - donnees-dispersees-perte-de-temps-equipes
 - relances-manuelles-automatisation
 - pilotage-operationnel-tableaux-de-bord-mentent

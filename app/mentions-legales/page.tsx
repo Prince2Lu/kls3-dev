@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import s from '@/components/home/home.module.css'
 import b from '@/components/blog/blog.module.css'
 import { pageMetadata } from '@/lib/seo'
@@ -61,8 +62,9 @@ export default function MentionsLegales() {
 
         <h2>Cookies</h2>
         <p>
-          Ce site n&apos;utilise pas de cookies de tracking ou de publicité. Seuls des cookies
-          techniques strictement nécessaires au fonctionnement du site peuvent être utilisés.
+          Le site utilise des cookies de mesure d&apos;audience (Google Analytics), déposés
+          uniquement avec votre consentement. Voir la{' '}
+          <Link href="/politique-de-confidentialite#cookies">politique de confidentialité</Link>.
         </p>
 
         <h2>Responsabilité</h2>

@@ -87,6 +87,8 @@
 .scope .legal p,.scope .legal li{font-size:15.5px;line-height:1.75;color:var(--text-2)}
 .scope .legal ul{margin:10px 0 0;padding-left:1.3em}
 .scope .legal .updated{margin:0 0 24px;font:12.5px var(--mono);color:var(--text-3)}
+.scope .legal h2{scroll-margin-top:96px}
+.scope .legal .inlinebutton{border:0;background:none;padding:0;font:inherit;color:var(--blue-text);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .scope .legal a{color:var(--blue-text);text-decoration:underline;text-underline-offset:3px}
 
 @media(max-width:1050px){.scope .grid{grid-template-columns:repeat(2,minmax(0,1fr))}.scope .layout{grid-template-columns:minmax(0,1fr)}.scope .toc{display:none}}

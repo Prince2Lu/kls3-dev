@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import ManageCookiesButton from '@/components/consent/ManageCookiesButton'
 import s from '@/components/home/home.module.css'
 import b from '@/components/blog/blog.module.css'
 import { pageMetadata } from '@/lib/seo'
@@ -16,7 +17,7 @@ export default function PolitiqueConfidentialite() {
         <h1>Politique de confidentialité</h1>
 
         <p className={b.updated}>
-          Dernière mise à jour : 23 juin 2026
+          Dernière mise à jour : 13 novembre 2026
         </p>
         <p>
           KLS3 accorde une grande importance à la protection de vos données personnelles.
@@ -29,15 +30,18 @@ export default function PolitiqueConfidentialite() {
 
         <h2>2. Données collectées</h2>
         <p>
-          Formulaire de contact : nom, email, entreprise (facultatif), message.
+          Via les formulaires du site (contact, rendez-vous, démonstration) : nom, e-mail, téléphone,
+          société, message.
           <br />
-          Aucune donnée de tracking, pas de cookies publicitaires.
+          Via le diagnostic : les mêmes informations de contact, ainsi que vos réponses au questionnaire.
+          <br />
+          Mesure d&apos;audience : uniquement si vous l&apos;acceptez (voir la section Cookies).
         </p>
 
         <h2>3. Finalité du traitement</h2>
         <p>
-          Répondre aux demandes de contact, fournir des informations sur nos services, établir une
-          relation commerciale.
+          Répondre à votre demande et vous recontacter. Avec votre consentement, mesurer
+          l&apos;audience du site pour l&apos;améliorer.
         </p>
 
         <h2>4. Base légale</h2>
@@ -46,33 +50,61 @@ export default function PolitiqueConfidentialite() {
         </p>
 
         <h2>5. Durée de conservation</h2>
+        {/* TODO: à compléter par Eric (durée de conservation des demandes de contact).
+            Texte précédent : « Durée nécessaire au traitement, puis archivage 3 ans maximum. » */}
         <p>
-          Durée nécessaire au traitement, puis archivage 3 ans maximum.
+          Demandes de contact : [À COMPLÉTER].
         </p>
 
-        <h2>6. Destinataires</h2>
+        <h2>6. Destinataires et sous-traitants</h2>
         <p>
-          Données strictement confidentielles, jamais vendues ni partagées.
+          Vos données sont strictement confidentielles, jamais vendues ni partagées. Elles sont
+          traitées uniquement par les prestataires techniques nécessaires au fonctionnement du site :
+        </p>
+        <ul>
+          <li>Vercel : hébergement du site ;</li>
+          <li>Resend : envoi des e-mails ;</li>
+          <li>Cloudflare Turnstile : protection des formulaires contre le spam ;</li>
+          <li>Google Analytics : mesure d&apos;audience, uniquement avec votre consentement.</li>
+        </ul>
+
+        <h2 id="cookies">7. Cookies</h2>
+        <p>Le site dépose les cookies suivants :</p>
+        <ul>
+          <li>
+            <strong>kls3_consent</strong> : mémorise votre choix sur les cookies. Durée : 6 mois.
+            Nécessaire au fonctionnement du site.
+          </li>
+          <li>
+            <strong>_ga, _ga_*</strong> (Google Analytics) : mesure d&apos;audience. Durée : 13 mois
+            maximum. Déposés uniquement avec votre consentement.
+          </li>
+        </ul>
+        <p>
+          Vous pouvez retirer ou modifier votre consentement à tout moment :{' '}
+          <ManageCookiesButton className={b.inlinebutton} />. Le lien « Gérer les cookies » est aussi
+          disponible en bas de chaque page.
         </p>
 
-        <h2>7. Vos droits</h2>
+        <h2>8. Vos droits</h2>
         <p>
           Droit d&apos;accès, rectification, effacement, limitation, opposition, portabilité.
           <br />
           Contact : contact@kls3-dev.com
         </p>
 
-        <h2>8. Réclamation</h2>
+        <h2>9. Réclamation</h2>
         <p>
-          CNIL - 3 Place de Fontenoy - TSA 80715 - 75334 PARIS CEDEX 07 — www.cnil.fr
+          Vous pouvez introduire une réclamation auprès de la CNIL : 3 Place de Fontenoy - TSA 80715 -
+          75334 PARIS CEDEX 07 — www.cnil.fr
         </p>
 
-        <h2>9. Sécurité</h2>
+        <h2>10. Sécurité</h2>
         <p>
           Mesures techniques et organisationnelles appropriées pour garantir la sécurité des données.
         </p>
 
-        <h2>10. Modifications</h2>
+        <h2>11. Modifications</h2>
         <p>
           Nous nous réservons le droit de modifier cette politique à tout moment.
         </p>

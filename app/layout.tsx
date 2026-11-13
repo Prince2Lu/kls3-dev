@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import SiteChrome from "@/components/layout/SiteChrome";
+import Analytics from "@/components/consent/Analytics";
+import CookieConsent from "@/components/consent/CookieConsent";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import WebSiteSchema from "@/components/seo/WebSiteSchema";
 
@@ -59,7 +60,9 @@ export default function RootLayout({
         <OrganizationSchema />
         <WebSiteSchema />
         <SiteChrome>{children}</SiteChrome>
-        <GoogleAnalytics gaId="G-KTQXTLY7YL" />
+        {/* GA chargé uniquement après consentement ; bandeau affiché sur tout le site, /demo et /carte compris */}
+        <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );

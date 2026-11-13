@@ -43,11 +43,9 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
     }
   }, [currentPage])
 
-  // Featured post (only for "Toutes" category)
-  const featuredSlug = 'kls3-qui-sommes-nous-comment-nous-travaillons'
-  const featuredPost = useMemo(() => {
-    return posts.find(p => p.slug === featuredSlug) || null
-  }, [posts])
+  // Article à la une : le plus récent (getAllPosts trie déjà par publishedAt décroissant)
+  const featuredPost = posts[0] ?? null
+  const featuredSlug = featuredPost?.slug
 
   // Filter posts by category
   const filteredPosts = useMemo(() => {

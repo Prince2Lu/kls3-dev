@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { homeFooter } from '@/lib/data/home'
 import Wordmark from '@/components/home/Wordmark'
 import s from '@/components/home/home.module.css'
+import { openConsentBanner } from '@/lib/consent'
 
 // Footer unique du site (design V5). Hors homepage, les ancres renvoient vers les sections de la home.
 export default function SiteFooter() {
@@ -30,6 +31,9 @@ export default function SiteFooter() {
               {link.label}
             </Link>
           ))}
+          <button type="button" onClick={openConsentBanner}>
+            {homeFooter.manageCookies}
+          </button>
         </div>
       </div>
     </footer>

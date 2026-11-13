@@ -12,7 +12,13 @@ export default function OrganizationSchema() {
         url: SITE_URL,
         logo: kls3CompanyInfo.logoUrl,
         description:
-          'KLS3 connecte les outils métier des structures pluridisciplinaires de professions réglementées pour éliminer les frictions opérationnelles.',
+          'KLS3 simplifie les processus des PME, automatise leurs opérations et crée les outils métier qui vont avec : DocFlow, agents IA et applications sur mesure.',
+        knowsAbout: [
+          'Automatisation des processus',
+          'Agents IA',
+          'Gestion documentaire',
+          'Applications métier sur mesure',
+        ],
         address: {
           '@type': 'PostalAddress',
           streetAddress: '14, allée du fairway',
