@@ -19,10 +19,13 @@ export default function MentionsLegales() {
         <p>
           KLS3
           <br />
-          SAS
-          {/* TODO: capital social et numéro RCS (mentions obligatoires pour une SAS) à compléter par Eric */}
+          SAS au capital de 1 000 €
+          <br />
+          RCS Sarreguemines 949 563 340
           <br />
           SIRET : 94956334000015
+          <br />
+          N° TVA intracommunautaire : FR46949563340
           <br />
           Siège social : 14, allée du fairway, 57200 Sarreguemines
           <br />
