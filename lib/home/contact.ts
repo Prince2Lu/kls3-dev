@@ -9,7 +9,7 @@ export type OpenContactDetail = {
 
 export const OPEN_CONTACT_EVENT = 'kls3:open-contact'
 
-// Ouvre la ContactModal montée sur la homepage
+// Ouvre la ContactModal montée sur toutes les pages (components/layout/SiteChrome)
 export function openContactModal(detail: OpenContactDetail) {
   window.dispatchEvent(new CustomEvent<OpenContactDetail>(OPEN_CONTACT_EVENT, { detail }))
 }

@@ -58,15 +58,21 @@ Ancien site (pages hors home/solutions) : fond #0D0D0D, accent #4B7BF5, texte #F
 
 ## Pages existantes
 
-- / — Homepage
-- /cas-clients — Cas concrets
-- /contact — Formulaire
-- /blog + /blog/[slug] — Blog MDX
+- / — Homepage (sections #solutions, #realisations, #methode, #financements, #equipe, #contact)
+- /blog + /blog/[slug] — Blog MDX (design V5)
 - /solutions/docflow — Solution DocFlow
 - /solutions/agents-ia — Solution Agents IA
 - /solutions/sur-mesure — Solution Applications sur mesure
 
-**Pages supprimées :** /frictions, /solutions, /methode, /missions, /agents-ia, /saas
+- /diagnostic — Diagnostic (ancien thème sombre conservé)
+- /demo/* et /carte/* — sans header/footer du site (ancien thème sombre conservé)
+- /mentions-legales, /politique-de-confidentialite
+
+Header/footer uniques : `components/layout/SiteHeader.tsx` / `SiteFooter.tsx`, montés par `SiteChrome.tsx` avec la `ContactModal` (partout sauf /demo et /carte).
+
+**Redirections 301 (next.config.ts) :** /frictions → /#solutions, /methode → /#methode, /cas-clients → /#realisations, /a-propos → /#equipe, /contact → /#contact, /solutions → /#solutions
+
+**Pages supprimées :** /frictions, /solutions (page racine), /methode, /cas-clients, /a-propos, /contact, /missions, /agents-ia, /saas
 
 ---
 
@@ -89,7 +95,7 @@ Frictions opérationnelles / Automatisation / Pilotage & visibilité / Organisat
 - Vouvoiement systématique, 1400-1800 mots
 - HTML autorisé : p, h2, h3, ul, ol, li, strong, em, a
 - Interdit : tiret cadratin, emoji, figure/img, div spéciaux, bouton CTA dans le contenu
-- Liens internes : /cas-clients ou /contact uniquement
+- Liens internes : /#realisations ou /#contact uniquement (/cas-clients et /contact redirigent en 301)
 - Bouton "Prendre rendez-vous" géré dans le layout article (pas généré par n8n)
 - max_tokens Claude API : 8192
 

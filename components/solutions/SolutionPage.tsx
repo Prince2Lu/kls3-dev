@@ -1,7 +1,4 @@
 import { CheckCircle2, ChevronDown } from 'lucide-react'
-import HomeHeader from '@/components/home/HomeHeader'
-import HomeFooter from '@/components/home/HomeFooter'
-import ContactModal from '@/components/home/ContactModal'
 import { ProjectCards } from '@/components/home/Realisations'
 import SectionLabel from '@/components/home/SectionLabel'
 import JsonLd from '@/components/seo/JsonLd'
@@ -52,7 +49,6 @@ export default function SolutionPage({ content }: { content: SolutionPageContent
           ],
         }}
       />
-      <HomeHeader base="/" />
       <div>
         <section className={`${s.hero} ${s.solhero}`}>
           <div className={s.wrap}>
@@ -192,8 +188,6 @@ export default function SolutionPage({ content }: { content: SolutionPageContent
           </div>
         </section>
       </div>
-      <HomeFooter base="/" />
-      <ContactModal />
     </div>
   )
 }

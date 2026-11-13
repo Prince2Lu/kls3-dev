@@ -26,14 +26,21 @@ html {
 }
 
 body {
-  background-color: #0D0D0D;
-  color: var(--kls-text);
+  background-color: #FAFAF8;
+  color: #12112d;
   font-family: var(--font-body);
   font-weight: 300;
   font-size: 16px;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ancien thème sombre : posé sur le conteneur des pages /diagnostic, /demo et /carte
+   (le body est passé en clair avec le design V5) */
+.kls-dark {
+  background-color: #0D0D0D;
+  color: var(--kls-text);
 }
 
 /* ============================================================

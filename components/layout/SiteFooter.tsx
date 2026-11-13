@@ -1,10 +1,14 @@
-import Link from 'next/link'
-import { homeFooter } from '@/lib/data/home'
-import Wordmark from './Wordmark'
-import s from './home.module.css'
+'use client'
 
-// base : '' sur la homepage, '/' sur les autres pages
-export default function HomeFooter({ base = '' }: { base?: string }) {
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { homeFooter } from '@/lib/data/home'
+import Wordmark from '@/components/home/Wordmark'
+import s from '@/components/home/home.module.css'
+
+// Footer unique du site (design V5). Hors homepage, les ancres renvoient vers les sections de la home.
+export default function SiteFooter() {
+  const base = usePathname() === '/' ? '' : '/'
   return (
     <footer className={s.footer}>
       <div className={s.wrap}>
@@ -15,7 +19,7 @@ export default function HomeFooter({ base = '' }: { base?: string }) {
         </div>
         <div className={s.links}>
           {homeFooter.links.map((link) => (
-            <a key={link.href} href={`${base}${link.href}`}>
+            <a key={link.href} href={link.href.startsWith('#') ? `${base}${link.href}` : link.href}>
               {link.label}
             </a>
           ))}

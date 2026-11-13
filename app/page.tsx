@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import HomeHeader from '@/components/home/HomeHeader'
 import Hero from '@/components/home/Hero'
 import ProblemSearch from '@/components/home/ProblemSearch'
 import Virage from '@/components/home/Virage'
@@ -12,8 +11,6 @@ import Simulateur from '@/components/home/Simulateur'
 import Financements from '@/components/home/Financements'
 import Pourquoi from '@/components/home/Pourquoi'
 import ContactSection from '@/components/home/ContactSection'
-import HomeFooter from '@/components/home/HomeFooter'
-import ContactModal from '@/components/home/ContactModal'
 import s from '@/components/home/home.module.css'
 import { homeMeta, manifestes } from '@/lib/data/home'
 import { pageMetadata } from '@/lib/seo'
@@ -26,7 +23,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className={s.root}>
-      <HomeHeader />
       <div>
         <Hero />
         <ProblemSearch />
@@ -42,8 +38,6 @@ export default function Home() {
         <Pourquoi />
         <ContactSection />
       </div>
-      <HomeFooter />
-      <ContactModal />
     </div>
   )
 }

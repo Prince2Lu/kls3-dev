@@ -35,7 +35,7 @@ export default function DiagnosticPage() {
             Décrivez-nous l&apos;opération qui vous ralentit le plus.
           </h2>
           <a
-            href="/contact"
+            href="/#contact"
             className="inline-block rounded-full bg-white px-7 py-3 text-sm font-medium text-accent transition-opacity hover:opacity-90"
           >
             Demander une première analyse

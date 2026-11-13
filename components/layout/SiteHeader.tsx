@@ -1,14 +1,17 @@
 'use client'
 
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { ChevronDown, Menu } from 'lucide-react'
 import Logo from '@/components/ui/Logo'
 import { headerCtas, headerNav, solutionsMenu } from '@/lib/data/home'
-import Wordmark from './Wordmark'
-import s from './home.module.css'
+import Wordmark from '@/components/home/Wordmark'
+import s from '@/components/home/home.module.css'
 
-// base : '' sur la homepage, '/' sur les autres pages (les ancres renvoient alors vers la home)
-export default function HomeHeader({ base = '' }: { base?: string }) {
+// Header unique du site (design V5). Hors homepage, les ancres renvoient vers les sections de la home.
+export default function SiteHeader() {
+  const base = usePathname() === '/' ? '' : '/'
   const [open, setOpen] = useState(false)
   const [solutionsOpen, setSolutionsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -56,7 +59,7 @@ export default function HomeHeader({ base = '' }: { base?: string }) {
   return (
     <header className={s.header}>
       <div className={s.wrap}>
-        <a href={base ? '/' : '#accueil'} className={s.brand} aria-label="KLS3 — Accueil">
+        <Link href="/" className={s.brand} aria-label="KLS3 — Accueil">
           <Logo />
           <Wordmark />
           <small>
@@ -64,7 +67,7 @@ export default function HomeHeader({ base = '' }: { base?: string }) {
             <br />
             INTELLIGENCE
           </small>
-        </a>
+        </Link>
         <nav id="home-nav" className={`${s.nav} ${open ? s.show : ''}`}>
           {headerNav.map((link) =>
             link.href === '#solutions' ? (
@@ -98,19 +101,17 @@ export default function HomeHeader({ base = '' }: { base?: string }) {
                 </div>
               </div>
             ) : (
-              <a key={link.href} href={`${base}${link.href}`} onClick={closeAll}>
+              <a key={link.href} href={link.href.startsWith('#') ? `${base}${link.href}` : link.href} onClick={closeAll}>
                 {link.label}
               </a>
             )
           )}
         </nav>
         <div className={s['nav-ctas']}>
-          <a className={`${s.btn} ${s['btn-outline']}`} href={`${base}#contact`}>
-            {headerCtas.outline}
-          </a>
-          <a className={`${s.btn} ${s['btn-primary']}`} href={`${base}#contact`}>
+          {/* Ouvre la ContactModal, montée sur toutes les pages par SiteChrome */}
+          <button type="button" data-contact-source="rendez-vous" className={`${s.btn} ${s['btn-primary']}`}>
             {headerCtas.primary}
-          </a>
+          </button>
         </div>
         <button
           type="button"

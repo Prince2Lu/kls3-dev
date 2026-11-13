@@ -13,6 +13,7 @@ export const headerNav = [
   { href: '#realisations', label: 'Réalisations' },
   { href: '#methode', label: 'Méthode' },
   { href: '#financements', label: 'Aides & financements' },
+  { href: '/blog', label: 'Blog' },
   { href: '#equipe', label: 'À propos' },
   { href: '#contact', label: 'Contact' },
 ]
@@ -26,7 +27,6 @@ export const solutionsMenu = [
 ]
 
 export const headerCtas = {
-  outline: 'Nous contacter',
   primary: 'Prendre un rendez-vous ↗',
 }
 
@@ -333,6 +333,7 @@ export const homeFooter = {
     { href: '#realisations', label: 'Réalisations' },
     { href: '#methode', label: 'Méthode' },
     { href: '#financements', label: 'Aides' },
+    { href: '/blog', label: 'Blog' },
     { href: '#contact', label: 'Contact' },
   ],
   legal: [

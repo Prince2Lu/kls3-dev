@@ -51,23 +51,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}/cas-clients`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
       url: `${BASE_URL}/diagnostic`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
-    {
-      url: `${BASE_URL}/contact`,
+    ...['mentions-legales', 'politique-de-confidentialite'].map((slug) => ({
+      url: `${BASE_URL}/${slug}`,
       lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    })),
     ...articleUrls,
   ]
 }

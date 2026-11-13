@@ -1,0 +1,93 @@
+/* Blog et pages légales en design V5 — .scope est posé sur le .root de components/home/home.module.css
+   (tokens) et donne aux règles ci-dessous la priorité sur les styles de base de .root */
+.scope .page{padding:72px 0 104px}
+.scope .intro{max-width:760px}
+.scope .intro h1{margin-top:18px}
+.scope .intro p{margin-top:18px;font-size:17px;line-height:1.8}
+
+/* Filtres de catégories */
+.scope .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px}
+.scope .chip{border:1px solid var(--line-field);border-radius:8px;padding:8px 12px;background:#fff;font-size:13px;color:#2A2B44;transition:border-color .15s,color .15s}
+.scope .chip:hover{border-color:var(--blue);color:var(--blue-text)}
+.scope .chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* Cartes d'articles */
+.scope .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:28px}
+.scope .card{display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .15s}
+.scope .card:hover{border-color:var(--line-strong)}
+.scope .cardimg{position:relative;aspect-ratio:3/2;overflow:hidden;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.scope .cardimg img{width:100%;height:100%;object-fit:cover}
+.scope .cardbody{display:flex;flex-direction:column;flex:1;padding:24px}
+.scope .category{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--blue-text)}
+.scope .card h2,.scope .card h3{margin-top:12px;font:700 19px/1.25 Syne,sans-serif;letter-spacing:-.02em;color:var(--ink)}
+.scope .excerpt{margin-top:10px;font-size:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.scope .cardfoot{margin-top:auto;padding-top:20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.scope .date{font:12px var(--mono);color:var(--text-3)}
+.scope .more{font-size:13px;font-weight:700;color:var(--blue-text)}
+
+/* Article à la une */
+.scope .featured{display:grid;grid-template-columns:1.1fr 1fr;margin-top:28px}
+.scope .featured .cardimg{aspect-ratio:auto;min-height:280px;border-bottom:0;border-right:1px solid var(--line)}
+.scope .featured .cardbody{padding:34px}
+.scope .featured h2{font-size:clamp(22px,2.4vw,30px)}
+.scope .featuredlabel{margin-top:44px;font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
+
+.scope .empty{margin-top:28px;color:var(--text-3)}
+
+/* Pagination */
+.scope .pagination{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:44px}
+.scope .pagebtn{min-width:38px;height:38px;padding:0 12px;border:1px solid var(--line-field);border-radius:8px;background:#fff;font:500 13px var(--mono);color:var(--ink)}
+.scope .pagebtn:hover:not(:disabled){border-color:var(--blue);color:var(--blue-text)}
+.scope .pagebtn:disabled{opacity:.4;cursor:not-allowed}
+.scope .pagebtn[aria-current=page]{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* Article */
+.scope .hero{padding:64px 0 0}
+.scope .breadcrumb{font:500 12px var(--mono);letter-spacing:.06em;color:var(--text-3)}
+.scope .breadcrumb a{color:var(--blue-text)}
+.scope .breadcrumb a:hover{text-decoration:underline}
+.scope .hero h1{margin-top:20px;max-width:900px}
+.scope .hero .description{margin-top:18px;max-width:760px;font-size:18px;line-height:1.7}
+.scope .meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font:12.5px var(--mono);color:var(--text-3)}
+.scope .heroimg{margin-top:36px;border-radius:14px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/8;background:var(--paper-2)}
+.scope .heroimg img{width:100%;height:100%;object-fit:cover}
+.scope .layout{display:grid;grid-template-columns:minmax(0,720px) 260px;justify-content:space-between;gap:56px;padding:56px 0 88px}
+.scope .toc{position:sticky;top:96px;align-self:start;border:1px solid var(--line);border-radius:14px;background:#fff;padding:22px}
+.scope .toc p{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
+.scope .toc ul{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px}
+.scope .toc a{font-size:13.5px;line-height:1.45;color:var(--text-2)}
+.scope .toc a:hover{color:var(--blue-text)}
+.scope .back{display:inline-block;margin-top:40px;font-weight:700;font-size:14px;color:var(--blue-text)}
+
+/* Corps HTML de l'article (généré par n8n) */
+.scope .body{font-size:17px;line-height:1.8;color:#2A2B44}
+.scope .body :global(h2){margin:2.2em 0 .6em;font:700 clamp(23px,2.4vw,29px)/1.2 Syne,sans-serif;letter-spacing:-.03em;color:var(--ink);scroll-margin-top:96px}
+.scope .body :global(h3){margin:1.8em 0 .5em;font:700 20px/1.3 Syne,sans-serif;letter-spacing:-.02em;color:var(--ink);scroll-margin-top:96px}
+.scope .body :global(h2:first-child),.scope .body :global(h3:first-child){margin-top:0}
+.scope .body :global(p){margin:0 0 1.1em;color:#2A2B44}
+.scope .body :global(p.lead){font-size:19px;color:var(--ink)}
+.scope .body :global(p.conclusion){color:var(--ink)}
+.scope .body :global(strong){font-weight:700;color:var(--ink)}
+.scope .body :global(a){color:var(--blue-text);text-decoration:underline;text-underline-offset:3px}
+.scope .body :global(a:hover){color:#2A4FB8}
+.scope .body :global(ul),.scope .body :global(ol){margin:0 0 1.2em;padding-left:1.4em}
+.scope .body :global(li){margin-bottom:.45em}
+.scope .body :global(li::marker){color:var(--blue)}
+.scope .body :global(blockquote){margin:1.6em 0;padding:4px 0 4px 20px;border-left:3px solid var(--blue);color:var(--ink);font-style:italic}
+.scope .body :global(table){width:100%;margin:1.6em 0;border-collapse:collapse;font-size:15px;display:block;overflow-x:auto}
+.scope .body :global(th),.scope .body :global(td){padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.scope .body :global(th){font:600 12px var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--text-2);background:var(--paper-2)}
+.scope .body :global(img){max-width:100%;height:auto;border-radius:10px}
+.scope .body :global(code){font:14px var(--mono);background:var(--paper-2);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+
+/* Pages légales */
+.scope .legal{max-width:720px;padding:72px 0 104px}
+.scope .legal h1{margin-bottom:12px}
+.scope .legal h2{margin:40px 0 12px;padding-bottom:10px;border-bottom:1px solid var(--line);font:700 20px/1.3 Syne,sans-serif;letter-spacing:-.02em;color:var(--ink)}
+.scope .legal p,.scope .legal li{font-size:15.5px;line-height:1.75;color:var(--text-2)}
+.scope .legal ul{margin:10px 0 0;padding-left:1.3em}
+.scope .legal .updated{margin:0 0 24px;font:12.5px var(--mono);color:var(--text-3)}
+.scope .legal a{color:var(--blue-text);text-decoration:underline;text-underline-offset:3px}
+
+@media(max-width:1050px){.scope .grid{grid-template-columns:repeat(2,minmax(0,1fr))}.scope .layout{grid-template-columns:minmax(0,1fr)}.scope .toc{display:none}}
+@media(max-width:760px){.scope .page{padding:56px 0 72px}.scope .grid,.scope .featured{grid-template-columns:minmax(0,1fr)}.scope .featured .cardimg{min-height:200px;border-right:0;border-bottom:1px solid var(--line)}.scope .featured .cardbody{padding:24px}.scope .hero{padding-top:44px}.scope .layout{padding:40px 0 64px}.scope .body{font-size:16.5px}.scope .legal{padding:56px 0 72px}}

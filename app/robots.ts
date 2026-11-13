@@ -9,9 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           '/api/',
           '/demo',
-          '/frictions',
-          '/solutions',
-          '/methode',
           '/missions',
           '/agents-ia',
           '/saas',

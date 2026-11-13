@@ -45,7 +45,8 @@
 .root .bandtext{flex:1 1 320px;min-width:0;font-size:15px}
 .root .notice{font-size:12px;color:var(--text-3);margin-top:14px}
 
-/* Header */
+/* Header (global, components/layout/SiteHeader) */
+.root.chrome{display:contents}
 .root .header{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--line);height:72px;display:flex;align-items:center}
 .root .header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .root .brand{display:flex;align-items:center;gap:12px;color:var(--ink)}
