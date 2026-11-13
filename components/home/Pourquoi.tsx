@@ -17,13 +17,13 @@ export default function Pourquoi() {
         <p className={s.lead}>{pourquoi.lead}</p>
         <div className={s.whygrid}>
           <div className={`${s.band} ${s.whyphoto}`}>
-            {/* Cadrage centré sur les visages (haut de la photo carrée) */}
+            {/* Photo paysage : cadrage sur les deux visages, légèrement décalé à droite pour ne pas couper Lilian */}
             <Image
               src={pourquoi.photo}
               alt={pourquoi.photoAlt}
               fill
               sizes="(max-width: 760px) 100vw, 563px"
-              style={{ objectFit: 'cover', objectPosition: '50% 8%' }}
+              style={{ objectFit: 'cover', objectPosition: '56% 0%' }}
             />
             <div>
               <strong>{pourquoi.team}</strong>
